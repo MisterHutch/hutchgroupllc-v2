@@ -1,0 +1,3297 @@
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="HutchGroup LLC — Business analysis, AI agents, and workflow automation services.">
+            <meta name="robots" content="index,follow">
+            <title>HutchGroup LLC - Business Analysis, AI Agents & Automation</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+            <style>
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+        
+                body {
+                    font-family: 'Rajdhani', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    line-height: 1.6;
+                    color: #333;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                }
+
+                h1, h2, h3, .section-title {
+                    font-family: 'Orbitron', 'Rajdhani', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+        
+                .container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 0 20px;
+                }
+        
+                /* Header */
+                header {
+                    background: rgba(255, 255, 255, 0.95);
+                    -webkit-backdrop-filter: blur(10px);
+                    backdrop-filter: blur(10px);
+                    position: fixed;
+                    width: 100%;
+                    top: 0;
+                    z-index: 1000;
+                    transition: all 0.3s ease;
+                }
+        
+                nav {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 1rem 0;
+                }
+        
+                .logo {
+                    display: flex;
+                    align-items: center;
+                    height: 50px;
+                }
+        
+                .logo svg {
+                    height: 50px;
+                    width: auto;
+                    transition: all 0.3s ease;
+                }
+        
+                .logo:hover svg {
+                    transform: scale(1.05);
+                }
+        
+                .nav-links {
+                    display: flex;
+                    list-style: none;
+                    gap: 2rem;
+                }
+        
+                .nav-links a {
+                    text-decoration: none;
+                    color: #333;
+                    font-weight: 500;
+                    transition: color 0.3s ease;
+                }
+        
+                .nav-links a:hover {
+                    color: #667eea;
+                }
+        
+                /* Hero Section */
+                .hero {
+                    min-height: 100vh;
+                    display: flex;
+                    align-items: center;
+                    text-align: center;
+                    color: white;
+                    padding-top: 80px;
+                }
+        
+                .hero-content {
+                    width: 100%;
+                }
+        
+                .hero h1 {
+                    font-size: 3.5rem;
+                    margin-bottom: 1rem;
+                    opacity: 0;
+                    animation: fadeInUp 1s ease forwards;
+                }
+        
+                .hero .subtitle {
+                    font-size: 1.3rem;
+                    margin-bottom: 2rem;
+                    opacity: 0;
+                    animation: fadeInUp 1s ease 0.3s forwards;
+                }
+        
+                .hero .description {
+                    font-size: 1.1rem;
+                    max-width: 800px;
+                    margin: 0 auto 2rem;
+                    opacity: 0;
+                    animation: fadeInUp 1s ease 0.6s forwards;
+                }
+        
+                .cta-buttons {
+                    opacity: 0;
+                    animation: fadeInUp 1s ease 0.9s forwards;
+                }
+        
+                .btn {
+                    display: inline-block;
+                    padding: 12px 30px;
+                    background: rgba(255, 255, 255, 0.2);
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 25px;
+                    margin: 0 10px;
+                    transition: all 0.3s ease;
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                }
+        
+                .btn:hover {
+                    background: white;
+                    color: #667eea;
+                    transform: translateY(-2px);
+                }
+        
+                .btn.primary {
+                    background: white;
+                    color: #667eea;
+                }
+        
+                .btn.primary:hover {
+                    background: transparent;
+                    color: white;
+                }
+        
+                /* Section Styling */
+                section {
+                    padding: 80px 0;
+                }
+        
+                .section-light {
+                    background: white;
+                }
+        
+                .section-dark {
+                    background: #f8f9fa;
+                }
+        
+                .section-title {
+                    text-align: center;
+                    font-size: 2.5rem;
+                    margin-bottom: 3rem;
+                    color: #333;
+                }
+        
+                /* Experience Timeline */
+                .timeline {
+                    position: relative;
+                    max-width: 800px;
+                    margin: 0 auto;
+                }
+        
+                .timeline::before {
+                    content: '';
+                    position: absolute;
+                    width: 4px;
+                    background: #667eea;
+                    top: 0;
+                    bottom: 0;
+                    left: 50%;
+                    margin-left: -2px;
+                }
+        
+                .timeline-item {
+                    padding: 10px 40px;
+                    position: relative;
+                    background: inherit;
+                    width: 50%;
+                    opacity: 0;
+                    transform: translateX(-50px);
+                    transition: all 0.6s ease;
+                }
+        
+                .timeline-item:nth-child(even) {
+                    left: 50%;
+                    transform: translateX(50px);
+                }
+        
+                .timeline-item.animate-in {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+        
+                .timeline-item.animate-in:nth-child(even) {
+                    transform: translateX(0);
+                }
+        
+                .timeline-item::before {
+                    content: '';
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    right: -10px;
+                    background: #667eea;
+                    border-radius: 50%;
+                    top: 15px;
+                }
+        
+                .timeline-item:nth-child(even)::before {
+                    left: -10px;
+                }
+        
+                /* Futuristic Page Break */
+                .page-break {
+                    height: 100vh;
+                    background: 
+                        linear-gradient(135deg, #0a0a23 0%, #000 50%, #0a0a23 100%),
+                        radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+                    position: relative;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+        .page-break::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(0deg, transparent 24%, rgba(0, 255, 255, 0.05) 25%, rgba(0, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.05) 75%, rgba(0, 255, 255, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 255, 255, 0.05) 25%, rgba(0, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.05) 75%, rgba(0, 255, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            animation: matrixGrid 8s linear infinite;
+        }
+
+        @keyframes matrixGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        .matrix-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .matrix-column {
+            position: absolute;
+            top: -100%;
+            width: 20px;
+            height: 100%;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1;
+            animation: matrixFall linear infinite;
+            text-shadow: 0 0 8px #00ff00;
+        }
+
+        @keyframes matrixFall {
+            0% { top: -100%; opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* AI Services Separator - Matrix Style */
+        .ai-services-separator {
+            background: 
+                linear-gradient(135deg, #000 0%, #0a0a23 30%, #1a1a2e 70%, #000 100%);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ai-services-separator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 20, 147, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(138, 43, 226, 0.2) 0%, transparent 50%);
+            animation: aiPulse 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes aiPulse {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .ai-services-intro {
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 10;
+            max-width: 1000px;
+        }
+
+        .ai-services-intro h2 {
+            font-family: 'Orbitron', 'Arial Black', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #00ffff, #ff1493, #8a2be2, #00ffff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease-in-out infinite, textGlow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .ai-services-intro h2::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #00ffff, #ff1493);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: -1;
+            animation: glitch 0.3s infinite;
+        }
+
+        @keyframes textGlow {
+            0% { 
+                text-shadow: 
+                    0 0 10px rgba(0, 255, 255, 0.5),
+                    0 0 20px rgba(0, 255, 255, 0.5),
+                    0 0 30px rgba(0, 255, 255, 0.5);
+            }
+            100% { 
+                text-shadow: 
+                    0 0 20px rgba(255, 20, 147, 0.8),
+                    0 0 30px rgba(255, 20, 147, 0.8),
+                    0 0 40px rgba(255, 20, 147, 0.8);
+            }
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        .ai-services-intro p {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            opacity: 0.9;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .ai-transition-line {
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                #00ffff, 
+                #ff1493, 
+                #8a2be2, 
+                #00ffff, 
+                transparent
+            );
+            margin: 4rem auto;
+            max-width: 800px;
+            animation: lineFlow 3s ease-in-out infinite, linePulse 1.5s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        @keyframes linePulse {
+            0% { transform: scaleX(0.8); opacity: 0.5; }
+            100% { transform: scaleX(1.2); opacity: 1; }
+        }
+
+        .ai-transition-subtitle {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.7;
+            font-style: italic;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 2rem;
+            animation: fadeFlicker 3s ease-in-out infinite;
+        }
+
+        @keyframes fadeFlicker {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Holographic Effects */
+        .hologram-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hologram-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(0, 255, 255, 0.4), 
+                transparent
+            );
+            animation: hologramScan 4s ease-in-out infinite;
+        }
+
+        @keyframes hologramScan {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: -100%; }
+        }
+
+        /* Enhanced Services Section */
+        .services-section {
+            background: 
+                linear-gradient(135deg, #000 0%, #0a0a23 25%, #1a1a2e 75%, #000 100%);
+            color: white;
+            position: relative;
+            padding: 5rem 0;
+        }
+
+        .services-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(0, 255, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 20, 147, 0.03) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 40%, rgba(0, 255, 255, 0.01) 50%, transparent 60%);
+            animation: backgroundShift 10s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, 20px) rotate(1deg); }
+        }
+
+        /* Matrix Rain Effect for Page Break */
+        @media (max-width: 768px) {
+            .ai-services-intro h2 {
+                font-size: 3rem;
+                letter-spacing: 1px;
+            }
+            
+            .ai-services-intro p {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Personal Interest Images */
+        .personal-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            margin-top: 1rem;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .personal-image:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .bmw-image {
+            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCADIAMgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKK<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shannon Hutcheson - Senior Business Analyst & Certified ScrumMaster</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            height: 50px;
+        }
+
+        .logo svg {
+            height: 50px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover svg {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .cta-buttons {
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.9s forwards;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .btn.primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn.primary:hover {
+            background: transparent;
+            color: white;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-light {
+            background: white;
+        }
+
+        .section-dark {
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: #667eea;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background: inherit;
+            width: 50%;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            transform: translateX(50px);
+        }
+
+        .timeline-item.animate-in {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item.animate-in:nth-child(even) {
+            transform: translateX(0);
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, transparent, #667eea, transparent);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            background-size: 4px 50px;
+            animation: timelineFlow 3s ease-in-out infinite;
+        }
+
+        @keyframes timelineFlow {
+            0%, 100% { background-position: 0 0; }
+            50% { background-position: 0 50px; }
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background: #667eea;
+            border-radius: 50%;
+            top: 15px;
+            box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+        }
+
+        /* Python Parallax Background */
+        .python-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .python-code {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: rgba(102, 126, 234, 0.03);
+            white-space: pre;
+            line-height: 1.4;
+            transform-origin: center;
+        }
+
+        .python-code.layer-1 {
+            font-size: 12px;
+            color: rgba(102, 126, 234, 0.02);
+        }
+
+        .python-code.layer-2 {
+            font-size: 16px;
+            color: rgba(102, 126, 234, 0.04);
+        }
+
+        .python-code.layer-3 {
+            font-size: 18px;
+            color: rgba(102, 126, 234, 0.025);
+            transform: rotate(-5deg);
+        }
+
+        /* Enhanced Timeline Content Animation */
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            transform: scale(0.95);
+        }
+
+        .timeline-item.animate-in .timeline-content {
+            transform: scale(1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background: #667eea;
+            border-radius: 50%;
+            top: 15px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -10px;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+        }
+
+        .company {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .position {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+
+        .period {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .achievements {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .achievements li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .achievements li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .skill-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .skill-list li {
+            padding: 5px 0;
+            color: #666;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .download-section {
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .download-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .download-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            min-width: 250px;
+            border: 2px solid transparent;
+        }
+
+        .download-card:hover {
+            transform: translateY(-5px);
+            border-color: #667eea;
+        }
+
+        .download-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .download-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .download-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #5a6fd8;
+            transform: scale(1.05);
+            color: white;
+        }
+
+        .download-btn:before {
+            content: '⬇ ';
+            margin-right: 5px;
+        }
+
+        .portal-btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .portal-btn:hover {
+            background: #5a6fd8;
+            transform: scale(1.05);
+            color: white;
+        }
+
+        .quick-download {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: #667eea;
+            color: white;
+            padding: 12px 8px;
+            border-radius: 8px 0 0 8px;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .quick-download:hover {
+            background: #5a6fd8;
+            padding-right: 15px;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .quick-download {
+                display: none;
+            }
+        }
+
+        /* AI Intake Form Section */
+        .ai-intake-section {
+            background: linear-gradient(135deg, #0a0a23 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-intake-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 20, 147, 0.05) 0%, transparent 50%);
+            animation: backgroundShift 15s ease-in-out infinite;
+        }
+
+        .ai-form-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-form-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ffff, #ff1493);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .ai-form-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .ai-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            font-size: 0.9rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .ai-form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            padding: 3rem;
+            overflow: hidden;
+        }
+
+        .form-scanner-line {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            animation: formScan 4s ease-in-out infinite;
+        }
+
+        @keyframes formScan {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: -100%; }
+        }
+
+        .ai-intake-form {
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group select option {
+            background: #1a1a2e;
+            color: white;
+        }
+
+        .ai-suggestion,
+        .ai-analysis {
+            margin-top: 0.5rem;
+            padding: 8px 12px;
+            background: rgba(0, 255, 255, 0.1);
+            border-left: 3px solid #00ffff;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .ai-suggestion.show,
+        .ai-analysis.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .ai-recommendations {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 12px;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .ai-recommendations h3 {
+            color: #00ffff;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .recommendation-content {
+            line-height: 1.6;
+        }
+
+        .form-actions {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .ai-submit-btn {
+            background: linear-gradient(45deg, #00ffff, #ff1493);
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .ai-submit-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .ai-submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-privacy {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 400px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+
+        .ai-processing-visual {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        .processing-scanner {
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            animation: processingScan 1.5s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes processingScan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .processing-text {
+            color: #00ffff;
+            font-size: 1.1rem;
+            text-align: center;
+            animation: fadeFlicker 2s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+        /* Personal Section */
+        .personal-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .ai-form-header h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Personal Section */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .personal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .personal-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .personal-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .personal-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .personal-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .personal-description {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .bio-quote {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 3rem auto;
+            max-width: 800px;
+            border-left: 4px solid rgba(255, 255, 255, 0.5);
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        /* CSM Badge */
+        .csm-badge {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .csm-badge-large {
+            width: 180px;
+            height: 180px;
+        }
+
+        .csm-star {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #f4b942, #f39c12);
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .csm-star::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #f4b942, #f39c12);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            z-index: -1;
+        }
+
+        .csm-inner {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .csm-alliance {
+            font-size: 0.6rem;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 2px;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .csm-text {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .csm-banner {
+            position: absolute;
+            bottom: 8px;
+            left: 10%;
+            right: 10%;
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 3px 0;
+            font-size: 0.5rem;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+
+        .csm-large .csm-alliance {
+            font-size: 0.8rem;
+        }
+
+        .csm-large .csm-text {
+            font-size: 2rem;
+        }
+
+        .csm-large .csm-banner {
+            font-size: 0.7rem;
+            padding: 5px 0;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.2s forwards;
+        }
+
+        .certification-section {
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        /* Code Elements */
+        .code-snippet {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .code-snippet::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border-radius: 50%;
+            margin: 8px;
+        }
+
+        .technical-insight {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .technical-insight h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-background {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 200px;
+            opacity: 0.05;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #667eea;
+            pointer-events: none;
+            white-space: pre;
+            overflow: hidden;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #333;
+            color: white;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes timelineFlow {
+            0%, 100% { background-position: 0 0; }
+            50% { background-position: 0 50px; }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .timeline::before {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::before {
+                left: 21px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-item:nth-child(even)::before {
+                left: 21px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <svg width="280" height="50" viewBox="0 0 280 50" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="navPrimary" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="navAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:#00ffff;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#ff1493;stop-opacity:1" />
+                    </linearGradient>
+                  </defs>
+                  
+                  <!-- Fibonacci-enhanced logo symbol -->
+                  <g transform="translate(8, 8)">
+                    <!-- Golden ratio hexagon -->
+                    <polygon points="17,5 26,10 26,22 17,27 8,22 8,10" 
+                             fill="none" stroke="url(#navPrimary)" stroke-width="1.5" opacity="0.9"/>
+                    
+                    <!-- Fibonacci spiral -->
+                    <path d="M 17,16 
+                             Q 14,13 11,16
+                             Q 8,19 11,22
+                             Q 14,25 20,22
+                             Q 26,16 23,10
+                             Q 17,4 8,7" 
+                          fill="none" 
+                          stroke="url(#navAccent)" 
+                          stroke-width="1" 
+                          opacity="0.7"/>
+                    
+                    <!-- Fibonacci sequence nodes -->
+                    <circle cx="17" cy="16" r="1.5" fill="url(#navAccent)"/>
+                    <circle cx="14" cy="13" r="1" fill="url(#navPrimary)"/>
+                    <circle cx="13" cy="18" r="0.8" fill="url(#navPrimary)"/>
+                    <circle cx="18" cy="19" r="0.8" fill="url(#navPrimary)"/>
+                    <circle cx="21" cy="16" r="0.4" fill="url(#navPrimary)"/>
+                    
+                    <!-- Golden ratio positioned outer nodes -->
+                    <circle cx="22" cy="12" r="0.8" fill="url(#navPrimary)" opacity="0.8"/>
+                    <circle cx="12" cy="20" r="0.8" fill="url(#navPrimary)" opacity="0.8"/>
+                  </g>
+                  
+                  <!-- Company name -->
+                  <text x="45" y="22" 
+                        font-family="'Segoe UI', sans-serif" 
+                        font-size="18" 
+                        font-weight="700" 
+                        fill="url(#navPrimary)">Hutch</text>
+                  
+                  <text x="92" y="22" 
+                        font-family="'Segoe UI', sans-serif" 
+                        font-size="18" 
+                        font-weight="300" 
+                        fill="url(#navAccent)">Group</text>
+                  
+                  <text x="45" y="35" 
+                        font-family="'Segoe UI', sans-serif" 
+                        font-size="7" 
+                        font-weight="400" 
+                        fill="#667eea" 
+                        letter-spacing="1px" 
+                        opacity="0.8">BUSINESS AI AUTOMATION</text>
+                  
+                  <!-- Subtle accent line -->
+                  <line x1="45" y1="28" x2="170" y2="28" stroke="url(#navAccent)" stroke-width="0.5" opacity="0.4"/>
+                </svg>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#services">AI Services</a></li>
+                <li><a href="#apps">Apps</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Shannon Michael Hutcheson</h1>
+                <p class="subtitle">Senior Business Analyst | Certified ScrumMaster</p>
+                <p class="description">
+                    Bridging IT and business strategy for 15+ years across financial services, renewable energy, and healthcare. 
+                    Transforming complex requirements into measurable business outcomes through agile delivery and data-driven decision making.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#experience" class="btn primary">View My Journey</a>
+                    <a href="#contact" class="btn">Get In Touch</a>
+                </div>
+                
+                <div class="hero-badges">
+                    <div class="csm-badge">
+                        <div class="csm-star">
+                            <div class="csm-inner">
+                                <div class="csm-alliance">Scrum<br>Alliance®</div>
+                                <div class="csm-text">CSM</div>
+                                <div class="csm-banner">SCRUM MASTER</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="color: white; font-size: 0.9rem;">
+                        <strong>Certified Since 2014</strong><br>
+                        <span style="opacity: 0.8;">Active Certification</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="section-light">
+        <div class="container">
+            <h2 class="section-title">Professional Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="company">API Group</div>
+                        <div class="position">Senior Business Analyst</div>
+                        <div class="period">Feb 2025 – May 2025</div>
+                        <ul class="achievements">
+                            <li>Orchestrated enterprise-wide transformation technology readiness and operating model design</li>
+                            <li>Synthesized audits, KPI data, and executive input into strategic workshops</li>
+                            <li>Aligned IT and business teams around modernization goals</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="company">Midwest Renewable Energy Tracking Systems (M-RETS)</div>
+                        <div class="position">Senior Business Analyst</div>
+                        <div class="period">Oct 2023 – May 2024</div>
+                        <ul class="achievements">
+                            <li>Improved delivery quality by 40% through governance workflows</li>
+                            <li>Architected integrations with external APIs and datasets</li>
+                            <li>Optimized requirements translation and testing, improving efficiency by 25%</li>
+                        </ul>
+                        <div class="technical-insight">
+                            <h4>// Technical Bridge</h4>
+                            <p>Designed RESTful API integration patterns enabling automated contract risk modeling, translating complex business rules into scalable technical solutions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="company">HutchGroup, LLC</div>
+                        <div class="position">Owner & Operator</div>
+                        <div class="period">June 2021 – Oct 2023</div>
+                        <ul class="achievements">
+                            <li>Generated $565,000 in revenue annually with $1M+ inventory management</li>
+                            <li>Built engaged online community of 5,000+ members across 4 platforms</li>
+                            <li>Achieved Top Seller on eBay and Gold Star Seller on Shopify</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="company">Medtronic</div>
+                        <div class="position">Principal Business Systems Analyst</div>
+                        <div class="period">Nov 2017 – May 2021</div>
+                        <ul class="achievements">
+                            <li>Reduced E2E project cycle time by 20%, saving $300,000+ annually</li>
+                            <li>Led multi-year $600M+ customer support IVR system upgrade</li>
+                            <li>Enhanced contact center efficiency through LLM automation</li>
+                        </ul>
+                        <div class="technical-insight">
+                            <h4>// LLM Implementation</h4>
+                            <div class="code-snippet">
+// Optimized customer routing logic
+const routeCustomer = (intent, confidence) => {
+  if (confidence > 0.85) {
+    return automatedResolution(intent);
+  }
+  return escalateToAgent(intent, priority);
+};
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="company">Sleep Number</div>
+                        <div class="position">Senior Business Analyst</div>
+                        <div class="period">Nov 2014 – Oct 2017</div>
+                        <ul class="achievements">
+                            <li>Owned mobile app ecosystem strategy for customer engagement</li>
+                            <li>Drove Agile adoption across IT teams</li>
+                            <li>Optimized contact center integration with personalized notifications</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="company">Target Corporation</div>
+                        <div class="position">Business Analyst / Executive IT Partner</div>
+                        <div class="period">June 2007 – August 2014</div>
+                        <ul class="achievements">
+                            <li>Designed data validation frameworks for 65TB legacy system integrations</li>
+                            <li>Accelerated production adoption by 20%, saving $200,000 in resource costs</li>
+                            <li>Provided white-glove IT support for C-level executives</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-dark">
+        <div class="container">
+            <h2 class="section-title">Technical Insights</h2>
+            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 3rem; color: #666;">
+                Bridging business requirements with technical implementation through code-informed analysis
+            </p>
+            
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-icon">🔗</div>
+                    <h3>API Integration Strategy</h3>
+                    <div class="code-snippet">
+// Requirements to API mapping
+const businessRule = {
+  "regulatory_compliance": {
+    endpoint: "/api/v2/compliance",
+    validation: "real_time",
+    sla: "< 200ms"
+  }
+};
+                    </div>
+                    <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+                        Translated complex energy regulatory requirements into scalable API architectures
+                    </p>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon">🤖</div>
+                    <h3>LLM Prompt Engineering</h3>
+                    <div class="code-snippet">
+// Customer intent classification
+const prompt = `
+Classify customer inquiry:
+Context: ${customerHistory}
+Query: "${userInput}"
+Return: {intent, confidence, routing}
+`;
+                    </div>
+                    <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+                        Designed intelligent customer routing reducing support costs by $300K+
+                    </p>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon">📊</div>
+                    <h3>Data Validation Framework</h3>
+                    <div class="code-snippet">
+// Legacy to modern data mapping
+const validateTransformation = (legacyData) => {
+  return {
+    isValid: schema.validate(legacyData),
+    mapping: generateFieldMap(legacyData),
+    confidence: calculateDataQuality(legacyData)
+  };
+};
+                    </div>
+                    <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+                        Automated 65TB data migration validation, eliminating manual review processes
+                    </p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <h3 style="color: #667eea; margin-bottom: 1rem;">💡 Technical Philosophy</h3>
+                <p style="font-size: 1.1rem; color: #333; line-height: 1.7;">
+                    "The best business analysts understand code well enough to ask the right technical questions, 
+                    and understand business well enough to know that the end user may not be asking for the right functions 
+                    and can challenge status quo to understand a new, more efficient way of doing things; leading to a compromise 
+                    but a unique set of requirements into executable solutions."
+                </p>
+                <div style="margin-top: 1rem;">
+                    <span style="color: #666; font-style: italic;">- Shannon Hutcheson, on bridging the IT-Business divide</span>
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <a href="https://github.com/misterhutch" target="_blank" style="display: inline-block; background: #333; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.3s ease;">
+                        💻 View Code Examples on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-light">
+        <div class="container">
+            <h2 class="section-title">Professional Credentials</h2>
+            <div class="certification-section">
+                <div class="csm-badge csm-badge-large csm-large">
+                    <div class="csm-star">
+                        <div class="csm-inner">
+                            <div class="csm-alliance">Scrum<br>Alliance®</div>
+                            <div class="csm-text">CSM</div>
+                            <div class="csm-banner">SCRUM MASTER</div>
+                        </div>
+                    </div>
+                </div>
+                <h3 style="color: #667eea; margin: 1rem 0;">Certified ScrumMaster (CSM)</h3>
+                <p style="color: #666; font-size: 1.1rem; margin-bottom: 2rem;">
+                    Scrum Alliance Certification | 2014 - Present<br>
+                    <em>11+ years of active Agile leadership and cross-functional team facilitation</em>
+                </p>
+                
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
+                    <h4 style="color: #333; margin-bottom: 1rem;">🎓 Education</h4>
+                    <p style="color: #666; font-size: 1.1rem;">
+                        <strong>Bachelor of Science in Informatics | Computer Science</strong><br>
+                        Indiana University, Bloomington, IN
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services-section">
+        <div class="container">
+            <h2 class="section-title">AI Solutions for Small Business</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">
+                Leverage cutting-edge AI technology to automate workflows, enhance decision-making, and scale your operations
+            </p>
+            
+            <div class="ai-highlight">
+                <div class="ai-highlight-content">
+                    <h3 style="font-size: 2rem; margin-bottom: 1rem;">🤖 Ready to Transform Your Business with AI?</h3>
+                    <p style="font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">
+                        From intelligent customer service to automated data analysis, I help small businesses 
+                        implement enterprise-grade AI solutions without enterprise complexity or cost.
+                    </p>
+                </div>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="service-icon">🧠</span>
+                    <div class="service-title">AI Agent Setup & Configuration</div>
+                    <div class="service-description">
+                        Custom AI assistants tailored to your business processes, from customer support 
+                        to internal workflow automation. Built on cutting-edge LLM technology with your specific needs in mind.
+                    </div>
+                    <ul class="service-features">
+                        <li>Custom prompt engineering for your industry</li>
+                        <li>Multi-channel deployment (web, Slack, email)</li>
+                        <li>Integration with existing business tools</li>
+                        <li>Performance monitoring and optimization</li>
+                        <li>Staff training and documentation</li>
+                    </ul>
+                    <a href="#contact" class="service-cta">Get Started</a>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">🔗</span>
+                    <div class="service-title">MCP Implementation</div>
+                    <div class="service-description">
+                        Model Context Protocol setup enabling your AI agents to securely access and interact 
+                        with your business data, APIs, and tools in real-time for more intelligent automation.
+                    </div>
+                    <ul class="service-features">
+                        <li>Secure data source connections</li>
+                        <li>Real-time API integrations</li>
+                        <li>Custom tool development</li>
+                        <li>Data privacy and security compliance</li>
+                        <li>Scalable architecture design</li>
+                    </ul>
+                    <a href="#contact" class="service-cta">Learn More</a>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">⚡</span>
+                    <div class="service-title">Business Process Automation</div>
+                    <div class="service-description">
+                        End-to-end automation solutions that combine AI intelligence with your existing systems 
+                        to eliminate repetitive tasks and improve decision-making accuracy.
+                    </div>
+                    <ul class="service-features">
+                        <li>Workflow analysis and optimization</li>
+                        <li>Custom automation development</li>
+                        <li>Legacy system integration</li>
+                        <li>ROI measurement and reporting</li>
+                        <li>Ongoing support and maintenance</li>
+                    </ul>
+                    <a href="#contact" class="service-cta">Automate Now</a>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 4rem; padding: 2rem; background: rgba(255, 255, 255, 0.1); border-radius: 15px;">
+                <h3 style="color: #667eea; margin-bottom: 1rem;">💼 Why Choose My AI Implementation Services?</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div>
+                        <strong>📊 Business-First Approach</strong><br>
+                        <span style="opacity: 0.9; font-size: 0.95rem;">15+ years of business analysis ensures AI solutions actually solve real problems</span>
+                    </div>
+                    <div>
+                        <strong>🔧 Technical Expertise</strong><br>
+                        <span style="opacity: 0.9; font-size: 0.95rem;">Hands-on coding experience with Python, APIs, and modern AI frameworks</span>
+                    </div>
+                    <div>
+                        <strong>🚀 Rapid Implementation</strong><br>
+                        <span style="opacity: 0.9; font-size: 0.95rem;">Agile methodologies ensure quick time-to-value with iterative improvements</span>
+                    </div>
+                    <div>
+                        <strong>📈 Measurable Results</strong><br>
+                        <span style="opacity: 0.9; font-size: 0.95rem;">Focus on quantifiable outcomes: cost savings, time reduction, accuracy improvements</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="personal-section">
+        <div class="container">
+            <h2 class="section-title">Beyond the Business Card</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 1rem; opacity: 0.9;">
+                When I'm not bridging IT and business strategy, you'll find me...
+            </p>
+            
+            <div class="personal-grid">
+                <div class="personal-card">
+                    <span class="personal-icon">👨‍👩‍👧‍👦</span>
+                    <div class="personal-title">Family First</div>
+                    <div class="personal-description">
+                        Proud father and husband who moved from Indiana to Minnesota in 2007. 
+                        Family adventures and creating memories are what fuel my passion for life.
+                    </div>
+                </div>
+
+                <div class="personal-card">
+                    <span class="personal-icon">🏎️</span>
+                    <div class="personal-title">Speed & Precision</div>
+                    <div class="personal-description">
+                        Racing enthusiast and BMW aficionado who loves building and restoring cars. 
+                        The same attention to detail I bring to business analysis applies under the hood.
+                    </div>
+                </div>
+
+                <div class="personal-card">
+                    <span class="personal-icon">🌲</span>
+                    <div class="personal-title">Outdoor Adventure</div>
+                    <div class="personal-description">
+                        Minnesota's outdoor playground is perfect for dirt biking and golf. 
+                        Whether on two wheels or the fairway, I love the challenge and fresh air.
+                    </div>
+                </div>
+
+                <div class="personal-card">
+                    <span class="personal-icon">🌍</span>
+                    <div class="personal-title">Cultural Explorer</div>
+                    <div class="personal-description">
+                        My wife and I love traveling to experience new cultures. As a dedicated foodie, 
+                        I believe trying new cuisines is one of the best ways to understand a place and its people.
+                    </div>
+                </div>
+
+                <div class="personal-card">
+                    <span class="personal-icon">🔧</span>
+                    <div class="personal-title">Custom PC Builder</div>
+                    <div class="personal-description">
+                        From an early age, I discovered the fascinating parallels between computers and cars: 
+                        CPU as the engine, DDR memory as suspension, motherboard as transmission, case as chassis. 
+                        This curiosity sparked a lifelong passion for building gaming PCs and understanding complex systems.
+                    </div>
+                </div>
+
+                <div class="personal-card">
+                    <span class="personal-icon">🐕</span>
+                    <div class="personal-title">Dog Lover</div>
+                    <div class="personal-description">
+                        Dogs have a special place in my heart. There's something about their loyalty 
+                        and enthusiasm that reminds me why building genuine relationships matters in business too.
+                    </div>
+                </div>
+            </div>
+
+            <div class="bio-quote">
+                "I've learned that the same curiosity that drives me to try new cuisines, build custom PCs, and restore cars 
+                also makes me a better business analyst. Whether it's understanding how a CPU relates to an engine, 
+                or challenging why a legacy process exists when a new API could streamline everything - it's all about 
+                questioning assumptions and seeing how complex components can work together more efficiently. 
+                Sometimes the best solution isn't what was originally requested."
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <h2 class="section-title">Impact by the Numbers</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">$1M+</span>
+                    <span class="stat-label">Cost Savings Delivered</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">40%</span>
+                    <span class="stat-label">Quality Improvements</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">6</span>
+                    <span class="stat-label">Major Companies</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section-light">
+        <div class="container">
+            <h2 class="section-title">Core Competencies</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-icon">🔄</div>
+                    <h3>Digital Transformation</h3>
+                    <ul class="skill-list">
+                        <li>Legacy-to-Digital Migration</li>
+                        <li>System Modernization</li>
+                        <li>Enterprise Architecture</li>
+                        <li>API Integration</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon">📊</div>
+                    <h3>Business Analysis</h3>
+                    <ul class="skill-list">
+                        <li>Requirements Translation</li>
+                        <li>Process Optimization</li>
+                        <li>Gap Analysis</li>
+                        <li>Data-Driven Decisions</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon">🚀</div>
+                    <h3>Agile Leadership</h3>
+                    <ul class="skill-list">
+                        <li>Certified ScrumMaster</li>
+                        <li>Cross-Functional Teams</li>
+                        <li>Sprint Planning</li>
+                        <li>Product Ownership</li>
+                    </ul>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+                        <li>Python/JavaScript Integration</li>
+                        <li>API Design & Testing</li>
+                    </ul>
+                    <div class="code-background">
+// Business logic automation
+function processRequirement(req) {
+  const analysis = analyzeComplexity(req);
+  return generateTechnicalSpecs(analysis);
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </section>
+
+    <section id="apps" class="download-section">
+        <div class="container">
+            <h2 class="section-title">HutchGroup Apps</h2>
+            <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">
+                Quick links to live HutchGroup projects
+            </p>
+
+            <div class="download-cards">
+                <div class="download-card">
+                    <div class="download-icon">🦎</div>
+                    <div class="download-title">GreedyGeckoz 2.0</div>
+                    <div class="download-description">
+                        Solana NFT mint portal with live generative gecko creation and wallet-based minting.
+                    </div>
+                    <a
+                        href="https://greedy-geckoz-v2-qh02d13ho-greedy-geckozs-projects.vercel.app"
+                        class="portal-btn"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >Open App</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="download-section">
+        <div class="container">
+            <h2 class="section-title">Download Resources</h2>
+            <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">
+                Get my professional documents for your records or to share with your team
+            </p>
+            
+            <div class="download-cards">
+                <div class="download-card">
+                    <div class="download-icon">📄</div>
+                    <div class="download-title">Resume / CV</div>
+                    <div class="download-description">
+                        Complete professional background with quantified achievements, 
+                        technical competencies, and 15+ years of experience highlights.
+                    </div>
+                    <a href="#" class="download-btn" onclick="handleDownload('resume')">Download PDF</a>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-icon">📝</div>
+                    <div class="download-title">Professional Summary</div>
+                    <div class="download-description">
+                        Concise overview of my approach to business analysis, 
+                        Agile leadership, and digital transformation expertise.
+                    </div>
+                    <a href="#" class="download-btn" onclick="handleDownload('summary')">Download PDF</a>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-icon">🎯</div>
+                    <div class="download-title">Project Portfolio</div>
+                    <div class="download-description">
+                        Detailed case studies of key transformation projects, 
+                        including technical implementations and business outcomes.
+                    </div>
+                    <a href="#" class="download-btn" onclick="handleDownload('portfolio')">Download PDF</a>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; padding: 2rem; background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+                <p style="color: #666; font-size: 1rem; margin-bottom: 1rem;">
+                    <strong>📧 Prefer Email?</strong> I can send customized materials tailored to specific opportunities.
+                </p>
+                <p style="color: #888; font-size: 0.9rem;">
+                    All documents are regularly updated and include recent project achievements and certifications.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Let's Connect</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                Ready to discuss how I can help bridge your IT and business strategy?
+            </p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div>iuhutch@gmail.com</div>
+                </div>
+                <div class="contact-item">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Download Floating Button -->
+                    <div class="contact-icon">💼</div>
+                    <div><a href="https://linkedin.com/in/shannonhutcheson" target="_blank" style="color: white; text-decoration: none;">linkedin.com/in/shannonhutcheson</a></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">💻</div>
+                    <div><a href="https://github.com/misterhutch" target="_blank" style="color: white; text-decoration: none;">github.com/misterhutch</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </section>
+
+    <!-- Quick Download Floating Button -->
+    <a href="#" class="quick-download" onclick="handleDownload('resume')" title="Download Resume">
+        📄 RESUME
+    </a>
+
+    <script>
+        // Handle document downloads
+        function handleDownload(docType) {
+            // For now, show a message since PDFs need to be created
+            let message = '';
+            let email = 'iuhutch@gmail.com';
+            
+            switch(docType) {
+                case 'resume':
+                    message = 'I\'d be happy to send you my latest resume! Please email me at ' + email + ' and I\'ll send it right over.';
+                    break;
+                case 'summary':
+                    message = 'I can provide a customized professional summary tailored to your specific opportunity. Email me at ' + email + ' with details about the role.';
+                    break;
+                case 'portfolio':
+                    message = 'My project portfolio includes detailed case studies. Email me at ' + email + ' and let me know what type of projects you\'re most interested in hearing about.';
+                    break;
+            }
+            
+            alert(message);
+            
+            // Optional: Open email client
+            if(confirm('Would you like me to open your email client to make it easier to reach out?')) {
+                let subject = encodeURIComponent('Request for ' + docType.charAt(0).toUpperCase() + docType.slice(1) + ' - Shannon Hutcheson');
+                let body = encodeURIComponent('Hi Shannon,\n\nI visited your career portal and would like to request your ' + docType + '.\n\n[Please add any specific details about the opportunity or your interest]\n\nThanks!\n');
+                window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Enhanced scroll animations and parallax effects
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const scrolled = window.scrollY;
+            
+            // Header background on scroll
+            if (scrolled > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+            
+            // Python parallax background
+            const pythonCodes = document.querySelectorAll('.python-code');
+            pythonCodes.forEach((code, index) => {
+                const speed = 0.1 + (index * 0.05); // Different speeds for each layer
+                const yPos = scrolled * speed;
+                const rotation = Math.sin(scrolled * 0.001 + index) * 2;
+                
+                code.style.transform = `translateY(${yPos}px) rotate(${rotation}deg)`;
+                
+                // Fade effect based on scroll position
+                const opacity = Math.max(0.01, 0.05 - (scrolled * 0.00005));
+                code.style.opacity = opacity;
+            });
+        });
+
+        // Enhanced timeline animation observer
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Stagger the animation timing
+                    setTimeout(() => {
+                        entry.target.classList.add('animate-in');
+                    }, index * 150);
+                }
+            });
+        }, {
+            threshold: 0.3,
+            rootMargin: '0px 0px -100px 0px'
+        });
+
+        // Observe timeline items
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            timelineObserver.observe(item);
+        });
+
+        // General element animation observer (for skills, etc.)
+        const generalObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = `${index * 0.2}s`;
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe skill categories, personal cards, download cards, and AI service cards
+        document.querySelectorAll('.skill-category, .personal-card, .download-card, .service-card, .ai-benefit').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            generalObserver.observe(el);
+        });
+
+        // Add floating animation to CSM badges
+        const csmBadges = document.querySelectorAll('.csm-badge');
+        csmBadges.forEach(badge => {
+            badge.style.animation = 'float 3s ease-in-out infinite';
+        });
+
+        // AI Services special effects
+        const aiServiceCards = document.querySelectorAll('.service-card');
+        aiServiceCards.forEach((card, index) => {
+            card.addEventListener('mouseenter', () => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Enhanced AI section animations and Matrix effects
+        const aiObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    
+                    // Trigger special effects for AI section
+                    if (entry.target.classList.contains('ai-services-separator')) {
+                        triggerMatrixEffect();
+                    }
+                }
+            });
+        }, { threshold: 0.3 });
+
+        // Matrix rain effect
+        function triggerMatrixEffect() {
+            const matrixColumns = document.querySelectorAll('.matrix-column');
+            matrixColumns.forEach((column, index) => {
+                setTimeout(() => {
+                    column.style.animationPlayState = 'running';
+                    column.style.opacity = '1';
+                }, index * 200);
+            });
+        }
+
+        // Glitch effect for AI titles
+        function addGlitchEffect() {
+            const aiTitle = document.querySelector('.ai-services-intro h2');
+            if (aiTitle) {
+                setInterval(() => {
+                    if (Math.random() > 0.95) {
+                        aiTitle.style.animation = 'none';
+                        aiTitle.offsetHeight; // trigger reflow
+                        aiTitle.style.animation = 'gradientShift 3s ease-in-out infinite, textGlow 2s ease-in-out infinite alternate, glitch 0.1s';
+                        
+                        setTimeout(() => {
+                            aiTitle.style.animation = 'gradientShift 3s ease-in-out infinite, textGlow 2s ease-in-out infinite alternate';
+                        }, 100);
+                    }
+                }, 100);
+            }
+        }
+
+        // Initialize Evervault-style services when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            addGlitchEffect();
+            
+            // Initialize services section if it exists
+            if (document.getElementById('serviceStream')) {
+                initializeServicesSection();
+            }
+            
+            // Add random Matrix characters
+            const matrixColumns = document.querySelectorAll('.matrix-column');
+            matrixColumns.forEach(column => {
+                setInterval(() => {
+                    const chars = ['0', '1', 'AI', 'ML', 'API', 'BOT', 'SYS', 'NET', 'CODE', 'DATA'];
+                    const randomChar = chars[Math.floor(Math.random() * chars.length)];
+                    if (Math.random() > 0.8) {
+                        column.innerHTML = column.innerHTML.replace(/[01]/g, () => 
+                            Math.random() > 0.5 ? '1' : '0'
+                        );
+                    }
+                }, 200);
+            });
+        });
+
+        // Services Section JavaScript
+        function initializeServicesSection() {
+            window.serviceStream = new ServiceStreamController();
+            window.serviceParticleSystem = new ServiceParticleSystem();
+            window.serviceParticleScanner = new ServiceParticleScanner();
+
+            window.setServiceScannerScanning = (active) => {
+                if (window.serviceParticleScanner) {
+                    window.serviceParticleScanner.setScanningActive(active);
+                }
+            };
+        }
+
+        class ServiceStreamController {
+            constructor() {
+                this.container = document.getElementById("serviceStream");
+                this.serviceLine = document.getElementById("serviceLine");
+                this.speedIndicator = document.getElementById("serviceSpeedValue");
+
+                this.position = 0;
+                this.velocity = 120;
+                this.direction = -1;
+                this.isAnimating = true;
+                this.isDragging = false;
+
+                this.lastTime = 0;
+                this.lastMouseX = 0;
+                this.mouseVelocity = 0;
+                this.friction = 0.95;
+                this.minVelocity = 30;
+
+                this.containerWidth = 0;
+                this.serviceLineWidth = 0;
+
+                this.init();
+            }
+
+            init() {
+                this.populateServiceLine();
+                this.calculateDimensions();
+                this.setupEventListeners();
+                this.updateServicePosition();
+                this.animate();
+                this.startPeriodicUpdates();
+            }
+
+            calculateDimensions() {
+                this.containerWidth = this.container.offsetWidth;
+                const serviceWidth = 450;
+                const serviceGap = 80;
+                const serviceCount = this.serviceLine.children.length;
+                this.serviceLineWidth = (serviceWidth + serviceGap) * serviceCount;
+            }
+
+            setupEventListeners() {
+                this.serviceLine.addEventListener("mousedown", (e) => this.startDrag(e));
+                document.addEventListener("mousemove", (e) => this.onDrag(e));
+                document.addEventListener("mouseup", () => this.endDrag());
+
+                this.serviceLine.addEventListener("wheel", (e) => this.onWheel(e));
+                this.serviceLine.addEventListener("selectstart", (e) => e.preventDefault());
+                this.serviceLine.addEventListener("dragstart", (e) => e.preventDefault());
+
+                window.addEventListener("resize", () => this.calculateDimensions());
+            }
+
+            startDrag(e) {
+                e.preventDefault();
+                this.isDragging = true;
+                this.isAnimating = false;
+                this.lastMouseX = e.clientX;
+                this.mouseVelocity = 0;
+
+                const transform = window.getComputedStyle(this.serviceLine).transform;
+                if (transform !== "none") {
+                    const matrix = new DOMMatrix(transform);
+                    this.position = matrix.m41;
+                }
+
+                this.serviceLine.classList.add("dragging");
+            }
+
+            onDrag(e) {
+                if (!this.isDragging) return;
+                e.preventDefault();
+
+                const deltaX = e.clientX - this.lastMouseX;
+                this.position += deltaX;
+                this.mouseVelocity = deltaX * 60;
+                this.lastMouseX = e.clientX;
+
+                this.serviceLine.style.transform = `translateX(${this.position}px)`;
+                this.updateServiceClipping();
+            }
+
+            endDrag() {
+                if (!this.isDragging) return;
+
+                this.isDragging = false;
+                this.serviceLine.classList.remove("dragging");
+
+                if (Math.abs(this.mouseVelocity) > this.minVelocity) {
+                    this.velocity = Math.abs(this.mouseVelocity);
+                    this.direction = this.mouseVelocity > 0 ? 1 : -1;
+                } else {
+                    this.velocity = 120;
+                }
+
+                this.isAnimating = true;
+                this.updateSpeedIndicator();
+            }
+
+            animate() {
+                const currentTime = performance.now();
+                const deltaTime = (currentTime - this.lastTime) / 1000;
+                this.lastTime = currentTime;
+
+                if (this.isAnimating && !this.isDragging) {
+                    if (this.velocity > this.minVelocity) {
+                        this.velocity *= this.friction;
+                    } else {
+                        this.velocity = Math.max(this.minVelocity, this.velocity);
+                    }
+
+                    this.position += this.velocity * this.direction * deltaTime;
+                    this.updateServicePosition();
+                    this.updateSpeedIndicator();
+                }
+
+                requestAnimationFrame(() => this.animate());
+            }
+
+            updateServicePosition() {
+                const containerWidth = this.containerWidth;
+                const serviceLineWidth = this.serviceLineWidth;
+
+                if (this.position < -serviceLineWidth) {
+                    this.position = containerWidth;
+                } else if (this.position > containerWidth) {
+                    this.position = -serviceLineWidth;
+                }
+
+                this.serviceLine.style.transform = `translateX(${this.position}px)`;
+                this.updateServiceClipping();
+            }
+
+            updateSpeedIndicator() {
+                this.speedIndicator.textContent = Math.round(this.velocity);
+            }
+
+            generateServiceCode(width, height, serviceType) {
+                const aiCode = {
+                    'agent': [
+                        "// AI Agent Implementation",
+                        "class AIAgent {",
+                        "  constructor(config) {",
+                        "    this.llm = new LanguageModel(config.model);",
+                        "    this.memory = new ConversationMemory();",
+                        "    this.tools = new ToolRegistry();",
+                        "  }",
+                        "  async processIntent(userInput) {",
+                        "    const intent = await this.llm.classify(userInput);",
+                        "    const context = this.memory.getContext();",
+                        "    return this.generateResponse(intent, context);",
+                        "  }",
+                        "  scheduleAppointment(date, service) {",
+                        "    return this.tools.calendar.createEvent({",
+                        "      start: date, type: service, autoConfirm: true",
+                        "    });",
+                        "  }",
+                        "}",
+                        "const agent = new AIAgent({model: 'claude-4'});",
+                        "agent.deploy(['web', 'slack', 'sms']);",
+                    ],
+                    'mcp': [
+                        "// Model Context Protocol Integration",
+                        "import { MCPServer } from '@modelcontextprotocol/sdk';",
+                        "const mcpServer = new MCPServer({",
+                        "  name: 'business-automation',",
+                        "  version: '1.0.0'",
+                        "});",
+                        "mcpServer.addTool('database_query', {",
+                        "  async handler(params) {",
+                        "    const query = params.sql;",
+                        "    return await db.execute(query);",
+                        "  }",
+                        "});",
+                        "mcpServer.addTool('api_call', {",
+                        "  async handler(params) {",
+                        "    return await fetch(params.url, {",
+                        "      method: params.method,",
+                        "      headers: params.headers,",
+                        "      body: JSON.stringify(params.data)",
+                        "    });",
+                        "  }",
+                        "});",
+                        "await mcpServer.connect();",
+                    ],
+                    'automation': [
+                        "// Business Process Automation",
+                        "const WorkflowEngine = require('./workflow-engine');",
+                        "const workflow = new WorkflowEngine({",
+                        "  triggers: ['email', 'webhook', 'schedule'],",
+                        "  actions: ['notify', 'update_db', 'api_call']",
+                        "});",
+                        "workflow.define('customer_onboarding', {",
+                        "  steps: [",
+                        "    { action: 'validate_data', input: 'customer_info' },",
+                        "    { action: 'create_account', dependencies: ['validate_data'] },",
+                        "    { action: 'send_welcome_email', dependencies: ['create_account'] },",
+                        "    { action: 'schedule_followup', delay: '24h' }",
+                        "  ]",
+                        "});",
+                        "workflow.on('customer_signup', 'customer_onboarding');",
+                        "workflow.start();",
+                    ]
+                };
+
+                const serviceCode = aiCode[serviceType] || aiCode['agent'];
+                let codeFlow = serviceCode.join(' ');
+                
+                // Fill to required dimensions
+                const totalChars = width * height;
+                while (codeFlow.length < totalChars) {
+                    codeFlow += ' ' + serviceCode.join(' ');
+                }
+
+                let output = '';
+                let offset = 0;
+                for (let row = 0; row < height; row++) {
+                    let line = codeFlow.slice(offset, offset + width);
+                    if (line.length < width) line = line + ' '.repeat(width - line.length);
+                    output += line + (row < height - 1 ? '\n' : '');
+                    offset += width;
+                }
+                return output;
+            }
+
+            createServiceWrapper(index) {
+                const offerings = [
+                    // Core AI Services
+                    {
+                        icon: '🧠',
+                        title: 'AI Agent Development',
+                        description: 'Custom intelligent assistants built with advanced LLM technology for any business process.',
+                        features: [
+                            'Custom prompt engineering',
+                            'Multi-channel deployment',
+                            'CRM/ERP integration',
+                            'Conversation flow management',
+                            'Performance analytics'
+                        ],
+                        cta: 'Launch AI Agent',
+                        type: 'agent'
+                    },
+                    {
+                        icon: '🔗',
+                        title: 'MCP Integration Suite',
+                        description: 'Model Context Protocol enabling AI agents to access real-time business data securely.',
+                        features: [
+                            'Real-time data connections',
+                            'Custom API development',
+                            'Database integration',
+                            'Enterprise security',
+                            'Scalable architecture'
+                        ],
+                        cta: 'Integrate Systems',
+                        type: 'mcp'
+                    },
+                    {
+                        icon: '⚡',
+                        title: 'Workflow Automation',
+                        description: 'End-to-end business process automation with AI intelligence and RPA integration.',
+                        features: [
+                            'Process analysis & redesign',
+                            'Custom automation scripts',
+                            'Legacy system integration',
+                            'ROI tracking & reporting',
+                            '24/7 monitoring support'
+                        ],
+                        cta: 'Automate Workflows',
+                        type: 'automation'
+                    },
+                    // Industry-Specific Solutions
+                    {
+                        icon: '🦷',
+                        title: 'Dental Practice AI',
+                        description: 'Specialized AI agents for dental offices handling appointments, confirmations, and patient care.',
+                        features: [
+                            'Appointment scheduling',
+                            'Insurance verification',
+                            'Patient follow-ups',
+                            'Treatment reminders',
+                            'No-show reduction'
+                        ],
+                        cta: 'Optimize Practice',
+                        type: 'dental'
+                    },
+                    {
+                        icon: '🔧',
+                        title: 'Service Business AI',
+                        description: 'AI solutions for plumbers, electricians, and contractors managing calls and scheduling.',
+                        features: [
+                            '24/7 emergency response',
+                            'Service call triage',
+                            'Technician dispatch',
+                            'Parts inventory alerts',
+                            'Customer follow-up'
+                        ],
+                        cta: 'Never Miss Calls',
+                        type: 'service'
+                    },
+                    {
+                        icon: '🏠',
+                        title: 'Real Estate AI',
+                        description: 'Lead qualification, property showing coordination, and client nurturing automation.',
+                        features: [
+                            'Lead scoring & qualification',
+                            'Showing coordination',
+                            'Market update delivery',
+                            'Transaction tracking',
+                            'Client nurture sequences'
+                        ],
+                        cta: 'Qualify More Leads',
+                        type: 'realestate'
+                    },
+                    {
+                        icon: '🍽️',
+                        title: 'Restaurant AI',
+                        description: 'Order taking, reservation management, and customer preference tracking for restaurants.',
+                        features: [
+                            'Phone order automation',
+                            'Reservation optimization',
+                            'Menu recommendations',
+                            'Inventory integration',
+                            'Customer feedback collection'
+                        ],
+                        cta: 'Boost Orders',
+                        type: 'restaurant'
+                    },
+                    {
+                        icon: '⚖️',
+                        title: 'Legal Practice AI',
+                        description: 'Client intake, document management, and case tracking for law firms of all sizes.',
+                        features: [
+                            'Initial client screening',
+                            'Document collection',
+                            'Court date tracking',
+                            'Billing automation',
+                            'Case status updates'
+                        ],
+                        cta: 'Streamline Intake',
+                        type: 'legal'
+                    },
+                    {
+                        icon: '🏥',
+                        title: 'Healthcare AI',
+                        description: 'Patient scheduling, insurance verification, and appointment reminders for medical practices.',
+                        features: [
+                            'Patient appointment booking',
+                            'Insurance pre-authorization',
+                            'Prescription reminders',
+                            'Lab result notifications',
+                            'Wellness check-ins'
+                        ],
+                        cta: 'Improve Patient Care',
+                        type: 'healthcare'
+                    },
+                    // Specialized Agent Types
+                    {
+                        icon: '📞',
+                        title: 'Customer Service Agent',
+                        description: 'Intelligent customer support handling inquiries, troubleshooting, and escalations 24/7.',
+                        features: [
+                            'Multi-language support',
+                            'Ticket routing & escalation',
+                            'Knowledge base integration',
+                            'Sentiment analysis',
+                            'Resolution tracking'
+                        ],
+                        cta: 'Deploy Support AI',
+                        type: 'support'
+                    },
+                    {
+                        icon: '📅',
+                        title: 'Scheduling Agent',
+                        description: 'Automated appointment booking, rescheduling, and calendar optimization across time zones.',
+                        features: [
+                            'Calendar integration',
+                            'Time zone handling',
+                            'Conflict resolution',
+                            'Automated reminders',
+                            'No-show prevention'
+                        ],
+                        cta: 'Automate Scheduling',
+                        type: 'scheduling'
+                    },
+                    {
+                        icon: '🎯',
+                        title: 'Lead Qualification Agent',
+                        description: 'Smart lead scoring, nurturing sequences, and sales pipeline management automation.',
+                        features: [
+                            'Lead scoring algorithms',
+                            'Qualification workflows',
+                            'CRM integration',
+                            'Nurture sequences',
+                            'Sales handoff automation'
+                        ],
+                        cta: 'Qualify Leads',
+                        type: 'leads'
+                    }
+                ];
+
+                const offering = offerings[index % offerings.length];
+                const wrapper = document.createElement("div");
+                wrapper.className = "service-wrapper";
+
+                const normalService = document.createElement("div");
+                normalService.className = "service-item service-normal";
+
+                normalService.innerHTML = `
+                    <div class="service-icon">${offering.icon}</div>
+                    <div class="service-title">${offering.title}</div>
+                    <div class="service-description">${offering.description}</div>
+                    <ul class="service-features">
+                        ${offering.features.map(feature => `<li>${feature}</li>`).join('')}
+                    </ul>
+                    <a href="#contact" class="service-cta">${offering.cta}</a>
+                `;
+
+                const asciiService = document.createElement("div");
+                asciiService.className = "service-item service-ascii";
+
+                const asciiContent = document.createElement("div");
+                asciiContent.className = "service-ascii-content";
+
+                const width = Math.floor(450 / 6);
+                const height = Math.floor(280 / 13);
+                asciiContent.textContent = this.generateServiceCode(width, height, offering.type);
+
+                asciiService.appendChild(asciiContent);
+                wrapper.appendChild(normalService);
+                wrapper.appendChild(asciiService);
+
+                return wrapper;
+            }
+
+            updateServiceClipping() {
+                const scannerX = this.container.offsetWidth / 2;
+                const scannerWidth = 8;
+                const scannerLeft = scannerX - scannerWidth / 2;
+                const scannerRight = scannerX + scannerWidth / 2;
+                let anyScanningActive = false;
+
+                document.querySelectorAll(".service-wrapper").forEach((wrapper) => {
+                    const rect = wrapper.getBoundingClientRect();
+                    const containerRect = this.container.getBoundingClientRect();
+                    const serviceLeft = rect.left - containerRect.left;
+                    const serviceRight = rect.right - containerRect.left;
+                    const serviceWidth = rect.width;
+
+                    const normalService = wrapper.querySelector(".service-normal");
+                    const asciiService = wrapper.querySelector(".service-ascii");
+
+                    if (serviceLeft < scannerRight && serviceRight > scannerLeft) {
+                        anyScanningActive = true;
+                        const scannerIntersectLeft = Math.max(scannerLeft - serviceLeft, 0);
+                        const scannerIntersectRight = Math.min(scannerRight - serviceLeft, serviceWidth);
+
+                        const normalClipRight = (scannerIntersectLeft / serviceWidth) * 100;
+                        const asciiClipLeft = (scannerIntersectRight / serviceWidth) * 100;
+
+                        normalService.style.setProperty("--clip-right", `${normalClipRight}%`);
+                        asciiService.style.setProperty("--clip-left", `${asciiClipLeft}%`);
+
+                        if (!wrapper.hasAttribute("data-scanned") && scannerIntersectLeft > 0) {
+                            wrapper.setAttribute("data-scanned", "true");
+                            const scanEffect = document.createElement("div");
+                            scanEffect.className = "service-scan-effect";
+                            wrapper.appendChild(scanEffect);
+                            setTimeout(() => {
+                                if (scanEffect.parentNode) {
+                                    scanEffect.parentNode.removeChild(scanEffect);
+                                }
+                            }, 600);
+                        }
+                    } else {
+                        if (serviceRight < scannerLeft) {
+                            normalService.style.setProperty("--clip-right", "100%");
+                            asciiService.style.setProperty("--clip-left", "100%");
+                        } else if (serviceLeft > scannerRight) {
+                            normalService.style.setProperty("--clip-right", "0%");
+                            asciiService.style.setProperty("--clip-left", "0%");
+                        }
+                        wrapper.removeAttribute("data-scanned");
+                    }
+                });
+
+                if (window.setServiceScannerScanning) {
+                    window.setServiceScannerScanning(anyScanningActive);
+                }
+            }
+
+            populateServiceLine() {
+                this.serviceLine.innerHTML = "";
+                for (let i = 0; i < 6; i++) {
+                    const serviceWrapper = this.createServiceWrapper(i);
+                    this.serviceLine.appendChild(serviceWrapper);
+                }
+            }
+
+            startPeriodicUpdates() {
+                setInterval(() => {
+                    document.querySelectorAll(".service-ascii-content").forEach((content) => {
+                        if (Math.random() < 0.1) {
+                            const width = Math.floor(450 / 6);
+                            const height = Math.floor(280 / 13);
+                            const serviceType = ['agent', 'mcp', 'automation'][Math.floor(Math.random() * 3)];
+                            content.textContent = this.generateServiceCode(width, height, serviceType);
+                        }
+                    });
+                }, 300);
+
+                const updateClipping = () => {
+                    this.updateServiceClipping();
+                    requestAnimationFrame(updateClipping);
+                };
+                updateClipping();
+            }
+
+            toggleAnimation() {
+                this.isAnimating = !this.isAnimating;
+                const btn = document.querySelector(".evervault-btn");
+                btn.textContent = this.isAnimating ? "⏸️ Pause" : "▶️ Play";
+            }
+
+            resetPosition() {
+                this.position = this.containerWidth;
+                this.velocity = 120;
+                this.direction = -1;
+                this.isAnimating = true;
+                this.isDragging = false;
+
+                this.serviceLine.style.transform = `translateX(${this.position}px)`;
+                this.serviceLine.classList.remove("dragging");
+                this.updateSpeedIndicator();
+
+                const btn = document.querySelector(".evervault-btn");
+                btn.textContent = "⏸️ Pause";
+            }
+
+            changeDirection() {
+                this.direction *= -1;
+                this.updateSpeedIndicator();
+            }
+
+            onWheel(e) {
+                e.preventDefault();
+                const scrollSpeed = 20;
+                const delta = e.deltaY > 0 ? scrollSpeed : -scrollSpeed;
+                this.position += delta;
+                this.updateServicePosition();
+            }
+        }
+
+        // Service control functions
+        function toggleServiceAnimation() {
+            if (window.serviceStream) {
+                window.serviceStream.toggleAnimation();
+            }
+        }
+
+        function resetServicePosition() {
+            if (window.serviceStream) {
+                window.serviceStream.resetPosition();
+            }
+        }
+
+        function changeServiceDirection() {
+            if (window.serviceStream) {
+                window.serviceStream.changeDirection();
+            }
+        }
+
+        // Service Particle Systems (simplified versions of the original)
+        class ServiceParticleSystem {
+            constructor() {
+                this.canvas = document.getElementById("serviceParticleCanvas");
+                if (!this.canvas) return;
+
+                if (!window.THREE) return;
+
+                this.scene = new THREE.Scene();
+                this.camera = new THREE.OrthographicCamera(
+                    -this.canvas.offsetWidth / 2,
+                    this.canvas.offsetWidth / 2,
+                    150, -150, 1, 1000
+                );
+                this.camera.position.z = 100;
+
+                this.renderer = new THREE.WebGLRenderer({
+                    canvas: this.canvas,
+                    alpha: true,
+                    antialias: true,
+                });
+                this.renderer.setSize(this.canvas.offsetWidth, 300);
+                this.renderer.setClearColor(0x000000, 0);
+
+                this.createParticles();
+                this.animate();
+            }
+
+            createParticles() {
+                const geometry = new THREE.BufferGeometry();
+                const particleCount = 200;
+                const positions = new Float32Array(particleCount * 3);
+                const colors = new Float32Array(particleCount * 3);
+
+                for (let i = 0; i < particleCount; i++) {
+                    positions[i * 3] = (Math.random() - 0.5) * this.canvas.offsetWidth;
+                    positions[i * 3 + 1] = (Math.random() - 0.5) * 300;
+                    positions[i * 3 + 2] = 0;
+
+                    colors[i * 3] = 0;     // R - cyan
+                    colors[i * 3 + 1] = 1; // G
+                    colors[i * 3 + 2] = 1; // B
+                }
+
+                geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+                geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+                const material = new THREE.PointsMaterial({
+                    size: 2,
+                    vertexColors: true,
+                    transparent: true,
+                    opacity: 0.6
+                });
+
+                this.particles = new THREE.Points(geometry, material);
+                this.scene.add(this.particles);
+            }
+
+            animate() {
+                requestAnimationFrame(() => this.animate());
+
+                if (this.particles) {
+                    const positions = this.particles.geometry.attributes.position.array;
+                    for (let i = 0; i < positions.length; i += 3) {
+                        positions[i] += 0.5; // Move right
+                        if (positions[i] > this.canvas.offsetWidth / 2) {
+                            positions[i] = -this.canvas.offsetWidth / 2;
+                        }
+                    }
+                    this.particles.geometry.attributes.position.needsUpdate = true;
+                }
+
+                this.renderer.render(this.scene, this.camera);
+            }
+        }
+
+        class ServiceParticleScanner {
+            constructor() {
+                this.canvas = document.getElementById("serviceScannerCanvas");
+                if (!this.canvas) return;
+
+                this.ctx = this.canvas.getContext("2d");
+                this.canvas.width = this.canvas.offsetWidth;
+                this.canvas.height = 350;
+
+                this.particles = [];
+                this.scanningActive = false;
+                this.animate();
+            }
+
+            setScanningActive(active) {
+                this.scanningActive = active;
+            }
+
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Draw scanner line
+                const scannerX = this.canvas.width / 2;
+                const gradient = this.ctx.createLinearGradient(scannerX - 2, 0, scannerX + 2, 0);
+                gradient.addColorStop(0, 'rgba(0, 255, 255, 0)');
+                gradient.addColorStop(0.5, 'rgba(0, 255, 255, 1)');
+                gradient.addColorStop(1, 'rgba(0, 255, 255, 0)');
+
+                this.ctx.fillStyle = gradient;
+                this.ctx.fillRect(scannerX - 2, 50, 4, 250);
+
+                // Add particles when scanning
+                if (this.scanningActive && Math.random() < 0.3) {
+                    this.particles.push({
+                        x: scannerX + (Math.random() - 0.5) * 4,
+                        y: 50 + Math.random() * 250,
+                        vx: (Math.random() - 0.5) * 2,
+                        vy: (Math.random() - 0.5) * 2,
+                        life: 1
+                    });
+                }
+
+                // Update and draw particles
+                this.particles = this.particles.filter(particle => {
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    particle.life -= 0.02;
+
+                    this.ctx.globalAlpha = particle.life;
+                    this.ctx.fillStyle = '#00ffff';
+                    this.ctx.fillRect(particle.x - 1, particle.y - 1, 2, 2);
+
+                    return particle.life > 0;
+                });
+
+                this.ctx.globalAlpha = 1;
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        document.querySelectorAll('.ai-highlight, .ai-services-intro, .page-break').forEach(el => {
+            aiObserver.observe(el);
+        });
+
+        // Add CSS for floating animation
+        const floatKeyframes = `
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+            }
+        `;
+        const style = document.createElement('style');
+        style.textContent = floatKeyframes;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
