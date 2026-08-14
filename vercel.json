@@ -1,4 +1,24 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.hutchgroupllc.com" }],
+      "destination": "https://hutchgroupllc.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/hutchgroup_production_website.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/hutchgroup_production_website",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/", "destination": "/hutchgroup_production_website.html" }
   ],
@@ -12,7 +32,8 @@
         },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
       ]
     }
   ]
