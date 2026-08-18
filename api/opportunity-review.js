@@ -88,8 +88,8 @@ async function sendNotification({ lead, company, review }) {
     to: [to],
     subject: `New Hutchgroup Opportunity Review: ${company.name}`,
     text: [
-      `New Opportunity Review`,
-      ``,
+      'New Opportunity Review',
+      '',
       `Name: ${lead.name}`,
       `Business: ${company.name}`,
       `Email: ${lead.email}`,
@@ -97,8 +97,8 @@ async function sendNotification({ lead, company, review }) {
       `Priority: ${review.priority}`,
       `Opportunity score: ${review.opportunity_score}/100`,
       `Signals: ${(review.score_reasons || []).join('; ') || 'None yet'}`,
-      ``,
-      `Challenge:`,
+      '',
+      'Challenge:',
       review.challenge
     ].join('\n')
   };
@@ -117,7 +117,7 @@ async function sendNotification({ lead, company, review }) {
   }
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return json(res, 405, { ok: false, error: 'Method not allowed' });
@@ -126,7 +126,6 @@ export default async function handler(req, res) {
   try {
     const payload = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
 
-    // Invisible honeypot. Real users should never populate this field.
     if (clean(payload.company_url, 200)) {
       return json(res, 200, { ok: true });
     }
@@ -213,4 +212,4 @@ export default async function handler(req, res) {
       error: 'We could not submit your review right now. Your form entries are still here, so please try again.'
     });
   }
-}
+};
