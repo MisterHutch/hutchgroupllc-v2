@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://hutchgroupllc.com/</loc>
-    <lastmod>2026-08-14</lastmod>
-  </url>
-  <url>
-    <loc>https://hutchgroupllc.com/web-design/</loc>
-    <lastmod>2026-08-14</lastmod>
-  </url>
-  <url>
-    <loc>https://hutchgroupllc.com/local-seo/</loc>
-    <lastmod>2026-08-14</lastmod>
-  </url>
-  <url>
-    <loc>https://hutchgroupllc.com/lead-follow-up-automation/</loc>
-    <lastmod>2026-08-14</lastmod>
-  </url>
+  <url><loc>https://hutchgroupllc.com/</loc><lastmod>2026-08-18</lastmod></url>
+  <url><loc>https://hutchgroupllc.com/technology-opportunity-audit/</loc><lastmod>2026-08-18</lastmod></url>
+  <url><loc>https://hutchgroupllc.com/digital-business-systems/</loc><lastmod>2026-08-18</lastmod></url>
+  <url><loc>https://hutchgroupllc.com/fractional-technology-partner/</loc><lastmod>2026-08-18</lastmod></url>
+  <url><loc>https://hutchgroupllc.com/opportunity-review/</loc><lastmod>2026-08-18</lastmod></url>
+  <url><loc>https://hutchgroupllc.com/web-design/</loc><lastmod>2026-08-14</lastmod></url>
+  <url><loc>https://hutchgroupllc.com/local-seo/</loc><lastmod>2026-08-14</lastmod></url>
+  <url><loc>https://hutchgroupllc.com/lead-follow-up-automation/</loc><lastmod>2026-08-14</lastmod></url>
 </urlset>

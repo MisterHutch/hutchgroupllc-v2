@@ -17,4 +17,6 @@ jobs:
             - name: Validate vercel.json
               run: node -e "JSON.parse(require('fs').readFileSync('vercel.json','utf8')); console.log('vercel.json OK')"
             - name: Verify site entrypoint exists
-              run: test -f hutchgroup_production_website.html
+              run: test -f index.html
+            - name: Verify flagship service pages exist
+              run: test -f technology-opportunity-audit/index.html && test -f digital-business-systems/index.html && test -f fractional-technology-partner/index.html && test -f opportunity-review/index.html
