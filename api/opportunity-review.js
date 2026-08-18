@@ -8,6 +8,19 @@ const json = (res, status, body) => {
 const clean = (value, max = 5000) =>
   typeof value === 'string' ? value.trim().slice(0, max) : '';
 
+const serviceKeyForPriority = (priority) => {
+  const map = {
+    'More leads / better conversion': 'digital_growth',
+    'Faster follow-up': 'workflow_automation',
+    'Reduce repetitive work': 'workflow_automation',
+    'Connect systems / data': 'systems_integration',
+    'Improve website / local visibility': 'web_seo',
+    'Technology direction / planning': 'fractional_technology_advisory',
+    'Not sure yet': 'technology_opportunity_audit',
+  };
+  return map[priority] || 'technology_opportunity_audit';
+};
+
 async function supabaseRequest(url, key, path, options = {}) {
   const response = await fetch(`${url}/rest/v1/${path}`, {
     ...options,
@@ -35,6 +48,36 @@ async function supabaseRequest(url, key, path, options = {}) {
   }
 
   return data;
+}
+
+async function findCompany(supabaseUrl, serviceRoleKey, business, website) {
+  if (website) {
+    const rows = await supabaseRequest(
+      supabaseUrl,
+      serviceRoleKey,
+      `companies?select=id,name,website&website=eq.${encodeURIComponent(website)}&limit=1`,
+      { method: 'GET' },
+    );
+    if (rows?.[0]) return rows[0];
+  }
+
+  const rows = await supabaseRequest(
+    supabaseUrl,
+    serviceRoleKey,
+    `companies?select=id,name,website&name=eq.${encodeURIComponent(business)}&limit=1`,
+    { method: 'GET' },
+  );
+  return rows?.[0] || null;
+}
+
+async function findLead(supabaseUrl, serviceRoleKey, email) {
+  const rows = await supabaseRequest(
+    supabaseUrl,
+    serviceRoleKey,
+    `leads?select=id,company_id,name,email,status,source&email=eq.${encodeURIComponent(email)}&limit=1`,
+    { method: 'GET' },
+  );
+  return rows?.[0] || null;
 }
 
 export default async function handler(req, res) {
@@ -68,37 +111,70 @@ export default async function handler(req, res) {
   }
 
   try {
-    const companies = await supabaseRequest(supabaseUrl, serviceRoleKey, 'companies', {
-      method: 'POST',
-      body: JSON.stringify({ name: business, website }),
-    });
-    const company = companies?.[0];
-    if (!company?.id) throw new Error('Company insert did not return an id.');
+    let company = await findCompany(supabaseUrl, serviceRoleKey, business, website);
+    if (!company) {
+      const companies = await supabaseRequest(supabaseUrl, serviceRoleKey, 'companies', {
+        method: 'POST',
+        body: JSON.stringify({ name: business, website }),
+      });
+      company = companies?.[0];
+    }
+    if (!company?.id) throw new Error('Company lookup/insert did not return an id.');
 
-    const leads = await supabaseRequest(supabaseUrl, serviceRoleKey, 'leads', {
-      method: 'POST',
-      body: JSON.stringify({
-        company_id: company.id,
-        name,
-        email,
-        status: 'new',
-        source: 'website_opportunity_review',
-      }),
-    });
-    const lead = leads?.[0];
-    if (!lead?.id) throw new Error('Lead insert did not return an id.');
+    let lead = await findLead(supabaseUrl, serviceRoleKey, email);
+    if (!lead) {
+      const leads = await supabaseRequest(supabaseUrl, serviceRoleKey, 'leads', {
+        method: 'POST',
+        body: JSON.stringify({
+          company_id: company.id,
+          name,
+          email,
+          status: 'new',
+          source: 'website_opportunity_review',
+        }),
+      });
+      lead = leads?.[0];
+    }
+    if (!lead?.id) throw new Error('Lead lookup/insert did not return an id.');
+
+    const companyId = lead.company_id || company.id;
 
     const reviews = await supabaseRequest(supabaseUrl, serviceRoleKey, 'opportunity_reviews', {
       method: 'POST',
       body: JSON.stringify({
         lead_id: lead.id,
-        company_id: company.id,
+        company_id: companyId,
         priority,
         challenge,
       }),
     });
     const review = reviews?.[0];
     if (!review?.id) throw new Error('Opportunity review insert did not return an id.');
+
+    const serviceKey = serviceKeyForPriority(priority);
+
+    await supabaseRequest(supabaseUrl, serviceRoleKey, 'service_interests', {
+      method: 'POST',
+      body: JSON.stringify({
+        lead_id: lead.id,
+        opportunity_review_id: review.id,
+        service_key: serviceKey,
+      }),
+    });
+
+    await supabaseRequest(supabaseUrl, serviceRoleKey, 'lead_activities', {
+      method: 'POST',
+      body: JSON.stringify({
+        lead_id: lead.id,
+        activity_type: 'opportunity_review_submitted',
+        description: `Technology Opportunity Review submitted with priority: ${priority}`,
+        metadata: {
+          opportunity_review_id: review.id,
+          service_key: serviceKey,
+          source: 'website_opportunity_review',
+        },
+      }),
+    });
 
     return json(res, 201, {
       ok: true,
