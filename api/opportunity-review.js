@@ -8,6 +8,13 @@ const json = (res, status, body) => {
 const clean = (value, max = 5000) =>
   typeof value === 'string' ? value.trim().slice(0, max) : '';
 
+const escapeHtml = (value = '') => String(value)
+  .replaceAll('&', '&amp;')
+  .replaceAll('<', '&lt;')
+  .replaceAll('>', '&gt;')
+  .replaceAll('"', '&quot;')
+  .replaceAll("'", '&#039;');
+
 const serviceKeyForPriority = (priority) => {
   const map = {
     'More leads / better conversion': 'digital_growth',
@@ -50,6 +57,34 @@ async function supabaseRequest(url, key, path, options = {}) {
   return data;
 }
 
+async function resendEmail(apiKey, payload, idempotencyKey) {
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+      'Idempotency-Key': idempotencyKey,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const text = await response.text();
+  let data = null;
+  try {
+    data = text ? JSON.parse(text) : null;
+  } catch {
+    data = text;
+  }
+
+  if (!response.ok) {
+    const error = new Error(`Resend request failed (${response.status})`);
+    error.details = data;
+    throw error;
+  }
+
+  return data;
+}
+
 async function findCompany(supabaseUrl, serviceRoleKey, business, website) {
   if (website) {
     const rows = await supabaseRequest(
@@ -80,6 +115,88 @@ async function findLead(supabaseUrl, serviceRoleKey, email) {
   return rows?.[0] || null;
 }
 
+async function sendOpportunityNotifications({
+  resendApiKey,
+  fromEmail,
+  alertEmail,
+  replyTo,
+  reviewId,
+  name,
+  business,
+  website,
+  email,
+  priority,
+  challenge,
+  serviceKey,
+}) {
+  if (!resendApiKey) {
+    console.warn('Opportunity Review: RESEND_API_KEY is not configured; skipping notifications.');
+    return;
+  }
+
+  const safeName = escapeHtml(name);
+  const safeBusiness = escapeHtml(business);
+  const safeWebsite = escapeHtml(website || 'Not provided');
+  const safeEmail = escapeHtml(email);
+  const safePriority = escapeHtml(priority);
+  const safeChallenge = escapeHtml(challenge).replaceAll('\n', '<br>');
+  const safeServiceKey = escapeHtml(serviceKey);
+
+  const internalPayload = {
+    from: fromEmail,
+    to: [alertEmail],
+    reply_to: email,
+    subject: `New Hutchgroup opportunity: ${business}`,
+    html: `
+      <div style="font-family:Arial,sans-serif;max-width:680px;margin:auto;color:#172033;line-height:1.6">
+        <h1 style="font-size:24px;margin-bottom:8px">New Technology Opportunity Review</h1>
+        <p style="color:#667085;margin-top:0">A new opportunity just landed from hutchgroupllc.com.</p>
+        <table style="width:100%;border-collapse:collapse;margin:24px 0">
+          <tr><td style="padding:8px 0;font-weight:700">Contact</td><td>${safeName}</td></tr>
+          <tr><td style="padding:8px 0;font-weight:700">Company</td><td>${safeBusiness}</td></tr>
+          <tr><td style="padding:8px 0;font-weight:700">Email</td><td>${safeEmail}</td></tr>
+          <tr><td style="padding:8px 0;font-weight:700">Website</td><td>${safeWebsite}</td></tr>
+          <tr><td style="padding:8px 0;font-weight:700">Priority</td><td>${safePriority}</td></tr>
+          <tr><td style="padding:8px 0;font-weight:700">Service fit</td><td>${safeServiceKey}</td></tr>
+        </table>
+        <h2 style="font-size:18px">Challenge</h2>
+        <p style="background:#f5f7fa;padding:16px;border-radius:10px">${safeChallenge}</p>
+        <p style="font-size:12px;color:#98a2b3">Review ID: ${escapeHtml(reviewId)}</p>
+      </div>`,
+  };
+
+  const customerPayload = {
+    from: fromEmail,
+    to: [email],
+    reply_to: replyTo,
+    subject: 'We received your Hutchgroup Technology Opportunity Review',
+    html: `
+      <div style="font-family:Arial,sans-serif;max-width:640px;margin:auto;color:#172033;line-height:1.7">
+        <h1 style="font-size:26px">Thanks, ${safeName}.</h1>
+        <p>We received your Technology Opportunity Review for <strong>${safeBusiness}</strong>.</p>
+        <p>We’ll review the problem you described, look for the highest-value place to start, and follow up with a practical next step rather than a pile of technology for technology’s sake.</p>
+        <div style="background:#f5f7fa;padding:18px;border-radius:12px;margin:24px 0">
+          <strong>Your priority:</strong> ${safePriority}<br>
+          <strong>Your challenge:</strong><br>${safeChallenge}
+        </div>
+        <p>If you think of anything else, just reply to this email.</p>
+        <p style="margin-top:28px"><strong>Shannon<br>Hutchgroup</strong><br><span style="color:#667085">Start with the problem. Use technology where it earns its place.</span></p>
+      </div>`,
+  };
+
+  const results = await Promise.allSettled([
+    resendEmail(resendApiKey, internalPayload, `opportunity-${reviewId}-internal`),
+    resendEmail(resendApiKey, customerPayload, `opportunity-${reviewId}-customer`),
+  ]);
+
+  results.forEach((result, index) => {
+    if (result.status === 'rejected') {
+      const label = index === 0 ? 'internal alert' : 'customer confirmation';
+      console.error(`Opportunity Review ${label} failed:`, result.reason?.details || result.reason);
+    }
+  });
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -88,6 +205,10 @@ export default async function handler(req, res) {
 
   const supabaseUrl = (process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || '').replace(/\/$/, '');
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY || '';
+  const resendApiKey = process.env.RESEND_API_KEY || '';
+  const fromEmail = process.env.HUTCHGROUP_FROM_EMAIL || 'Hutchgroup <hello@hutchgroupllc.com>';
+  const alertEmail = process.env.HUTCHGROUP_ALERT_EMAIL || 'shannon@hutchgroupllc.com';
+  const replyTo = process.env.HUTCHGROUP_REPLY_TO || 'shannon@hutchgroupllc.com';
 
   if (!supabaseUrl || !serviceRoleKey) {
     console.error('Opportunity Review: missing Supabase server environment variables.');
@@ -174,6 +295,21 @@ export default async function handler(req, res) {
           source: 'website_opportunity_review',
         },
       }),
+    });
+
+    await sendOpportunityNotifications({
+      resendApiKey,
+      fromEmail,
+      alertEmail,
+      replyTo,
+      reviewId: review.id,
+      name,
+      business,
+      website,
+      email,
+      priority,
+      challenge,
+      serviceKey,
     });
 
     return json(res, 201, {
