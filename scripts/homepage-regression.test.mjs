@@ -3,6 +3,9 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 const homepage = readFileSync('index.html', 'utf8');
+const mobileStyles = homepage.match(
+  /@media\(max-width:900px\)\{([\s\S]*?)\}@media\(max-width:560px\)/,
+)?.[1];
 
 function homepageAnchors() {
   return [...homepage.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)].map((match) => ({
@@ -22,6 +25,25 @@ test('homepage retains the approved mobile menu and toggle script', () => {
   assert.match(homepage, /setAttribute\('aria-expanded',o\)/);
 });
 
+test('mobile menu controls provide full-width 44px targets and visible focus', () => {
+  assert.ok(mobileStyles, 'missing mobile navigation media query');
+  assert.match(homepage, /\.menu\{display:none;[^}]*\}/);
+  assert.match(homepage, /\.links\{display:flex;[^}]*\}/);
+  assert.match(
+    mobileStyles,
+    /\.menu\{display:block;min-width:44px;min-height:44px/,
+  );
+  assert.match(mobileStyles, /\.links li\{width:100%\}/);
+  assert.match(
+    mobileStyles,
+    /\.links a\{display:flex;align-items:center;width:100%;min-height:44px;padding:/,
+  );
+  assert.match(
+    mobileStyles,
+    /\.menu:focus-visible,\.links a:focus-visible\{outline:3px solid var\(--mint\);outline-offset:3px\}/,
+  );
+});
+
 test('homepage retains the Hutchgroup mark and full main navigation', () => {
   assert.match(homepage, /<span class="mark" aria-hidden="true">H<\/span>Hutchgroup/);
   assert.match(homepage, /<ul class="links" id="site-navigation">/);
@@ -37,9 +59,9 @@ test('homepage preserves liquid-glass styling and reduced-motion support', () =>
   assert.match(homepage, /@media\(prefers-reduced-motion:reduce\)\{html\{scroll-behavior:auto\}\*\{transition:none!important\}\}/);
 });
 
-test('homepage uses Steve’s approved hero package verbatim', () => {
+test('homepage uses Steve’s approved hero package with the final phrase kept together', () => {
   assert.match(homepage, /<span class="eyebrow">Twin Cities small-business modernization<\/span>/);
-  assert.match(homepage, /<h1>Your business has expensive problems <span>hiding in plain sight\.<\/span><\/h1>/);
+  assert.match(homepage, /<h1>Your business has expensive problems <span>hiding in plain&nbsp;sight\.<\/span><\/h1>/);
   assert.match(
     homepage,
     /<p class="lede">We uncover the workflows, systems, and digital gaps quietly costing you time, customers, and money\. Then we fix the constraint that matters most, combining business analysis with hands-on building\.<\/p>/,
@@ -51,6 +73,14 @@ test('homepage uses Steve’s approved hero package verbatim', () => {
   assert.match(
     homepage,
     /<div class="hero-proof"><div><strong>18\+ years of business analysis experience<\/strong><\/div><div><strong>Founder-led from diagnosis through delivery<\/strong><\/div><div><strong>Prep is our product proof<\/strong><\/div><\/div>/,
+  );
+});
+
+test('homepage About section uses the approved 18+ experience language consistently', () => {
+  assert.doesNotMatch(homepage, /15\+\s+years/i);
+  assert.match(
+    homepage,
+    /Hutchgroup was founded by Shannon Hutcheson, a senior business analyst and hands-on technologist with 18\+ years of business analysis experience connecting business needs to working systems\./,
   );
 });
 
