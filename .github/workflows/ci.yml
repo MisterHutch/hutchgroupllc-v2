@@ -22,5 +22,7 @@ jobs:
               run: test -f technology-opportunity-audit/index.html && test -f digital-business-systems/index.html && test -f fractional-technology-partner/index.html && test -f opportunity-review/index.html
             - name: Guard approved homepage behavior
               run: node --test scripts/homepage-regression.test.mjs
+            - name: Guard site-wide brand and conversion invariants
+              run: node --test scripts/brand-regression.test.mjs
             - name: Guard Opportunity Review behavior
               run: node --test scripts/opportunity-review-regression.test.mjs
