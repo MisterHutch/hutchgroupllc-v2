@@ -45,7 +45,7 @@ test('mobile menu controls provide full-width 44px targets and visible focus', (
 });
 
 test('homepage retains the Hutchgroup mark and full main navigation', () => {
-  assert.match(homepage, /<span class="mark" aria-hidden="true">H<\/span>Hutchgroup/);
+  assert.match(homepage, /<img class="brand-mark" src="\/brand\/hutchgroup-mark\.svg"[^>]*> <span class="brand-name">Hutchgroup<\/span>/);
   assert.match(homepage, /<ul class="links" id="site-navigation">/);
   assert.match(homepage, /href="#services">Solutions<\/a>/);
   assert.match(homepage, /href="#approach">Approach<\/a>/);
