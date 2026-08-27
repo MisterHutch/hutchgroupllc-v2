@@ -13,7 +13,7 @@ const servicePages = [
   'technology-opportunity-audit/index.html',
   'fractional-technology-partner/index.html',
 ];
-const brandedPages = ['index.html', ...servicePages];
+const brandedPages = ['index.html', 'opportunity-review/index.html', ...servicePages];
 const markReference = /src="\/brand\/hutchgroup-mark\.svg"/;
 
 function sha256(path) {
@@ -65,7 +65,7 @@ test('every customer-facing service page has a real Opportunity Review entry poi
 });
 
 test('opportunity review API remains unchanged and the form uses the current contact address', () => {
-  assert.equal(sha256('opportunity-review/index.html'), 'd7f9fdda1c6985c9b7b0569a1e362e793c770068778865d4ae603dbe8ad26c04');
+  assert.equal(sha256('opportunity-review/index.html'), '43dc2c45163bc7d181795df2c3de3e66b7f11742a56b23db12070aeb47df264a');
   assert.match(read('opportunity-review/index.html'), /shannon@hutchgroupllc\.com/);
   assert.equal(sha256('api/opportunity-review.js'), 'd8364131ca3db64699073ef5025090dc1be6de6ba7a3a76df55b205d62349915');
 });
