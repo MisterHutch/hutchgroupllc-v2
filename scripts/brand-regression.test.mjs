@@ -64,7 +64,8 @@ test('every customer-facing service page has a real Opportunity Review entry poi
   }
 });
 
-test('opportunity review form and API remain byte-for-byte unchanged', () => {
-  assert.equal(sha256('opportunity-review/index.html'), '5255fdb31fdbcf003c8ea54fff589d0cb44a7e04d15b9aa7b5a880238963fadc');
+test('opportunity review API remains unchanged and the form uses the current contact address', () => {
+  assert.equal(sha256('opportunity-review/index.html'), 'ea56bb210f620943fceb6b9894a18a7761dab9894e62620b87bd3169b97a15fc');
+  assert.match(read('opportunity-review/index.html'), /shannon@hutchgroupllc\.com/);
   assert.equal(sha256('api/opportunity-review.js'), '557c69b6e823cccef48653ceba844c711cde0651b8eb94a31f5b797137f89f01');
 });
