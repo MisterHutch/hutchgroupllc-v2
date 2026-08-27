@@ -59,6 +59,11 @@ test('homepage preserves liquid-glass styling and reduced-motion support', () =>
   assert.match(homepage, /@media\(prefers-reduced-motion:reduce\)\{html\{scroll-behavior:auto\}\*\{transition:none!important\}\}/);
 });
 
+test('homepage opens with the approved HutchGroup hero card', () => {
+  assert.match(homepage, /<section class="hero hero-image">[\s\S]*<div class="hero-card">[\s\S]*<img src="\/brand\/hutchgroup-hero\.png"/);
+  assert.match(homepage, /class="hero-card"[\s\S]*alt="Find the friction\. Fix the constraint\./);
+});
+
 test('homepage uses Steve’s approved hero package with the final phrase kept together', () => {
   assert.match(homepage, /<span class="eyebrow">Twin Cities small-business modernization<\/span>/);
   assert.match(homepage, /<h1>Your business has expensive problems <span>hiding in plain&nbsp;sight\.<\/span><\/h1>/);
