@@ -61,8 +61,8 @@ test('homepage preserves liquid-glass styling and reduced-motion support', () =>
 
 test('homepage opens with the approved HutchGroup hero card', () => {
   assert.match(homepage, /<section class="hero hero-image">[\s\S]*<div class="hero-card">[\s\S]*<img src="\/brand\/hutchgroup-hero\.png"/);
-  assert.match(homepage, /class="hero-card"[\s\S]*alt="Find the friction\. Fix the constraint\./);
-  assert.match(homepage, /class="hero-mobile-copy"[\s\S]*Find the friction\.[\s\S]*Fix the constraint\.[\s\S]*Business analysis and hands-on technology/);
+  assert.match(homepage, /class="hero-card"[\s\S]*<img src="\/brand\/hutchgroup-hero\.png" alt="">/);
+  assert.match(homepage, /class="hero-mobile-copy" aria-hidden="true"[\s\S]*Find the friction\.[\s\S]*Fix the constraint\.[\s\S]*Business analysis and hands-on technology/);
 });
 
 test('homepage uses Steve’s approved hero package with the final phrase kept together', () => {
