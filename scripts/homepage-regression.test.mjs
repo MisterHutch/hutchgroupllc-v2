@@ -82,6 +82,14 @@ test('homepage uses Steve’s approved hero package with the final phrase kept t
   );
 });
 
+test('homepage includes the public Agent Operations Window', () => {
+  assert.match(homepage, /<section class="agent-window" id="agent-operations" aria-label="Agent Operations Window">/);
+  assert.match(homepage, /Hermes team \/ Grok team/);
+  assert.match(homepage, /class="agent-row"/);
+  assert.match(homepage, /aria-label="Agent Operations Window"/);
+  assert.match(homepage, /data-activity/);
+});
+
 test('homepage About section uses the approved 18+ experience language consistently', () => {
   assert.doesNotMatch(homepage, /15\+\s+years/i);
   assert.match(

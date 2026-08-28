@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 const read = (path) => readFileSync(path, 'utf8');
+const vercelConfig = JSON.parse(read('vercel.json'));
 const homepage = read('index.html');
 const servicePages = [
   'web-design/index.html',
@@ -35,6 +36,15 @@ test('canonical HutchGroup brand assets are present and referenced site-wide', (
     assert.match(html, /<footer[\s\S]*?<\/footer>/, `${page} must retain a footer`);
   }
   assert.match(read('404.html'), markReference, '404 must use the canonical mark');
+});
+
+test('stale restaurant offer redirects to the current Opportunity Review intake', () => {
+  const redirect = vercelConfig.redirects.find((item) => item.source === '/blog/ai-agent-for-restaurants');
+  assert.deepEqual(redirect, {
+    source: '/blog/ai-agent-for-restaurants',
+    destination: '/opportunity-review/',
+    permanent: true,
+  });
 });
 
 test('homepage preserves approved marketing scope and conversion language', () => {
