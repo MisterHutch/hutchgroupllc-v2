@@ -39,9 +39,9 @@ test('canonical HutchGroup brand assets are present and referenced site-wide', (
 });
 
 test('stale restaurant offer redirects to the current Opportunity Review intake', () => {
-  const redirect = vercelConfig.redirects.find((item) => item.source === '/blog/ai-agent-for-restaurants');
+  const redirect = vercelConfig.redirects.find((item) => item.destination === '/opportunity-review/' && item.source.startsWith('/blog/ai-agent-for-restaurants/'));
   assert.deepEqual(redirect, {
-    source: '/blog/ai-agent-for-restaurants',
+    source: '/blog/ai-agent-for-restaurants/:rest*',
     destination: '/opportunity-review/',
     permanent: true,
   });

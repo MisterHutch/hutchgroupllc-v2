@@ -3,7 +3,7 @@
   "trailingSlash": true,
   "redirects": [
     {
-      "source": "/blog/ai-agent-for-restaurants",
+      "source": "/blog/ai-agent-for-restaurants/:rest*",
       "destination": "/opportunity-review/",
       "permanent": true
     },
