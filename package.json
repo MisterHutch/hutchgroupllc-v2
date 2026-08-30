@@ -1,0 +1,24 @@
+{
+  "name": "hutchgroupllc-v2",
+  "version": "1.0.0",
+  "description": "This is a lightweight static site deployment intended for Vercel.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MisterHutch/hutchgroupllc-v2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MisterHutch/hutchgroupllc-v2/issues"
+  },
+  "homepage": "https://github.com/MisterHutch/hutchgroupllc-v2#readme",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}

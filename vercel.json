@@ -3,6 +3,11 @@
   "trailingSlash": true,
   "redirects": [
     {
+      "source": "/blog/ai-agent-for-restaurants/:rest*",
+      "destination": "/opportunity-review/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.hutchgroupllc.com" }],
       "destination": "https://hutchgroupllc.com/:path*",
