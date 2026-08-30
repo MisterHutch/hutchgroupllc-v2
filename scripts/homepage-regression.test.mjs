@@ -82,6 +82,10 @@ test('homepage uses Steve’s approved hero package with the final phrase kept t
   );
 });
 
+test('homepage includes Vercel Speed Insights for production performance telemetry', () => {
+  assert.match(homepage, /<script defer src="https:\/\/va\.vercel-scripts\.com\/v1\/speed-insights\/script\.js"><\/script>/);
+});
+
 test('homepage includes the public Agent Operations Window', () => {
   assert.match(homepage, /<section class="agent-window" id="agent-operations" aria-label="Agent Operations Window">/);
   assert.match(homepage, /Hermes team \/ Grok team/);
@@ -119,8 +123,10 @@ test('homepage hero CTAs use the approved labels and exact destinations', () => 
 
 test('homepage retains the Prep product proof section and link', () => {
   assert.match(homepage, /<section class="proof-product" id="work">/);
-  assert.match(homepage, /Prep is an interview command center/);
-  assert.match(homepage, /Product proof · AI workflow design/);
+  assert.match(homepage, /Prep<\/h3>/);
+  assert.match(homepage, /href="https:\/\/prep\.hutchgroupllc\.com"/);
+  assert.match(homepage, /My Window Sticker/);
+  assert.match(homepage, /Sports Card Identifier/);
 
   const prepLink = homepageAnchors().find(({ text }) => text === 'See Prep in action');
   assert.ok(prepLink, 'missing link to the Prep product proof');
