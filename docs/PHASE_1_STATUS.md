@@ -9,7 +9,7 @@ Updated October 12, 2026. The Phase 1 website release is live; measurement basel
 - Public homepage readback found the Ops demo link, prominent `hutch@hutchgroupllc.com` contact, Google Business Profile link, and no Prep mention. `https://ops.hutchgroupllc.com/` returned 200.
 - Resend domain is verified per owner. Two isolated deployment submissions returned HTTP 201, saved reviews and notification activity, and accepted both internal and customer emails. The owner confirmed receipt of all four messages. The second submission persisted allowlisted source, medium, campaign, content, entry path, and pain-point attribution; the first intentionally used non-allowlisted UTM values, which were dropped as designed.
 - Public `/assets/analytics.js` returned 200 and contains GA4 `G-F3N1ZTF9JS` and Vercel Web Analytics loaders. Prior live runtime check confirmed GA4 initialization and a Google collection request. Dashboard aggregation is still unverified.
-- Local automated tests (five files), SEO validation, and diff whitespace checks passed before deployment. Deployment exclusions keep internal docs and evidence off public URLs.
+- Local automated tests (five files), SEO validation, and diff whitespace checks passed before deployment. Deployment exclusions keep internal docs and evidence off public URLs. Source PR #12 and documentation PR #11 both pass GitHub CI.
 
 ## Next execution steps
 
@@ -27,7 +27,7 @@ Updated October 12, 2026. The Phase 1 website release is live; measurement basel
 
 ## Pending evidence
 
-Search Console baseline and GA4/Vercel dashboard readback are pending. Candidate submission, persisted attribution, provider acceptance, owner-confirmed inbox receipt, and production homepage release are verified. The chronological notes below record earlier states and are superseded by this current snapshot.
+Search Console baseline and GA4/Vercel dashboard readback are pending. A scoped Vercel Web Analytics aggregate API query on October 12 returned `404 Web Analytics not found`; this does not establish dashboard reporting or a zero-traffic result. Candidate submission, persisted attribution, provider acceptance, owner-confirmed inbox receipt, and production homepage release are verified. The chronological notes below record earlier states and are superseded by this current snapshot.
 
 ## October 12 continuation: contact, live intake, and release gate
 
