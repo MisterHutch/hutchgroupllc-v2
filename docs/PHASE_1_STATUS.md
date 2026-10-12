@@ -70,3 +70,7 @@ Vercel domain API readback showed `boughtAt: null`, confirming the domain was no
 ## Resend domain pending
 
 Owner reports `hutchgroupllc.com` is added in Resend with status `Pending`, and Resend says it may take a few hours. A fresh read-only Vercel DNS record listing still showed no Resend-specific DKIM/SPF/MX record names. This means DNS record creation is not yet verified; do not assume time alone will resolve it. Asked owner whether Resend automatic DNS setup was used or to provide the exact public DNS rows so they can be added without disturbing HEY mail records. No additional live email test was sent.
+
+## Resend auto-configuration propagated; provider still Pending
+
+Owner clicked Resend auto configure. Fresh Vercel DNS readback showed `resend._domainkey` TXT, `send` TXT, and `send` MX added (TTL 3600). Google public DNS-over-HTTPS returned successful answers for all three names/types. The apex MX remains `10 work-mx.app.hey.com.`, preserving HEY inbound delivery. Owner reports Resend domain status is still `Pending`; no further email test was sent because provider verification has not completed. Keep Resend Receiving disabled for this domain; the `send` MX is the outbound return-path record, not a replacement for HEY inbound MX.
