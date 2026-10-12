@@ -8,7 +8,7 @@ Visitor journey: search or referral → useful resource → relevant industry pa
 
 ## Current position
 
-Google Analytics (G-F3N1ZTF9JS), Vercel Analytics, and the verified Google Business Profile link are live. The Ops homepage redesign remains in preview. Google profile: https://maps.app.goo.gl/Y84K6aq1KBcEvKSJA. Contact address: hutch@hutchgroupllc.com, explicitly confirmed by the owner on October 12. Make this address prominent throughout contact areas.
+Google Analytics (G-F3N1ZTF9JS), Vercel Analytics, and the verified Google Business Profile link are live. The Ops homepage redesign is live in production. See `docs/PHASE_1_STATUS.md` for the current release evidence and remaining measurement and source-integration work. Google profile: https://maps.app.goo.gl/Y84K6aq1KBcEvKSJA. Contact address: hutch@hutchgroupllc.com, explicitly confirmed by the owner on October 12. Make this address prominent throughout contact areas.
 
 ## 1 Build the resource library
 
@@ -73,7 +73,7 @@ Use the available historical search data and new GA4 collection to establish a b
 
 ## Owner inputs and implementation responsibilities
 
-Owner inputs: Search Console access, approved founder photo/background, and publishable customer evidence. The owner confirmed access to hutch@hutchgroupllc.com for the controlled test and requested that address throughout contact areas. Search Console access remains to be confirmed.
+Owner inputs: Search Console access, approved founder photo/background, and publishable customer evidence. The owner confirmed access to hutch@hutchgroupllc.com for the controlled test and requested that address throughout contact areas. The owner confirmed the Search Console property is verified; its three-month Web baseline export remains pending.
 
 Implementation can proceed on templates, drafts, calculator, Ops walkthrough, and release preparation independently of customer evidence. Verify production target before mutations; preserve the staged site work and unrelated branches.
 
