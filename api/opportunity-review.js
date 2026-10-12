@@ -1,3 +1,5 @@
+import { sanitizeAttribution } from '../assets/journey.js';
+
 const json = (res, status, body) => {
   res.statusCode = status;
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -30,6 +32,7 @@ const serviceKeyForPriority = (priority) => {
 
 async function supabaseRequest(url, key, path, options = {}) {
   const response = await fetch(`${url}/rest/v1/${path}`, {
+    signal: AbortSignal.timeout(8000),
     ...options,
     headers: {
       apikey: key,
@@ -59,6 +62,7 @@ async function supabaseRequest(url, key, path, options = {}) {
 
 async function resendEmail(apiKey, payload, idempotencyKey) {
   const response = await fetch('https://api.resend.com/emails', {
+    signal: AbortSignal.timeout(5000),
     method: 'POST',
     headers: {
       Authorization: `Bearer ${apiKey}`,
@@ -131,7 +135,7 @@ async function sendOpportunityNotifications({
 }) {
   if (!resendApiKey) {
     console.warn('Opportunity Review: RESEND_API_KEY is not configured; skipping notifications.');
-    return;
+    return { internal: 'not_configured', customer: 'not_configured' };
   }
 
   const safeName = escapeHtml(name);
@@ -169,12 +173,12 @@ async function sendOpportunityNotifications({
     from: fromEmail,
     to: [email],
     reply_to: replyTo,
-    subject: 'We received your Hutchgroup Technology Opportunity Review',
+    subject: 'Your free 15-minute Hutchgroup review request',
     html: `
       <div style="font-family:Arial,sans-serif;max-width:640px;margin:auto;color:#172033;line-height:1.7">
         <h1 style="font-size:26px">Thanks, ${safeName}.</h1>
         <p>We received your Technology Opportunity Review for <strong>${safeBusiness}</strong>.</p>
-        <p>We’ll review the problem you described, look for the highest-value place to start, and follow up with a practical next step rather than a pile of technology for technology’s sake.</p>
+        <p>Shannon will review your request and contact you by email to arrange a free 15-minute conversation. This is a request, not a booked appointment. Any paid audit or implementation is scoped and priced separately.</p>
         <div style="background:#f5f7fa;padding:18px;border-radius:12px;margin:24px 0">
           <strong>Your priority:</strong> ${safePriority}<br>
           <strong>Your challenge:</strong><br>${safeChallenge}
@@ -192,9 +196,13 @@ async function sendOpportunityNotifications({
   results.forEach((result, index) => {
     if (result.status === 'rejected') {
       const label = index === 0 ? 'internal alert' : 'customer confirmation';
-      console.error(`Opportunity Review ${label} failed:`, result.reason?.details || result.reason);
+      console.error(`Opportunity Review ${label} failed for review ${reviewId}.`);
     }
   });
+  return {
+    internal: results[0].status === 'fulfilled' ? 'accepted' : 'failed',
+    customer: results[1].status === 'fulfilled' ? 'accepted' : 'failed',
+  };
 }
 
 export default async function handler(req, res) {
@@ -206,9 +214,9 @@ export default async function handler(req, res) {
   const supabaseUrl = (process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || '').replace(/\/$/, '');
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY || '';
   const resendApiKey = process.env.RESEND_API_KEY || '';
-  const fromEmail = process.env.HUTCHGROUP_FROM_EMAIL || 'Hutchgroup <hello@hutchgroupllc.com>';
-  const alertEmail = process.env.HUTCHGROUP_ALERT_EMAIL || 'shannon@hutchgroupllc.com';
-  const replyTo = process.env.HUTCHGROUP_REPLY_TO || 'shannon@hutchgroupllc.com';
+  const fromEmail = process.env.HUTCHGROUP_FROM_EMAIL || 'Hutchgroup <hutch@hutchgroupllc.com>';
+  const alertEmail = process.env.HUTCHGROUP_ALERT_EMAIL || 'hutch@hutchgroupllc.com';
+  const replyTo = process.env.HUTCHGROUP_REPLY_TO || 'hutch@hutchgroupllc.com';
 
   if (!supabaseUrl || !serviceRoleKey) {
     console.error('Opportunity Review: missing Supabase server environment variables.');
@@ -220,15 +228,26 @@ export default async function handler(req, res) {
   const business = clean(body.business, 200);
   const website = clean(body.website, 500) || null;
   const email = clean(body.email, 320).toLowerCase();
-  const priority = clean(body.priority, 160) || 'Not sure yet';
-  const challenge = clean(body.challenge, 5000);
+  const priorities = ['More leads / better conversion', 'Faster follow-up', 'Reduce repetitive work',
+    'Connect systems / data', 'Improve website / local visibility', 'Technology direction / planning', 'Not sure yet'];
+  const priority = priorities.includes(body.priority) ? body.priority : 'Not sure yet';
+  const challenge = clean(body.challenge, 5000) || 'No additional context provided; discuss during the review.';
+  const attribution = sanitizeAttribution(body.attribution);
 
-  if (!name || !business || !email || !challenge) {
-    return json(res, 400, { ok: false, error: 'Name, business, email, and challenge are required.' });
+  if (!name || !business || !email) {
+    return json(res, 400, { ok: false, error: 'Name, business, and email are required.' });
   }
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return json(res, 400, { ok: false, error: 'Please enter a valid email address.' });
+  }
+
+  if (website) {
+    try {
+      if (!['https:', 'http:'].includes(new URL(website).protocol)) throw new Error('Invalid protocol');
+    } catch {
+      return json(res, 400, { ok: false, error: 'Please enter a website starting with https:// or http://.' });
+    }
   }
 
   try {
@@ -274,16 +293,15 @@ export default async function handler(req, res) {
 
     const serviceKey = serviceKeyForPriority(priority);
 
-    await supabaseRequest(supabaseUrl, serviceRoleKey, 'service_interests', {
+    // Once the review exists, auxiliary failures must not ask the visitor to submit again.
+    const followUpWrites = await Promise.allSettled([supabaseRequest(supabaseUrl, serviceRoleKey, 'service_interests', {
       method: 'POST',
       body: JSON.stringify({
         lead_id: lead.id,
         opportunity_review_id: review.id,
         service_key: serviceKey,
       }),
-    });
-
-    await supabaseRequest(supabaseUrl, serviceRoleKey, 'lead_activities', {
+    }), supabaseRequest(supabaseUrl, serviceRoleKey, 'lead_activities', {
       method: 'POST',
       body: JSON.stringify({
         lead_id: lead.id,
@@ -293,11 +311,15 @@ export default async function handler(req, res) {
           opportunity_review_id: review.id,
           service_key: serviceKey,
           source: 'website_opportunity_review',
+          attribution,
         },
       }),
+    })]);
+    followUpWrites.forEach((result, index) => {
+      if (result.status === 'rejected') console.error(`Opportunity Review auxiliary write ${index} failed for review ${review.id}.`);
     });
 
-    await sendOpportunityNotifications({
+    const notifications = await sendOpportunityNotifications({
       resendApiKey,
       fromEmail,
       alertEmail,
@@ -312,13 +334,28 @@ export default async function handler(req, res) {
       serviceKey,
     });
 
+    try {
+      await supabaseRequest(supabaseUrl, serviceRoleKey, 'lead_activities', {
+        method: 'POST',
+        body: JSON.stringify({
+          lead_id: lead.id,
+          activity_type: 'opportunity_review_notifications',
+          description: 'Notification provider acceptance for a saved review; not proof of inbox delivery.',
+          metadata: { opportunity_review_id: review.id, ...notifications },
+        }),
+      });
+    } catch {
+      console.error(`Opportunity Review notification status write failed for review ${review.id}.`);
+    }
+
     return json(res, 201, {
       ok: true,
       message: 'Your Technology Opportunity Review request has been received.',
       reviewId: review.id,
+      notifications,
     });
   } catch (error) {
-    console.error('Opportunity Review submission failed:', error?.details || error);
+    console.error('Opportunity Review submission failed before confirmation.');
     return json(res, 500, {
       ok: false,
       error: 'We could not save your request. Please try again or email Hutchgroup directly.',

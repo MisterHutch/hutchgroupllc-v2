@@ -1,0 +1,11 @@
+{
+  "name": "hutchgroup-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test scripts/*.test.mjs",
+    "check:seo": "node scripts/validate-seo.mjs",
+    "dev": "node scripts/dev-server.mjs"
+  }
+}

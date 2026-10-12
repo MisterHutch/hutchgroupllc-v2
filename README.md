@@ -1,34 +1,25 @@
-# HutchGroup LLC — Website (v2.0)
+# HutchGroup LLC website
 
-This is a lightweight static site deployment intended for Vercel.
+Static HTML/CSS/JavaScript with a Vercel intake API using Supabase and Resend.
 
-## Files
-- `hutchgroup_production_website.html` — the site (served at `/`)
-- `vercel.json` — Vercel routing + security headers
+## Customer journey delivery
 
-## Deploy to Vercel
-- Import this folder into Vercel as a new project.
-- Framework preset: **Other** (static)
-- Build command: **None**
-- Output directory: **.**
+[Delivery index](docs/README.md) · [Backlog](CUSTOMER_ACQUISITION_BACKLOG.md) · [Validation](docs/UAT_RESULTS.md) · [Release readiness](docs/RELEASE_READINESS.md)
 
-## Domain (hutchgroupllc.com)
-In Vercel: **Project → Settings → Domains**
+The growth branch starts from verified production, not default main. See release readiness before merging or deploying. Local tests do not establish live intake health.
 
-- Add `hutchgroupllc.com` and set it as **Primary**.
-- Optional: add `www.hutchgroupllc.com` and set it to **Redirect to primary**.
+## Local preview and checks
 
-DNS (at your domain registrar):
+Use Node with built-in fetch support. No npm dependencies are needed.
 
-- **Apex** (`hutchgroupllc.com`): set an **A record** to Vercel’s apex IP (Vercel UI will show the current value to use).
-- **www** (`www.hutchgroupllc.com`): set a **CNAME** to Vercel’s target (typically `cname.vercel-dns.com`).
+```sh
+node scripts/dev-server.mjs --fixtures
+npm test
+npm run check:seo
+```
 
-Notes:
-- If your registrar supports **ANAME/ALIAS** at the apex, you can use the Vercel value shown in the Domains UI.
-- After DNS changes, expect propagation time; Vercel will show verification status per domain.
+Preview: http://127.0.0.1:4173. The fixture server uses the actual API handler with synthetic storage/email responses; it does not create real leads or send mail. Without `--fixtures`, the local API is disabled. Set `AGENT_BROWSER_BIN` to an installed agent-browser executable to run `node scripts/browser-check.mjs`.
 
-## Local preview
-Open `hutchgroup_production_website.html` directly in a browser.
+## Deployment
 
-## Release
-- v2.0: branding/meta polish, reduced-motion safety, and hardened deploy config.
+Existing Vercel project uses static output `.` and the `api/` function. Keep production credentials in the project's environment, never in this repository. `.vercelignore` excludes internal docs, evidence, fixtures and tests. Follow the linked release checklist for preview, live persistence/email verification, domain smoke testing and rollback.
