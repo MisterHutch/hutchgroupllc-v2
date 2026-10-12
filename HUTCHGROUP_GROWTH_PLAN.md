@@ -1,5 +1,7 @@
 # Hutchgroup Growth Website: SEO and Delivery Plan
 
+> Historical planning reference. For current priorities, routes, release state, and next steps, use [`docs/GROWTH_IMPLEMENTATION_PLAN.md`](docs/GROWTH_IMPLEMENTATION_PLAN.md) and [`docs/PHASE_1_STATUS.md`](docs/PHASE_1_STATUS.md). The roofing and HVAC entry points in the current plan supersede the home-services and automotive suggestions below.
+
 ## Direction
 
 Hutchgroup is the revenue-producing service business. It helps Minneapolis–St. Paul small businesses become easier to find, easier to choose, and easier to run through web design, local SEO, lead automation, and practical AI. Prep remains a separate Hutchgroup-built product with its own audience and conversion path.
