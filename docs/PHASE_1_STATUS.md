@@ -15,11 +15,11 @@ Updated October 12, 2026. The Phase 1 website release is live; measurement basel
 
 1. Export the verified Search Console property's last three months of Web clicks, impressions, CTR, position, and top queries/pages; record the Phase 1 baseline and prioritize content from actual demand.
 2. Confirm GA4 and Vercel Analytics dashboard events after normal processing time; script presence and collector acceptance do not prove dashboard reporting.
-3. Integrate the staged growth source into the repository's mainline through a reviewable GitHub change. The live release currently came from the local staged checkout, so source integration remains important for future maintenance. Preserve synthetic review records for audit and keep customer data out of GitHub.
+3. Review and merge [source PR #12](https://github.com/MisterHutch/hutchgroupllc-v2/pull/12) to integrate the released growth source into mainline. The live release came from the local staged checkout; PR #12 is open and its source tree passed local tests and SEO checks, but it has not been merged. Preserve synthetic review records for audit and keep customer data out of GitHub.
 
 ## Workspaces and deployment boundaries
 
-- Live release source: `/home/hutch/Projects/hutchgroupllc-v2`, branch `growth/customer-journey-2026-09-29`, staged locally with additional working-tree edits.
+- Live release source: `/home/hutch/Projects/hutchgroupllc-v2`, branch `growth/customer-journey-2026-09-29`, staged locally with additional working-tree edits. A separate integration worktree at `/home/hutch/Work/hutchgroup-phase1-integration` produced source PR #12 without changing that staged index.
 - Current production deployment: `dpl_Hxjuz16XPw1cJK1xcMnE3oQWGjVy`, `https://hutchgroupllc.com/`.
 - Earlier production source checkout: `/home/hutch/Work/vercel-analytics-2026-09-30/site`, branch `analytics/visitor-behavior-2026-09-30`.
 - The documentation branch is docs/growth-plan-2026-10-12, based on main; do not deploy that branch as the website.
