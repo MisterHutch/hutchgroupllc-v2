@@ -14,5 +14,6 @@
 .contact-email a{font-weight:800;color:#0a493f;text-decoration-thickness:2px;text-underline-offset:3px;overflow-wrap:anywhere}.social{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:.25rem 1rem}.social a{margin-left:0;overflow-wrap:anywhere}@media(max-width:900px){.social{justify-content:flex-start}}
 
 /* The Minneapolis silhouette spans the homepage opening section behind its content. */
-.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:url('/assets/minneapolis-skyline.svg') center bottom/cover no-repeat;opacity:.14;-webkit-mask-image:linear-gradient(to bottom,transparent 3%,#000 38%,#000 86%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 3%,#000 38%,#000 86%,transparent 100%)}
-@media(max-width:560px){.hero::before{opacity:.11;background-position:54% bottom}}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:url('/assets/minneapolis-skyline.svg') center 65%/min(100%,1100px) auto no-repeat;opacity:.14;-webkit-mask-image:linear-gradient(to bottom,transparent 3%,#000 38%,#000 86%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 3%,#000 38%,#000 86%,transparent 100%)}
+.growth-map{background:linear-gradient(150deg,rgba(23,45,64,.78),rgba(16,30,49,.84))}
+@media(max-width:560px){.hero::before{opacity:.16;background-position:center 40%}}
