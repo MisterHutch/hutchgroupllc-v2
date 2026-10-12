@@ -1,35 +1,33 @@
 # Hutchgroup website Phase 1 status
 
-Updated October 12, 2026. Phase 1 started; not complete.
+Updated October 12, 2026. The Phase 1 website release is live; measurement baseline and source integration remain open.
 
 ## Completed
 
-- Saved the six-week implementation plan locally; publishing to the same GitHub repository and Honcho in this session.
-- Confirmed the intake database is reachable through a read-only query.
-- Inspected companies, leads, opportunity_reviews, and lead_activities columns and relevant constraints. lead_activities.activity_type is text with no CHECK constraint restricting the new notification event.
-- Owner confirmed hutch@hutchgroupllc.com as the test inbox and requested it be highlighted in contact areas.
-- Prior live verification in this session confirmed GA4 initializes, a Google collection request is issued, Vercel tracking remains installed, and the correct Business Profile is linked. Dashboard aggregation has not been verified.
+- Saved the six-week growth plan to GitHub PR #11 (`docs/growth-plan-2026-10-12`) and Honcho.
+- Promoted tested deployment `dpl_Hxjuz16XPw1cJK1xcMnE3oQWGjVy` to `https://hutchgroupllc.com/`. Vercel inspection resolved the public domain to that READY production deployment, and public HTTP returned 200 for the homepage and review route.
+- Public homepage readback found the Ops demo link, prominent `hutch@hutchgroupllc.com` contact, Google Business Profile link, and no Prep mention. `https://ops.hutchgroupllc.com/` returned 200.
+- Resend domain is verified per owner. Two isolated deployment submissions returned HTTP 201, saved reviews and notification activity, and accepted both internal and customer emails. The owner confirmed receipt of all four messages. The second submission persisted allowlisted source, medium, campaign, content, entry path, and pain-point attribution; the first intentionally used non-allowlisted UTM values, which were dropped as designed.
+- Public `/assets/analytics.js` returned 200 and contains GA4 `G-F3N1ZTF9JS` and Vercel Web Analytics loaders. Prior live runtime check confirmed GA4 initialization and a Google collection request. Dashboard aggregation is still unverified.
+- Local automated tests (five files), SEO validation, and diff whitespace checks passed before deployment. Deployment exclusions keep internal docs and evidence off public URLs.
 
 ## Next execution steps
 
-1. Replace public shannon@ contact addresses with hutch@hutchgroupllc.com in the candidate and production checkout, including relevant structured data, contact copy, and notification defaults. Inspect configured server recipients before assuming defaults control delivery. Keep customer test data out of GitHub.
-2. Verify Search Console property access and record available baseline periods; no connected Search Console tool or authenticated Google management browser is currently available. User response pending.
-3. Use the owner-approved inbox for one clearly labeled synthetic inquiry through the candidate preview. Inspect persistence, attribution, notification status, and follow-up ownership. Confirm actual inbox receipt with the owner separately from provider acceptance. Preserve the test record unless cleanup is explicitly agreed.
-4. Reconcile the homepage candidate with current production analytics/profile additions, rerun relevant checks, and complete the release decision with concrete evidence.
-5. After release, verify public routes, analytics, Ops link, footer contact, and privacy of deployment exclusions. Record actual deployment and evidence.
+1. Export the verified Search Console property's last three months of Web clicks, impressions, CTR, position, and top queries/pages; record the Phase 1 baseline and prioritize content from actual demand.
+2. Confirm GA4 and Vercel Analytics dashboard events after normal processing time; script presence and collector acceptance do not prove dashboard reporting.
+3. Integrate the staged growth source into the repository's mainline through a reviewable GitHub change. The live release currently came from the local staged checkout, so source integration remains important for future maintenance. Preserve synthetic review records for audit and keep customer data out of GitHub.
 
 ## Workspaces and deployment boundaries
 
-- Staged homepage: /home/hutch/Projects/hutchgroupllc-v2, branch growth/customer-journey-2026-09-29.
-- Existing production source: /home/hutch/Work/vercel-analytics-2026-09-30/site, branch analytics/visitor-behavior-2026-09-30, with local Google tag/profile additions.
-- Latest production at handoff: dpl_DAG4jbUVcGmetnxb7oGxUDs9GDJ5, https://hutchgroupllc.com/.
-- Latest redesign preview: https://hutchgroupllc-h9epr59na-greedy-geckozs-projects.vercel.app, dpl_GFfkUFCTv72FMX3U73TtFaxfRnLM.
+- Live release source: `/home/hutch/Projects/hutchgroupllc-v2`, branch `growth/customer-journey-2026-09-29`, staged locally with additional working-tree edits.
+- Current production deployment: `dpl_Hxjuz16XPw1cJK1xcMnE3oQWGjVy`, `https://hutchgroupllc.com/`.
+- Earlier production source checkout: `/home/hutch/Work/vercel-analytics-2026-09-30/site`, branch `analytics/visitor-behavior-2026-09-30`.
 - The documentation branch is docs/growth-plan-2026-10-12, based on main; do not deploy that branch as the website.
 - GitHub CLI has no configured authentication; connected GitHub tools can read and write this repo. Local Git author identity is unset. Do not invent an author or discard the staged index.
 
 ## Pending evidence
 
-Search Console baseline, GA4 dashboard readback, live candidate submission, persisted attribution, provider acceptance, inbox delivery, and homepage production release remain unverified. Do not mark these complete based on local fixture tests.
+Search Console baseline and GA4/Vercel dashboard readback are pending. Candidate submission, persisted attribution, provider acceptance, owner-confirmed inbox receipt, and production homepage release are verified. The chronological notes below record earlier states and are superseded by this current snapshot.
 
 ## October 12 continuation: contact, live intake, and release gate
 
