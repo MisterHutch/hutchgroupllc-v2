@@ -1,33 +1,30 @@
 # Hutchgroup website Phase 1 status
 
-Updated October 12, 2026. The Phase 1 website release is live; measurement baseline and source integration remain open.
+Updated October 12, 2026. The Phase 1 website release and source integration are complete. Search Console baseline and analytics dashboard reporting remain open.
 
 ## Completed
 
-- Saved the six-week growth plan to GitHub PR #11 (`docs/growth-plan-2026-10-12`) and Honcho.
-- Promoted tested deployment `dpl_Hxjuz16XPw1cJK1xcMnE3oQWGjVy` to `https://hutchgroupllc.com/`. Vercel inspection resolved the public domain to that READY production deployment, and public HTTP returned 200 for the homepage and review route.
-- Public homepage readback found the Ops demo link, prominent `hutch@hutchgroupllc.com` contact, Google Business Profile link, and no Prep mention. `https://ops.hutchgroupllc.com/` returned 200.
-- Resend domain is verified per owner. Two isolated deployment submissions returned HTTP 201, saved reviews and notification activity, and accepted both internal and customer emails. The owner confirmed receipt of all four messages. The second submission persisted allowlisted source, medium, campaign, content, entry path, and pain-point attribution; the first intentionally used non-allowlisted UTM values, which were dropped as designed.
-- Public `/assets/analytics.js` returned 200 and contains GA4 `G-F3N1ZTF9JS` and Vercel Web Analytics loaders. Prior live runtime check confirmed GA4 initialization and a Google collection request. Dashboard aggregation is still unverified.
-- Local automated tests (five files), SEO validation, and diff whitespace checks passed before deployment. Deployment exclusions keep internal docs and evidence off public URLs. Source PR #12 and documentation PR #11 both pass GitHub CI.
+- The six-week growth plan and handoff were merged through [PR #11](https://github.com/MisterHutch/hutchgroupllc-v2/pull/11); the released website source was merged through [PR #12](https://github.com/MisterHutch/hutchgroupllc-v2/pull/12). Both passed GitHub CI. The source PR's GitHub tree matched the locally tested integration tree.
+- Production `https://hutchgroupllc.com/` resolves to READY deployment `dpl_J4k8YWowjoA9AQbbsZ3s3gATknDK` after both merges. Public HTTP returned 200 for the homepage and Opportunity Review, 200 for `/assets/analytics.js`, and 404 for the internal `/docs/PHASE_1_STATUS.md` path. Homepage readback found the Ops demo, prominent `hutch@hutchgroupllc.com`, and the Google Business Profile link, with no Prep destination.
+- Resend domain is verified per owner. Two isolated production-target submissions returned HTTP 201, saved reviews and notification activity, and accepted both internal and customer emails. The owner confirmed receipt of all four messages. The second submission persisted allowlisted source, medium, campaign, content, entry path, and pain-point attribution.
+- Local automated tests (five files), SEO validation, and diff whitespace checks passed in the integration worktree. The public analytics loader includes GA4 `G-F3N1ZTF9JS` and Vercel Web Analytics. A prior live runtime check saw GA4 initialization and a Google collection request.
 
 ## Next execution steps
 
-1. Export the verified Search Console property's last three months of Web clicks, impressions, CTR, position, and top queries/pages; record the Phase 1 baseline and prioritize content from actual demand.
-2. Confirm GA4 and Vercel Analytics dashboard events after normal processing time; script presence and collector acceptance do not prove dashboard reporting.
-3. Review and merge [source PR #12](https://github.com/MisterHutch/hutchgroupllc-v2/pull/12) to integrate the released growth source into mainline. The live release came from the local staged checkout; PR #12 is open and its source tree passed local tests and SEO checks, but it has not been merged. Preserve synthetic review records for audit and keep customer data out of GitHub.
+1. Export the verified Search Console property's last three months of Web clicks, impressions, CTR, position, and top queries/pages. Record the Phase 1 baseline and use actual query/page demand to prioritize resource and industry content.
+2. Confirm GA4 and Vercel Analytics dashboard events. A scoped Vercel Web Analytics aggregate API query on October 12 returned `404 Web Analytics not found`; this is neither a dashboard confirmation nor evidence of zero traffic. GA4 dashboard readback is also pending.
+3. Begin Phase 2 page foundations from the merged growth plan. Founder photograph, publishable customer evidence, and customer outcome claims still require owner-provided material and approval. Preserve synthetic review records for audit; keep customer data out of GitHub.
 
 ## Workspaces and deployment boundaries
 
-- Live release source: `/home/hutch/Projects/hutchgroupllc-v2`, branch `growth/customer-journey-2026-09-29`, staged locally with additional working-tree edits. A separate integration worktree at `/home/hutch/Work/hutchgroup-phase1-integration` produced source PR #12 without changing that staged index.
-- Current production deployment: `dpl_Hxjuz16XPw1cJK1xcMnE3oQWGjVy`, `https://hutchgroupllc.com/`.
-- Earlier production source checkout: `/home/hutch/Work/vercel-analytics-2026-09-30/site`, branch `analytics/visitor-behavior-2026-09-30`.
-- The documentation branch is docs/growth-plan-2026-10-12, based on main; do not deploy that branch as the website.
-- GitHub CLI has no configured authentication; connected GitHub tools can read and write this repo. Local Git author identity is unset. Do not invent an author or discard the staged index.
+- Mainline source is merged at `52261128c84f42ca7a8f825da12f1305aa6e7f7b` after PRs #12 and #11. A later closeout documentation PR may advance `main` without changing website behavior.
+- Original live-release checkout: `/home/hutch/Projects/hutchgroupllc-v2`, branch `growth/customer-journey-2026-09-29`, still staged locally with additional working-tree edits. Its index was not discarded.
+- Isolated integration worktree: `/home/hutch/Work/hutchgroup-phase1-integration`, branch `growth/phase1-source-integration`. It passed the local checks before PR #12.
+- Current production deployment: `dpl_J4k8YWowjoA9AQbbsZ3s3gATknDK`, `https://hutchgroupllc.com/`.
 
 ## Pending evidence
 
-Search Console baseline and GA4/Vercel dashboard readback are pending. A scoped Vercel Web Analytics aggregate API query on October 12 returned `404 Web Analytics not found`; this does not establish dashboard reporting or a zero-traffic result. Candidate submission, persisted attribution, provider acceptance, owner-confirmed inbox receipt, and production homepage release are verified. The chronological notes below record earlier states and are superseded by this current snapshot.
+Search Console baseline and GA4/Vercel dashboard aggregation are pending. Candidate submission, persisted attribution, provider acceptance, owner-confirmed inbox receipt, public route readback, and mainline source integration are verified. The chronological notes below record earlier states and are superseded by this current snapshot.
 
 ## October 12 continuation: contact, live intake, and release gate
 
