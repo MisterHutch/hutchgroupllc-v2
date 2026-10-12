@@ -74,3 +74,7 @@ Owner reports `hutchgroupllc.com` is added in Resend with status `Pending`, and 
 ## Resend auto-configuration propagated; provider still Pending
 
 Owner clicked Resend auto configure. Fresh Vercel DNS readback showed `resend._domainkey` TXT, `send` TXT, and `send` MX added (TTL 3600). Google public DNS-over-HTTPS returned successful answers for all three names/types. The apex MX remains `10 work-mx.app.hey.com.`, preserving HEY inbound delivery. Owner reports Resend domain status is still `Pending`; no further email test was sent because provider verification has not completed. Keep Resend Receiving disabled for this domain; the `send` MX is the outbound return-path record, not a replacement for HEY inbound MX.
+
+## Resend provider acceptance after verification
+
+Owner reported Resend domain Verified. A labeled synthetic production submission returned HTTP 201, review ID `503651f5-4dea-4ac2-9be7-7dcf9e271b22`, and API notification statuses `internal: accepted`, `customer: accepted`. Read-only Supabase SQL confirmed the saved review, submission activity, and notification-status activity with both accepted flags. These are provider acceptance and persistence checks, not inbox delivery. Asked owner to confirm both messages in `hutch@hutchgroupllc.com`; answer pending. Growth candidate preview still lacks Supabase variables, so its live intake remains untested. Do not mark redesigned homepage production released until candidate path and release checks are complete.
