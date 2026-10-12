@@ -8,7 +8,7 @@ Visitor journey: search or referral → useful resource → relevant industry pa
 
 ## Current position
 
-Google Analytics (G-F3N1ZTF9JS), Vercel Analytics, and the verified Google Business Profile link are live. The Ops homepage redesign is live in production. See `docs/PHASE_1_STATUS.md` for the current release evidence and remaining measurement and source-integration work. Google profile: https://maps.app.goo.gl/Y84K6aq1KBcEvKSJA. Contact address: hutch@hutchgroupllc.com, explicitly confirmed by the owner on October 12. Make this address prominent throughout contact areas.
+Google Analytics (G-F3N1ZTF9JS), Vercel Analytics, and the verified Google Business Profile link are live. The Ops homepage redesign is live in production. See `docs/PHASE_1_STATUS.md` for release evidence and remaining measurement work. Source and plan are merged into `main` through PRs #12 and #11. Google profile: https://maps.app.goo.gl/Y84K6aq1KBcEvKSJA. Contact address: hutch@hutchgroupllc.com, explicitly confirmed by the owner on October 12. Make this address prominent throughout contact areas.
 
 ## 1 Build the resource library
 
@@ -81,11 +81,12 @@ Implementation can proceed on templates, drafts, calculator, Ops walkthrough, an
 
 Repository: https://github.com/MisterHutch/hutchgroupllc-v2
 Plan path: docs/GROWTH_IMPLEMENTATION_PLAN.md
-Initial documentation branch: docs/growth-plan-2026-10-12
+Documentation PR: #11, merged into main
+Website source PR: #12, merged into main
 Phase status: docs/PHASE_1_STATUS.md
 Honcho workspace: codex; session: hutch; retrieval terms: Hutchgroup website growth implementation plan Phase 1 October 12 2026.
 
-The documentation branch is based on main for review. It is not the homepage implementation branch and must not be deployed as the current website. Main differs from the production baseline. Staged implementation lives on growth/customer-journey-2026-09-29 in the website checkout.
+Both the released website source and this plan are now in main. The original staged implementation remains in the local `growth/customer-journey-2026-09-29` checkout for audit; use main for new work.
 
 ## Sources
 
