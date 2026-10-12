@@ -1,0 +1,8 @@
+.git/
+.github/
+.vercel/
+docs/
+evidence/
+scripts/
+*.md
+.env*

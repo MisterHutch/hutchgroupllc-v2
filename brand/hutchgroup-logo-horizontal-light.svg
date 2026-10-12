@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 500" role="img" aria-labelledby="title desc">
+<title id="title">HutchGroup LLC logo</title><desc id="desc">HutchGroup wordmark with a geometric H bridge mark.</desc>
+<defs>
+  <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b2038"/><stop offset="1" stop-color="#061321"/></linearGradient>
+  <linearGradient id="left" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b6e45d"/><stop offset="1" stop-color="#78c94a"/></linearGradient>
+  <linearGradient id="right" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#79dce1"/><stop offset="1" stop-color="#4aa9dc"/></linearGradient>
+  <linearGradient id="bridge" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#a6dc54"/><stop offset=".55" stop-color="#57cbd1"/><stop offset="1" stop-color="#68b8e8"/></linearGradient>
+</defs>
+<g transform="translate(42 42) scale(.406)">
+  <rect x="88" y="88" width="848" height="848" rx="234" fill="url(#tile)" stroke="#85cbd5" stroke-opacity=".18" stroke-width="4"/>
+  <rect x="292" y="254" width="134" height="516" rx="67" fill="url(#left)"/>
+  <rect x="598" y="254" width="134" height="516" rx="67" fill="url(#right)"/>
+  <path d="M394 548 L630 462" fill="none" stroke="url(#bridge)" stroke-width="118" stroke-linecap="round"/>
+  <path d="M394 528 L628 443" fill="none" stroke="#fff" stroke-opacity=".17" stroke-width="12" stroke-linecap="round"/>
+</g>
+<text x="500" y="258" fill="#0a1626" font-family="Segoe UI, Arial, sans-serif" font-size="126" font-weight="720" letter-spacing="-6">Hutch<tspan fill="#31aebe">Group</tspan></text>
+<text x="1198" y="251" fill="#6f8495" font-family="Segoe UI, Arial, sans-serif" font-size="33" font-weight="700" letter-spacing="9">LLC</text>
+<text x="507" y="326" fill="#627789" font-family="Segoe UI, Arial, sans-serif" font-size="31" font-weight="560" letter-spacing="1.2">Business analysis + hands-on technology</text>
+</svg>
