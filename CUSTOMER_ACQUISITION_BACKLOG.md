@@ -1,21 +1,26 @@
 # Customer acquisition: website delivery
 
-Initiative: HG-WEB-2026-09 · Owner: Shannon Hutcheson · Started: 2026-09-29
-Status: Local implementation verified; release and asset gaps remain
+Initiative: HG-WEB-2026-09 · Owner: Hutch Group LLC · Started: 2026-09-29
+Updated: 2026-10-12 · Phase 1 released and merged; Phase 2 page foundations implemented in a review branch.
 
-Analysis and decisions: [AnalystOS handoff](https://github.com/HutchgroupLLC/AnalystOS/blob/main/knowledge/projects/hutchgroup-website-growth-2026-09-29.md) (local draft until repository publication).
-
-Baseline: production commit `ff9f69ec340cb9cc30f1a1342e51af94da3edb29`, verified through Vercel. This branch deliberately starts from production; `main` differs and the later showcase commit is not included. Historical HG-001/HG-002 are not closed by this work.
+The current plan is [docs/GROWTH_IMPLEMENTATION_PLAN.md](docs/GROWTH_IMPLEMENTATION_PLAN.md). The earlier `HUTCHGROUP_GROWTH_PLAN.md` is a historical reference. [Phase 1 status](docs/PHASE_1_STATUS.md) separates verified release evidence from pending measurement.
 
 | ID | Scope | Acceptance | Status |
 |---|---|---|---|
-| HG-WEB-101 | Consolidate homepage | One pain section; concise services/process; consistent CTA | Verified locally |
-| HG-WEB-102 | Optional behind-the-work view | Roster appears only on request; Prep link in proof | Verified locally |
-| HG-WEB-103 | Pain selection | Three keyboard-accessible cards preselect editable review priority | Verified locally |
-| HG-WEB-104 | Proof | Real product capture and labeled before/after demonstration; approved portrait | Partial: proof verified; portrait pending |
-| HG-WEB-105 | Review path | Fewer required fields, earlier mobile form, saved/error/retry states | Verified locally |
-| HG-WEB-106 | Follow-up and attribution | Existing storage contract retained; source saved; email status distinguished | Fixtures passed; live verification blocked |
-| HG-WEB-107 | Local campaign | Improve existing Twin Cities lead-follow-up page, preserve canonical route | Verified locally |
-| HG-WEB-108 | Distribution and measurement | Publish-ready copy, tagged URLs, lead outcome tracker and review cadence | Drafts complete; external delivery pending |
+| HG-WEB-101 | Consolidate homepage | One pain story, concise services and process, consistent review CTA | Released; public readback verified |
+| HG-WEB-102 | Show how the work is done | Optional working-roles disclosure and accurate Ops demonstration | Released; public readback verified |
+| HG-WEB-103 | Pain selection | Three keyboard-accessible choices preselect an editable review priority | Released; local regression checks passed |
+| HG-WEB-104 | Proof | Real Ops capture, sample-data disclosure, approved founder portrait | Ops proof released; portrait pending owner asset |
+| HG-WEB-105 | Review path | Shorter form with saved, email-status, error, and retry states | Released; controlled intake verified |
+| HG-WEB-106 | Follow-up and attribution | Review persists with allowlisted attribution; email acceptance distinguished from inbox receipt | Verified with controlled submissions and owner-confirmed receipt |
+| HG-WEB-107 | Local campaign | Preserve the lead-follow-up URL and improve its buyer path | Released; local SEO check passed |
+| HG-WEB-108 | Distribution and measurement | Campaign drafts, tagged links, outcome tracking, dashboard review | Draft material exists locally; Search Console baseline and dashboard readback pending; external distribution not verified |
+| HG-WEB-201 | Resources foundation | Useful resource hub, clear authorship, mobile access, internal links, review path | Implemented locally; browser and SEO checks passed |
+| HG-WEB-202 | Work foundation | Accurate Ops walkthrough with sample-data disclosure; reusable customer-story evidence template | Implemented locally; customer outcome publication awaits evidence and permission |
+| HG-WEB-203 | Roofing entry page | Roofing-specific estimate-to-job workflow, relevant links and FAQs | Implemented locally; priority to revisit with Search Console and customer demand |
+| HG-WEB-204 | HVAC entry page | HVAC-specific inquiry-to-dispatch workflow, relevant links and FAQs | Implemented locally; priority to revisit with Search Console and customer demand |
+| HG-WEB-205 | Founder proof | Approved photograph and concise relevant background | Waiting for owner-provided asset and approval |
+| HG-WEB-206 | Search and analytics baseline | Three-month Search Console Web export; GA4 and Vercel dashboard events | Waiting for authenticated data; Vercel aggregate API returned `404 Web Analytics not found` |
+| HG-WEB-207 | Hero card visual cue | Subtle downtown Minneapolis silhouette behind the card copy at 20–30% opacity | Implemented locally; desktop and mobile readability checked |
 
-See `docs/RELEASE_READINESS.md` and `docs/UAT_RESULTS.md` for final evidence and remaining decisions. Never equate passing local tests with production delivery or revenue.
+The Phase 1 source, plan, and closeout merged through GitHub PRs [#12](https://github.com/MisterHutch/hutchgroupllc-v2/pull/12), [#11](https://github.com/MisterHutch/hutchgroupllc-v2/pull/11), and [#13](https://github.com/MisterHutch/hutchgroupllc-v2/pull/13). Production route readback passed after the merge. No customer result, paid engagement, dashboard aggregation, or external campaign publication is implied by this backlog.
