@@ -1,6 +1,6 @@
 # Hutchgroup website growth implementation plan
 
-Owner: Hutch Group LLC. Created October 12, 2026. Phase 1 authorized and started.
+Owner: Hutch Group LLC. Created October 12, 2026. Updated October 13, 2026. Phase 1 and Phase 2 page foundations are released.
 
 Build resources that attract visitors, proof that earns trust, and industry pages that generate qualified inquiries. Proposed delivery: six weeks, followed by 90 days of measurement. Timing is a planning cadence, not a ranking or traffic promise.
 
@@ -8,7 +8,14 @@ Visitor journey: search or referral → useful resource → relevant industry pa
 
 ## Current position
 
-Google Analytics (G-F3N1ZTF9JS), Vercel Analytics, and the verified Google Business Profile link are live. The Ops homepage redesign is live in production. See `docs/PHASE_1_STATUS.md` for release evidence and remaining measurement work. Source and plan are merged into `main` through PRs #12 and #11. Google profile: https://maps.app.goo.gl/Y84K6aq1KBcEvKSJA. Contact address: hutch@hutchgroupllc.com, explicitly confirmed by the owner on October 12. Make this address prominent throughout contact areas.
+Google Analytics (G-F3N1ZTF9JS), Vercel Analytics instrumentation, and the verified Google Business Profile link are present on the live site. The Ops homepage redesign, `/resources/`, `/work/`, roofing and HVAC entry pages, and fitted Minneapolis skyline backdrop are released. Production deployment `dpl_8WeetzkWe1ChQ3nZLKuc1fFHsLEJ` was READY on October 13; the homepage, four Phase 2 routes, and skyline asset each returned 200. Dashboard aggregation and the Search Console baseline remain unverified. See `docs/PHASE_1_STATUS.md` for Phase 1 evidence and `docs/SESSION_HANDOFF_2026-10-13.md` for the current pickup point. Google profile: https://maps.app.goo.gl/Y84K6aq1KBcEvKSJA. Contact address: hutch@hutchgroupllc.com, explicitly confirmed by the owner on October 12.
+
+## Next pickup order
+
+1. Obtain the verified Search Console property's last three months of Web data: clicks, impressions, CTR, position, top queries, and top pages. Read GA4 and Vercel Analytics dashboards with authenticated access. Record dates and source screenshots or exports; do not infer traffic from instrumentation or the Vercel aggregate API's `404 Web Analytics not found` response.
+2. Compare the observed queries, pages, and buyer questions with the proposed resource titles below. Publish the first two original, authored resources with useful examples, relevant internal links, and one clear Opportunity Review path. Keep traffic and customer-result claims tied to evidence.
+3. Build the remaining resources and ungated missed-opportunity calculator, then prepare channel-specific distribution. Validate event collection and link attribution before external publication; record publication separately from drafts.
+4. Add founder photography and customer outcomes only after the owner supplies approved assets, measured evidence, and permission.
 
 ## 1 Build the resource library
 
@@ -50,8 +57,8 @@ Acceptance: two differentiated industry pages, linked from the homepage and reso
 
 | Phase | Proposed timing | Work | Completion gate |
 |---|---|---|---|
-| 1 Foundation and release | Week 1 | Verify Search Console access; establish available baseline; test live intake/email; reconcile and release staged homepage; highlight business contact email | Controlled inquiry persists, reaches intended recipients, retains attribution; release readback verified |
-| 2 Page foundations | Week 2 | Resources and Work templates; two industry drafts; founder material | Mobile, navigation, metadata, accessibility checked |
+| 1 Foundation and release | Complete, with baseline pending | Search Console property verified by owner; live intake/email checked; staged homepage released; business contact email highlighted | Controlled inquiry persists, reaches intended recipients, retains attribution; release readback verified |
+| 2 Page foundations | Complete, with founder material pending | Resources and Work foundations; roofing and HVAC entry pages; skyline backdrop | Mobile, navigation, metadata, accessibility, and production routes checked |
 | 3 Initial content | Weeks 3–4 | Industry pages, Ops walkthrough, first two resources | Claims reviewed; links and tracking verified |
 | 4 Tool and distribution | Weeks 5–6 | Remaining resources, calculator, distribution material | Calculator tested; full visitor journey verified |
 | 5 Measure and improve | Following 90 days | Weekly review; improve promising pages; develop real case study | Expand based on demand and lead quality |
@@ -86,7 +93,7 @@ Website source PR: #12, merged into main
 Phase status: docs/PHASE_1_STATUS.md
 Honcho workspace: codex; session: hutch; retrieval terms: Hutchgroup website growth implementation plan Phase 1 October 12 2026.
 
-Both the released website source and this plan are now in main. The original staged implementation remains in the local `growth/customer-journey-2026-09-29` checkout for audit; use main for new work.
+The released website source, Phase 2 foundations, skyline revisions, and this plan are in main. The original staged implementation remains in the local `growth/customer-journey-2026-09-29` checkout for audit; use main for new work. Start a new session from `docs/SESSION_HANDOFF_2026-10-13.md` and verify current GitHub, deployment, and analytics state before acting.
 
 ## Sources
 
