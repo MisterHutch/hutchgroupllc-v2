@@ -34,3 +34,17 @@ The skyline was extended across the full homepage hero in [PR #17](https://githu
 The fitted full-skyline treatment merged through [PR #19](https://github.com/MisterHutch/hutchgroupllc-v2/pull/19). On October 13, production deployment `dpl_8WeetzkWe1ChQ3nZLKuc1fFHsLEJ` was READY; the homepage, four Phase 2 routes, and skyline asset each returned 200. See [the October 13 handoff](docs/SESSION_HANDOFF_2026-10-13.md) for verified status, workspace boundaries, and the next-session pickup order.
 
 Next priority order: (1) obtain the verified Search Console property's three-month Web export and read authenticated GA4/Vercel dashboards; (2) choose and publish the first two substantive resources using that evidence; (3) build the ungated calculator and prepare distribution with event validation. Founder photography and customer-result publication remain dependent on owner-provided assets and permission. A `404 Web Analytics not found` aggregate API response is not evidence of zero visits.
+
+## October 14, 2026 — AI Demand Capture and Business Agent campaign release
+
+Website [PR #22](https://github.com/MisterHutch/hutchgroupllc-v2/pull/22) merged as `2c9d653f250be441d9a827d8a0f19a7e40ca7b35`. Production Vercel READY; public HTTP 200 for homepage, digital menu, both original campaign guides, and the ungated calculator. CI passed. Public readback is not a full interactive browser QA or a conversion measurement.
+
+- **HG-WEB-210 Digital menu:** Released à-la-carte options, illustrative prices, selectable plan and Opportunity Review handoff.
+- **HG-WEB-211 Campaign offers:** Released homepage AI Demand Capture Pilot and Business Agent Activation with Ops demo deep links.
+- **HG-WEB-212 Resources:** Released two authored campaign guides; topic choice not derived from verified Search Console demand.
+- **HG-WEB-213 Calculator:** Released browser-local, ungated hypothetical missed-lead calculator; no entered figures are sent to analytics.
+- **HG-WEB-214 Distribution:** Drafted the content and partner kit on PR #26. Publication and outreach **have not happened**.
+- **HG-WEB-215 Attribution/analytics:** Dashboard validation and Search Console baseline remain pending; [issue #23](https://github.com/MisterHutch/hutchgroupllc-v2/issues/23).
+- **HG-WEB-216 Customer evidence:** Owner-approved founder portrait and customer metrics/permission remain pending; [issue #25](https://github.com/MisterHutch/hutchgroupllc-v2/issues/25).
+
+Two offers align to **Start with the problem. Not the technology.** Do not imply specific Meta or ChatGPT capabilities are available to customers before verification.
