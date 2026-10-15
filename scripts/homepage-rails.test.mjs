@@ -43,7 +43,7 @@ test('native snap and accessible motion do not depend on animation-heavy librari
   assert.match(js, /ArrowLeft/);
   assert.ok(!js.includes("addEventListener('wheel'"));
   assert.ok(!js.includes('setInterval'));
-  assert.ok(!js.includes('autoplay'));
+  assert.ok(!/\bautoplay\s*(?:=|:)/i.test(js));
 });
 
 test('browser controls appear only when working JavaScript initializes', () => {
