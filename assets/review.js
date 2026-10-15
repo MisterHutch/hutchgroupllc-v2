@@ -16,6 +16,20 @@ if (Object.hasOwn(painPriorities, selectedPain)) {
 } else {
   delete attribution.pain;
 }
+const allowedModules = Object.freeze({
+  'ai-demand-capture': 'AI Demand Capture',
+  'business-agent': 'Business Agent Activation',
+  'local-search': 'Local Search Signal',
+  'crm': 'CRM + Pipeline Sync',
+  'automation': 'Automation Sprint',
+  'ops-intelligence': 'Ops Intelligence'
+});
+const rawModules = new URLSearchParams(location.search).get('modules');
+const selectedModules = rawModules ? [...new Set(rawModules.split(',').filter(id => Object.hasOwn(allowedModules,id)))].slice(0,6) : [];
+if (selectedModules.length) {
+  document.querySelector('#challenge').value = 'I would like to explore these implementation modules: ' + selectedModules.map(id=>allowedModules[id]).join(', ') + '.';
+  document.getElementById('selectedPain').textContent += ' Digital menu modules added to your editable request.';
+}
 try { sessionStorage.setItem('hutchgroup-attribution', JSON.stringify(attribution)); } catch { /* Storage is optional. */ }
 
 form.addEventListener('submit', async (event) => {
