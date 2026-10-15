@@ -59,7 +59,7 @@ test('Ops clicks go to both providers without copying the destination query', ()
 });
 
 test('all public pages include analytics once and CSP permits Google tag', () => {
-  for (const route of ['', '404.html', 'opportunity-review/', 'lead-follow-up-automation/', 'web-design/', 'local-seo/', 'digital-business-systems/', 'technology-opportunity-audit/', 'fractional-technology-partner/', 'resources/', 'work/', 'industries/roofing/', 'industries/hvac/']) {
+  for (const route of ['', '404.html', 'opportunity-review/', 'lead-follow-up-automation/', 'web-design/', 'local-seo/', 'digital-business-systems/', 'technology-opportunity-audit/', 'fractional-technology-partner/', 'resources/', 'work/', 'industries/roofing/', 'industries/hvac/', 'lead-flow-starter/']) {
     const page = readFileSync(route.endsWith('.html') ? route : route + 'index.html', 'utf8');
     assert.equal((page.match(/src="\/assets\/analytics.js"/g) || []).length, 1, route);
   }

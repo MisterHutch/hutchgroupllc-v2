@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
-const routes=['','opportunity-review','lead-follow-up-automation','web-design','local-seo','digital-business-systems','technology-opportunity-audit','fractional-technology-partner','resources','work','industries/roofing','industries/hvac'];
+const routes=['','opportunity-review','lead-follow-up-automation','web-design','local-seo','digital-business-systems','technology-opportunity-audit','fractional-technology-partner','resources','work','industries/roofing','industries/hvac','lead-flow-starter'];
 test('public pages retain canonical brand, real intake destinations, and local assets',()=>{
   for(const route of routes){
     const html=readFileSync((route?route+'/':'')+'index.html','utf8');

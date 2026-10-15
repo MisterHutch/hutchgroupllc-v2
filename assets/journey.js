@@ -6,11 +6,11 @@ export const painPriorities = Object.freeze({
 });
 
 export const attributionValues = Object.freeze({
-  utm_source: ['google', 'linkedin', 'local-partner', 'website'],
-  utm_medium: ['organic', 'social', 'referral'],
-  utm_campaign: ['twin-cities-follow-up', 'demand-capture-launch'],
-  utm_content: ['business-profile', 'workflow-story', 'partner-introduction', 'menu-builder', 'calculator', 'demand-pilot', 'agent-pilot'],
-  entry_path: ['/', '/lead-follow-up-automation/', '/opportunity-review/', '/digital-menu/', '/resources/revenue-leak-calculator/'],
+  utm_source: ['google', 'facebook', 'instagram', 'x', 'linkedin', 'local-partner', 'website'],
+  utm_medium: ['organic', 'social', 'referral', 'paid_social', 'paid_search'],
+  utm_campaign: ['twin-cities-follow-up', 'demand-capture-launch', 'twin-cities-lead-flow'],
+  utm_content: ['business-profile', 'workflow-story', 'partner-introduction', 'menu-builder', 'calculator', 'demand-pilot', 'agent-pilot', 'fb-feed-a', 'fb-feed-b', 'ig-feed-a', 'ig-reel-a', 'google-search', 'x-post', 'organic-video', 'local-referral'],
+  entry_path: ['/', '/lead-follow-up-automation/', '/opportunity-review/', '/digital-menu/', '/resources/revenue-leak-calculator/', '/lead-flow-starter/'],
   pain: Object.keys(painPriorities),
 });
 
