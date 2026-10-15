@@ -15,6 +15,22 @@ export function counterText(index, total) {
     String(total).padStart(width, '0');
 }
 
+// A partially visible last card can be reached without ever sitting at x=0.
+// Treat physical end-of-scroll as the final slide so navigation cannot get stuck.
+export function visibleIndex(distances, currentScroll, maxScroll) {
+  if (distances.length && maxScroll > 4 && currentScroll >= maxScroll - 4)
+    return distances.length - 1;
+  return nearestIndex(distances);
+}
+
+// Arrow navigation needs a fallback when a target card cannot align at the edge.
+export function resolveRailTarget(current, max, candidate, direction, step) {
+  let target = Math.max(0, Math.min(max, candidate));
+  if (direction < 0 && target >= current - 3) target = Math.max(0, current - step);
+  if (direction > 0 && target <= current + 3) target = Math.min(max, current + step);
+  return target;
+}
+
 function activateRail(viewport) {
   const name = viewport.dataset.railViewport;
   const controls = document.querySelector('[data-rail-controls="' + name + '"]');
@@ -27,7 +43,8 @@ function activateRail(viewport) {
 
   function currentIndex() {
     const left = viewport.getBoundingClientRect().left;
-    return nearestIndex(cards.map(card => card.getBoundingClientRect().left - left));
+    const distances = cards.map(card => card.getBoundingClientRect().left - left);
+    return visibleIndex(distances, viewport.scrollLeft, viewport.scrollWidth - viewport.clientWidth);
   }
 
   function refresh() {
@@ -38,17 +55,25 @@ function activateRail(viewport) {
     next.disabled = !canScroll || index === cards.length - 1;
   }
 
-  function goTo(index) {
-    const target = cards[Math.min(Math.max(0, index), cards.length - 1)];
-    if (!target) return;
-    const delta = target.getBoundingClientRect().left - viewport.getBoundingClientRect().left;
+  function move(direction) {
+    const index = currentIndex();
+    const nextIndex = Math.max(0, Math.min(cards.length - 1, index + direction));
+    const target = cards[nextIndex];
+    if (!target || nextIndex === index) return;
+    const offset = target.getBoundingClientRect().left - viewport.getBoundingClientRect().left;
+    const max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    const cardStep = cards.length > 1 ?
+      cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left :
+      viewport.clientWidth * .8;
+    const scrollLeft = resolveRailTarget(viewport.scrollLeft, max,
+      viewport.scrollLeft + offset, direction, cardStep);
     const reduced = typeof matchMedia === 'function' &&
       matchMedia('(prefers-reduced-motion: reduce)').matches;
-    viewport.scrollTo({left: viewport.scrollLeft + delta, behavior: reduced ? 'instant' : 'smooth'});
+    viewport.scrollTo({left: scrollLeft, behavior: reduced ? 'instant' : 'smooth'});
   }
 
-  prev.addEventListener('click', () => goTo(currentIndex() - 1));
-  next.addEventListener('click', () => goTo(currentIndex() + 1));
+  prev.addEventListener('click', () => move(-1));
+  next.addEventListener('click', () => move(1));
 
   // Only intercept arrows while the scroll region itself is focused.
   // Nested links and buttons preserve their native keyboard behavior.
@@ -56,7 +81,7 @@ function activateRail(viewport) {
     if (event.target !== viewport) return;
     if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
       event.preventDefault();
-      goTo(currentIndex() + (event.key === 'ArrowRight' ? 1 : -1));
+      move(event.key === 'ArrowRight' ? 1 : -1);
     }
   });
 
