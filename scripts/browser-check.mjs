@@ -48,7 +48,13 @@ check('keyboard navigation and optional roster', () => {
 });
 check('service routes and Ops demo destinations', () => {
   run('open',base+'/');
-  return evaluate(`const links=[...document.querySelectorAll('#services .offer a')];if(links.length!==3||links.some(a=>!a.pathname.endsWith('/')))throw Error('service links missing');const ops=document.querySelector('#work .btn');if(ops.href!=='https://ops.hutchgroupllc.com/')throw Error('Ops destination');'three service paths and public Ops demo link present'`);
+  return evaluate(\`const cards=[...document.querySelectorAll('#solution-rail .hg-solution-tile')];if(cards.length!==4)throw Error('solution cards missing');const ops=[...document.querySelectorAll('#demo-rail .hg-demo-cta')];if(ops.length!==2||!ops.some(a=>a.href.includes('demo=hvac'))||!ops.some(a=>a.href.includes('demo=leasing')))throw Error('Ops destinations');'four solutions and two Ops demos present'\`);
+});
+check('homepage v3 rail controls and mobile containment', () => {
+  run('set','viewport','390','844');run('open',base+'/');
+  const result=evaluate(\`const rails=[...document.querySelectorAll('[data-rail-viewport]')];if(rails.length!==3)throw Error('missing rails');if(!document.documentElement.classList.contains('hg-rails-ready'))throw Error('rails uninitialized');for(const rail of rails){if(rail.tabIndex!==0||getComputedStyle(rail).scrollSnapType!=='x mandatory')throw Error('rail inaccessible');if(rail.scrollWidth<=rail.clientWidth)throw Error('expected scrollable rail')}if(document.documentElement.scrollWidth>innerWidth)throw Error('page overflow');'three native swipeable rails'\`);
+  run('scrollintoview','#solution-rail');screenshot('v3-solution-rail-mobile');
+  return result;
 });
 check('campaign → actual handler → saved confirmation with provider fixtures', () => {
   run('open',base+'/lead-follow-up-automation/?utm_source=google&utm_medium=organic&utm_campaign=twin-cities-follow-up&utm_content=business-profile');
