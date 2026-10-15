@@ -40,6 +40,7 @@ test('three rails have matched controls, names, slide counts and focus access', 
   }
   assert.equal((html.match(/data-rail-prev/g) || []).length, 3);
   assert.equal((html.match(/data-rail-next/g) || []).length, 3);
+  assert.equal((html.match(/data-rail-count aria-live="polite"/g) || []).length, 3);
 });
 
 test('native snap and accessible motion do not depend on animation-heavy libraries', () => {
