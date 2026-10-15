@@ -9,8 +9,8 @@ export const attributionValues = Object.freeze({
   utm_source: ['google', 'linkedin', 'local-partner', 'website'],
   utm_medium: ['organic', 'social', 'referral'],
   utm_campaign: ['twin-cities-follow-up', 'demand-capture-launch'],
-  utm_content: ['business-profile', 'workflow-story', 'partner-introduction', 'menu-builder', 'demand-pilot', 'agent-pilot'],
-  entry_path: ['/', '/lead-follow-up-automation/', '/opportunity-review/', '/digital-menu/'],
+  utm_content: ['business-profile', 'workflow-story', 'partner-introduction', 'menu-builder', 'calculator', 'demand-pilot', 'agent-pilot'],
+  entry_path: ['/', '/lead-follow-up-automation/', '/opportunity-review/', '/digital-menu/', '/resources/revenue-leak-calculator/'],
   pain: Object.keys(painPriorities),
 });
 
