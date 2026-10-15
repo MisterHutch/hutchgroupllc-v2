@@ -6,11 +6,11 @@ export const painPriorities = Object.freeze({
 });
 
 export const attributionValues = Object.freeze({
-  utm_source: ['google', 'linkedin', 'local-partner'],
+  utm_source: ['google', 'linkedin', 'local-partner', 'website'],
   utm_medium: ['organic', 'social', 'referral'],
-  utm_campaign: ['twin-cities-follow-up'],
-  utm_content: ['business-profile', 'workflow-story', 'partner-introduction'],
-  entry_path: ['/', '/lead-follow-up-automation/', '/opportunity-review/'],
+  utm_campaign: ['twin-cities-follow-up', 'demand-capture-launch'],
+  utm_content: ['business-profile', 'workflow-story', 'partner-introduction', 'menu-builder', 'demand-pilot', 'agent-pilot'],
+  entry_path: ['/', '/lead-follow-up-automation/', '/opportunity-review/', '/digital-menu/'],
   pain: Object.keys(painPriorities),
 });
 
