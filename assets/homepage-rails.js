@@ -50,7 +50,8 @@ function activateRail(viewport) {
   function refresh() {
     const index = currentIndex();
     const canScroll = viewport.scrollWidth > viewport.clientWidth + 5;
-    counter.textContent = counterText(index, cards.length);
+    const label = counterText(index, cards.length);
+    if (counter.textContent !== label) counter.textContent = label;
     prev.disabled = !canScroll || index === 0;
     next.disabled = !canScroll || index === cards.length - 1;
   }
