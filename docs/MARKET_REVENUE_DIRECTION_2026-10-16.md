@@ -19,6 +19,12 @@ This matches Hutch's stated direction: become the Twin Cities small-business par
 
 The U.S. Chamber also reports broad small-business AI use in its [2026 survey](https://www.uschamber.com/technology/2026-empowering-small-business-report), but its 66% headline comes from a different survey and should not be averaged with the Federal Reserve figure. Both support asking where AI actually improves work; neither validates a specific offer.
 
+## Where AI fits as the tools advance
+
+[Microsoft's 2026 Work Trend Index](https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization) describes a shift toward agent-assisted workflows with people setting direction, judging output, and owning results. Its respondents were AI-using workers, not a representative sample of Twin Cities small-business buyers, so use it as a design signal rather than a demand estimate. The more durable service for Hutchgroup is to connect a customer's inquiry sources, approved business knowledge, owner assignments, and outcome records so different AI tools can assist the workflow without becoming its source of truth.
+
+For any later agent-assisted step, specify the exact allowed task, approved answers and data, human escalation, failed-response handling, and a metric tied to the original handoff. Start with reply drafts, summaries, or triage when they reduce a measured delay; require a person to approve customer-facing commitments until the buyer has accepted a tested workflow. Recheck provider features and costs for each proposal. This is the practical route from today's Starter to a broader pilot without promising a platform capability the customer has not bought or approved.
+
 ## Commercial ladder to test
 
 1. **Opportunity Review:** Free 15-minute conversation; identify the current inquiry path, volume, ownership, cost of delay, and the buyer's authority to change it. A review request is not a booked meeting.
