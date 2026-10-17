@@ -1,6 +1,8 @@
 # Hutchgroup website growth implementation plan
 
-Owner: Hutch Group LLC. Created October 12, 2026. Updated October 13, 2026. Phase 1 and Phase 2 page foundations are released.
+Owner: Hutch Group LLC. Created October 12, 2026. Updated October 16, 2026. Phase 1 and Phase 2 page foundations are released.
+
+**Current direction:** [October 16 market and revenue plan](MARKET_REVENUE_DIRECTION_2026-10-16.md). The Lead Flow Starter, digital menu, two campaign guides, and ungated calculator are now released on `origin/main`. The older pickup order below records the original sequence; do not treat completed resources or the calculator as future tasks. The current gates are authenticated measurement, qualified buyer conversations, profitable delivery, and evidence-backed revisions.
 
 Build resources that attract visitors, proof that earns trust, and industry pages that generate qualified inquiries. Proposed delivery: six weeks, followed by 90 days of measurement. Timing is a planning cadence, not a ranking or traffic promise.
 

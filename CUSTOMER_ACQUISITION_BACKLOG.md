@@ -1,9 +1,9 @@
 # Customer acquisition: website delivery
 
 Initiative: HG-WEB-2026-09 · Owner: Hutch Group LLC · Started: 2026-09-29
-Updated: 2026-10-13 · Phase 1 and Phase 2 page foundations released; measurement and substantive resources are next.
+Updated: 2026-10-16 · Lead Flow Starter and initial AI demand assets released; measured demand and paid conversion remain unverified.
 
-The current plan is [docs/GROWTH_IMPLEMENTATION_PLAN.md](docs/GROWTH_IMPLEMENTATION_PLAN.md). The earlier `HUTCHGROUP_GROWTH_PLAN.md` is a historical reference. [Phase 1 status](docs/PHASE_1_STATUS.md) separates verified release evidence from pending measurement.
+The current commercial direction is [the October 16 market and revenue plan](docs/MARKET_REVENUE_DIRECTION_2026-10-16.md). [The growth implementation plan](docs/GROWTH_IMPLEMENTATION_PLAN.md) and [Phase 1 status](docs/PHASE_1_STATUS.md) preserve release and measurement context; the earlier `HUTCHGROUP_GROWTH_PLAN.md` is historical.
 
 | ID | Scope | Acceptance | Status |
 |---|---|---|---|
@@ -48,3 +48,15 @@ Website [PR #22](https://github.com/MisterHutch/hutchgroupllc-v2/pull/22) merged
 - **HG-WEB-216 Customer evidence:** Owner-approved founder portrait and customer metrics/permission remain pending; [issue #25](https://github.com/MisterHutch/hutchgroupllc-v2/issues/25).
 
 Two offers align to **Start with the problem. Not the technology.** Do not imply specific Meta or ChatGPT capabilities are available to customers before verification.
+
+## October 16, 2026 — revenue validation backlog
+
+| ID | Scope | Acceptance | Status |
+|---|---|---|---|
+| HG-REV-301 | Measurement baseline | Dated three-month Search Console Web export and authenticated GA4/Vercel readback; controlled Review request, persistence, attribution, and inbox delivery | Pending owner-authorized data and live test |
+| HG-REV-302 | Buyer discovery | Record qualified Twin Cities service-business conversations, recent missed-handoff examples, objections, existing tools, and authority to buy | Planned; no interview count claimed |
+| HG-REV-303 | Paid Starter validation | Scope, quote, and deliver one Lead Flow Starter; capture customer acceptance, implementation hours, pass-through cost, and actual margin | Hypothesis; no paid win claimed |
+| HG-REV-304 | Offer ladder | Test when buyers need the $3,500 proposed AI Demand Capture Pilot after the narrow Starter; validate vendor capabilities and human review per proposal | Planned; proposed price is not a realized rate |
+| HG-REV-305 | Proof and distribution | Revise copy from observed objections; publish customer evidence only with measured outcomes and permission; preserve ad budget approval gate | Draft/review only |
+
+These tasks supersede the stale “next priority order” above where that order refers to already released resources or calculator. The original dated release notes remain as an audit trail.
