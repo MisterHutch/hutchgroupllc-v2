@@ -1,0 +1,156 @@
+{
+  "date": "2026-10-19",
+  "base_commit": "2fd982e6c317f695b885eff1bc11a7e2e8039507",
+  "scope": "User authorized technical SEO without Search Console data.",
+  "performance": {
+    "requested_period": {
+      "since": "2026-07-21",
+      "until": "2026-10-18",
+      "days": 90
+    },
+    "search_console": "Not connected; no relevant export identified in targeted Drive searches.",
+    "ga4": "Tracker present; authenticated reporting not available.",
+    "vercel_analytics": "Both scoped aggregate requests returned 404 Web Analytics not found. This does not establish zero traffic.",
+    "ranking_or_lead_uplift": "Not measured. No keyword volume, position, or conversion forecast claimed."
+  },
+  "live_checks": [
+    {
+      "url": "https://hutchgroupllc.com/robots.txt",
+      "status": 200,
+      "result": "Crawling allowed; canonical sitemap declared."
+    },
+    {
+      "url": "https://hutchgroupllc.com/sitemap.xml",
+      "status": 200,
+      "result": "XML served with 17 canonical routes; several priority page lastmod values were stale."
+    },
+    {
+      "url": "https://hutchgroupllc.com/lead-follow-up-automation/",
+      "status": 200,
+      "result": "Indexable, self-canonical; live title differed from historical Exa snapshot. Current source and direct fetch used."
+    },
+    {
+      "url": "https://hutchgroupllc.com/this-page-does-not-exist-seo-audit/",
+      "status": 404,
+      "result": "Correct not-found response with noindex."
+    },
+    {
+      "url": "https://www.hutchgroupllc.com/local-seo/",
+      "status": 307,
+      "result": "Temporary www-to-apex redirect confirmed by HTTP and native domain settings."
+    }
+  ],
+  "changes": [
+    {
+      "path": "index.html",
+      "before_title": "Small Business AI & Lead Consolidation | Hutchgroup Twin Cities",
+      "after_title": "Websites, CRM &amp; Automation | Hutchgroup Twin Cities"
+    },
+    {
+      "path": "lead-follow-up-automation/index.html",
+      "before_title": "Sales Lead Consolidation & Follow-Up | Hutchgroup Twin Cities",
+      "after_title": "Lead Follow-Up Automation Twin Cities | Hutchgroup"
+    },
+    {
+      "path": "digital-business-systems/index.html",
+      "before_title": "Digital Business Systems | Hutchgroup Minneapolis",
+      "after_title": "CRM Setup &amp; Workflow Automation | Hutchgroup Twin Cities"
+    },
+    {
+      "path": "lead-flow-starter/index.html",
+      "before_title": "Twin Cities Small Business Lead Follow-Up | Hutchgroup",
+      "after_title": "Lead Flow Starter: Scoped Setup | Hutchgroup Twin Cities"
+    },
+    {
+      "path": "industries/hvac/index.html",
+      "before_title": "HVAC Service and Estimate Handoffs | Hutchgroup Twin Cities",
+      "after_title": "HVAC Lead Management &amp; Estimate Follow-Up | Hutchgroup"
+    },
+    {
+      "path": "industries/roofing/index.html",
+      "before_title": "Roofing Estimate Follow-Up Systems | Hutchgroup Twin Cities",
+      "after_title": "Roofing Estimate Follow-Up Systems | Hutchgroup Twin Cities"
+    },
+    {
+      "path": "resources/index.html",
+      "before_title": "Small Business Lead Handoff Checklist | Hutchgroup Resources",
+      "after_title": "Small Business Lead Handoff Checklist | Hutchgroup Resources"
+    },
+    {
+      "path": "sitemap.xml"
+    },
+    {
+      "path": "scripts/validate-seo.mjs"
+    }
+  ],
+  "intent_map": [
+    {
+      "page": "/",
+      "role": "Broad local websites, CRM, and automation overview"
+    },
+    {
+      "page": "/digital-business-systems/",
+      "role": "CRM setup and workflow automation service"
+    },
+    {
+      "page": "/lead-follow-up-automation/",
+      "role": "Lead follow-up automation service"
+    },
+    {
+      "page": "/lead-flow-starter/",
+      "role": "Named fixed-scope entry offer, deliverables, and proposed price"
+    },
+    {
+      "page": "/industries/hvac/",
+      "role": "HVAC business lead management and estimate follow-up"
+    },
+    {
+      "page": "/industries/roofing/",
+      "role": "Roofing business estimate follow-up"
+    }
+  ],
+  "internal_link_change": {
+    "lead_flow_starter_referring_pages_before": 1,
+    "lead_flow_starter_referring_pages_after": 6
+  },
+  "validation": {
+    "existing_regression_files": "8 passed",
+    "html_files": 18,
+    "indexable_routes": 17,
+    "internal_links_checked": 184,
+    "all_indexable_pages_reachable_from_home": true,
+    "negative_checks": [
+      "Duplicate titles rejected",
+      "Missing fragment targets rejected"
+    ],
+    "browser_visual_qa": "Unavailable; no browser-control tool is exposed."
+  },
+  "remaining": [
+    {
+      "action": "Change www-to-apex domain redirectStatusCode from 307 to 308.",
+      "target": "www.hutchgroupllc.com",
+      "destination": "hutchgroupllc.com",
+      "reason": "The connected Vercel tools can inspect/add domains but do not expose the existing-domain PATCH operation. No domain was removed or recreated.",
+      "prepared_request": {
+        "method": "PATCH",
+        "path": "/v9/projects/prj_WmiUTCHHxEzroQA0iqB4j9nC5Y9G/domains/www.hutchgroupllc.com?teamId=team_2MuaClqF5rdBsvR6UIRnjf0E",
+        "body": {
+          "redirect": "hutchgroupllc.com",
+          "redirectStatusCode": 308
+        }
+      }
+    }
+  ],
+  "measurement_plan": {
+    "after_release": "Confirm live titles, canonical tags, schema, sitemap and service links after production deployment.",
+    "once_search_console_connected": "Export Web queries/pages by date for the requested baseline; inspect index coverage and canonical selection for priority URLs; submit sitemap if needed.",
+    "review": "Compare complete 28-day periods after recrawl with the baseline, segmented by query/page/device/country. Track qualified review conversations, proposals, paid starts and collected revenue separately. No automated schedule created."
+  },
+  "references": [
+    "https://developers.google.com/search/docs/appearance/title-link",
+    "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap",
+    "https://developers.google.com/search/docs/essentials",
+    "https://adeptvision.ai/crm-automation-minneapolis",
+    "https://minnesotawebstudio.com/services/crm-for-small-business/"
+  ]
+}
