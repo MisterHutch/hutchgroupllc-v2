@@ -17,3 +17,17 @@
 .hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:url('/assets/minneapolis-skyline.svg') center 65%/min(100%,1100px) auto no-repeat;opacity:.14;-webkit-mask-image:linear-gradient(to bottom,transparent 3%,#000 38%,#000 86%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 3%,#000 38%,#000 86%,transparent 100%)}
 .growth-map{background:linear-gradient(150deg,rgba(23,45,64,.78),rgba(16,30,49,.84))}
 @media(max-width:560px){.hero::before{opacity:.16;background-position:center 40%}}
+
+/* First-sale focus: make the review visible earlier on desktop and phones. */
+.home-page .hero{padding:112px 0 44px}
+.home-page .hero .hero-layout{align-items:start;gap:44px}
+.home-page .hero h1{font-size:clamp(2.5rem,5vw,4.6rem);line-height:1.06}
+.home-page .hero .lede{margin:1.1rem 0 1.25rem;font-size:1.1rem;max-width:610px}
+.home-page .hero .hero-note{max-width:580px;font-size:.85rem;line-height:1.5}
+.home-page .hero .actions{align-items:center}
+.home-page .hero .actions .secondary{background:transparent;border-color:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;text-underline-offset:4px}
+.home-page .hero .actions .secondary:hover{text-decoration:underline}
+.home-page .hero .hero-proof{margin-top:26px}
+.home-page .hero + .cta{padding:48px 0}
+@media(max-width:900px){.home-page .hero{padding:104px 0 36px}.home-page .hero .hero-layout{gap:28px}.home-page .hero .growth-map{max-width:650px}}
+@media(max-width:560px){.home-page .hero h1{font-size:clamp(2.1rem,9.5vw,2.8rem)}.home-page .hero .lede{font-size:1rem;line-height:1.5;margin:.9rem 0 1rem}.home-page .hero .hero-note{font-size:.8rem;margin-top:10px}.home-page .hero .actions{gap:4px}.home-page .hero .actions .btn{min-height:48px;padding:12px 14px}.home-page .hero + .cta{padding:36px 0}}
