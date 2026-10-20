@@ -19,7 +19,9 @@ test('roster is contained inside an optional disclosure', () => {
 test('Ops replaces Prep with an accurate public demo capture', () => {
   const hero = page.match(/<section class="hero">[\s\S]*?<\/section>/)[0];
   assert.ok(!page.includes('prep.hutchgroupllc.com'));
-  assert.ok(hero.includes('Get found.'));
+  assert.ok(hero.includes('Websites &amp; automation'));
+  assert.ok(hero.includes('Shannon Hutcheson'));
+  assert.ok(hero.includes('Twin Cities small businesses'));
   const proof = page.match(/<section class="proof-product"[\s\S]*?<\/section>/)[0];
   assert.ok(proof.includes('https://ops.hutchgroupllc.com/'));
   assert.ok(proof.includes('/assets/ops-command-center.png'));
