@@ -28,12 +28,71 @@
 <script type="module" src="/assets/site.js"></script>
 <script defer src="/assets/analytics.js"></script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+.revenue-feature{position:relative;padding:clamp(65px,8vw,110px) 0;background:#0a1220;color:#efffff;overflow:hidden}
+.revenue-feature:before{content:"";position:absolute;inset:-220px -100px auto 25%;height:550px;background:radial-gradient(ellipse,rgba(60,211,205,.16),transparent 68%);pointer-events:none}
+.revenue-feature .revenue-panel{position:relative;border:1px solid rgba(157,228,225,.26);border-radius:28px;padding:clamp(24px,4.5vw,58px);background:linear-gradient(122deg,#14283d,#0b192b 65%,#10343b);box-shadow:0 24px 75px rgba(0,0,0,.29)}
+.revenue-feature .revenue-panel:before{content:"";position:absolute;top:-1px;left:15%;width:70%;height:1px;background:linear-gradient(90deg,transparent,#7de8e0,transparent)}
+.revenue-feature .revenue-kicker{display:inline-flex;align-items:center;gap:9px;font-size:.75rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#90e9dc}
+.revenue-feature .revenue-kicker:before{content:"";width:8px;height:8px;border-radius:50%;background:#8af4ce;box-shadow:0 0 0 5px #8af4ce20}
+.revenue-feature .revenue-grid{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(285px,.94fr);gap:clamp(30px,5vw,70px);align-items:center;margin-top:27px}
+.revenue-feature h2{font:800 clamp(2.25rem,4.4vw,4.3rem)/1.1 Manrope,sans-serif;letter-spacing:-.05em;color:white;margin:0 0 22px}
+.revenue-feature h2 span{color:#8be9de}
+.revenue-feature .revenue-lede{font-size:1.07rem;line-height:1.75;color:#c4d9e2;max-width:55ch;margin:0}
+.revenue-feature .revenue-tags{display:flex;flex-wrap:wrap;gap:8px;margin:25px 0 28px}
+.revenue-feature .revenue-tags span{border:1px solid #a5d9dd3a;border-radius:50px;padding:8px 12px;font-size:.77rem;color:#c6e5e8;background:#fff08}
+.revenue-feature .revenue-actions{display:flex;gap:11px;flex-wrap:wrap}
+.revenue-feature .revenue-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;border-radius:12px;text-decoration:none!important;padding:15px 19px;font-weight:800;font-size:.9rem;transition:transform .2s,box-shadow .2s}
+.revenue-feature .revenue-btn:hover{transform:translateY(-2px)}
+.revenue-feature .revenue-btn:focus-visible{outline:3px solid white;outline-offset:3px}
+.revenue-feature .revenue-btn.primary{color:#0b2631;background:linear-gradient(110deg,#a5f4d9,#63d5dc);box-shadow:0 12px 30px #4dd6ce2a}
+.revenue-feature .revenue-btn.secondary{color:#e1f8fb;border:1px solid #a0dde450;background:#ffffff09}
+.revenue-feature .revenue-disclaimer{font-size:.77rem;color:#a0bac9;line-height:1.5;margin:16px 0 0}
+.revenue-feature .revenue-visual{border:1px solid #a6e9e72b;border-radius:21px;padding:23px;background:linear-gradient(145deg,#071728,#0c2a33);box-shadow:0 20px 45px #0004}
+.revenue-feature .visual-head{display:flex;justify-content:space-between;gap:8px;font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;color:#a2c6d4;font-weight:800;margin-bottom:20px}
+.revenue-feature .visual-head b{color:#81e9d8;font-weight:700}
+.revenue-feature .flow-step{display:flex;gap:13px;align-items:center;border:1px solid #ffffff17;background:#ffffff09;border-radius:13px;padding:15px}
+.revenue-feature .flow-symbol{flex:none;width:40px;height:40px;display:grid;place-items:center;border-radius:11px;color:#95ece2;background:#70dedb20;font-size:1.25rem;font-weight:800}
+.revenue-feature .flow-step strong{display:block;font-size:.91rem;color:#e9f9ff}
+.revenue-feature .flow-step small{display:block;color:#a6becc;font-size:.77rem;margin-top:4px;line-height:1.45}
+.revenue-feature .flow-join{height:17px;border-left:1px dashed #7ddfd4;margin-left:35px}
+.revenue-feature .flow-step.risk{border-color:#e9b2765a;background:#e9b27610}
+.revenue-feature .flow-step.risk .flow-symbol{color:#ffd3a4;background:#e9b27623}
+.revenue-feature .flow-step.fix{border-color:#7ce7ce70;background:#54d8be17}
+.revenue-feature .revenue-price{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:18px;padding-top:17px;border-top:1px solid #b5e8ec2a}
+.revenue-feature .revenue-price span{font-size:.76rem;line-height:1.45;color:#b6cfd6}
+.revenue-feature .revenue-price strong{font:800 1.85rem Manrope,sans-serif;letter-spacing:-.05em;color:white}
+.revenue-feature .revenue-includes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;border-top:1px solid #b5e8ec2a;margin-top:35px;padding-top:25px}
+.revenue-feature .revenue-includes div{display:flex;gap:11px;color:#d5e6eb;font-size:.85rem;line-height:1.5}
+.revenue-feature .revenue-includes b{color:#86e6d8}
+@media(max-width:800px){.revenue-feature .revenue-grid{grid-template-columns:1fr}.revenue-feature .revenue-includes{grid-template-columns:1fr;gap:13px}}
+@media(prefers-reduced-motion:reduce){.revenue-feature .revenue-btn{transition:none}.revenue-feature .revenue-btn:hover{transform:none}}
+</style>
 </head>
 <body class="home-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <header><nav class="wrap" aria-label="Main navigation"><a class="brand" href="/" aria-label="Hutchgroup home"><img class="brand-mark" src="/brand/hutchgroup-mark.svg" width="32" height="32" alt=""> <span class="brand-name">Hutchgroup</span></a><button class="menu" type="button" aria-label="Open menu" aria-controls="site-navigation" aria-expanded="false">☰</button><ul class="links" id="site-navigation"><li><a href="#services">Services</a></li><li><a href="/digital-menu/">Pricing &amp; scope</a></li><li><a href="#approach">How we work</a></li><li><a href="#work">Examples</a></li><li><a href="#about">About</a></li><li><a class="nav-cta" href="/opportunity-review/">Request a free 15-minute review</a></li></ul></nav></header>
 <main id="main-content">
 <section class="hero"><div class="wrap"><div class="hero-layout"><div><span class="eyebrow">Your Twin Cities small-business growth partner</span><h1>Get found.<br><span>Follow through.</span></h1><p class="lede">We help Twin Cities small businesses turn local interest into booked work—with better websites, connected tools, and follow-up that keeps moving.</p><div class="actions"><a class="btn primary" href="/opportunity-review/">Request a free 15-minute review</a><a class="btn secondary" href="#services">See what we do ↓</a></div><p class="hero-note">One conversation. One useful priority. A clear next step. The first review is free; paid work is scoped separately.</p></div><aside class="growth-map" aria-label="Your connected growth system"><span class="small-label">A connected path to growth</span><h2>Make every opportunity easier to act on.</h2><ol><li><span>01</span><div><strong>Get found</strong><p>Your website · local search · useful content</p></div></li><li><span>02</span><div><strong>Keep leads together</strong><p>One record · one owner · one next step</p></div></li><li><span>03</span><div><strong>Follow through</strong><p>Reminders · booking · visible progress</p></div></li></ol><a href="#work">Explore a sample workflow <span aria-hidden="true">↗</span></a></aside></div><div class="hero-proof"><div><strong>18+ years of business analysis experience</strong></div><div><strong>Founder-led from review through delivery</strong></div><div><strong>Built for Twin Cities small businesses</strong></div></div></div></section>
+<section class="revenue-feature" id="revenue-leakage-audit" aria-labelledby="revenue-heading"><div class="wrap"><div class="revenue-panel">
+<span class="revenue-kicker">Featured service · Focused opportunity assessment</span>
+<div class="revenue-grid"><div>
+<h2 id="revenue-heading">Where is your business <span>losing opportunity?</span></h2>
+<p class="revenue-lede">Missed inquiries. Estimates that never get followed up. Visitors who leave without contacting you. Our <strong>Revenue Leakage Audit</strong> examines one critical workflow, finds the friction, and delivers a practical plan for your next move.</p>
+<div class="revenue-tags"><span>Twin Cities small businesses</span><span>One focused workflow</span><span>Clear next steps</span></div>
+<div class="revenue-actions"><a class="revenue-btn primary" href="/opportunity-review/?service=revenue-leakage-audit">Start with a free 15-minute review <span aria-hidden="true">↗</span></a><a class="revenue-btn secondary" href="mailto:hutch@hutchgroupllc.com?subject=Revenue%20Leakage%20Audit">Ask about the $595 audit <span aria-hidden="true">→</span></a></div>
+<p class="revenue-disclaimer">The introductory review is free. The optional $595 audit has an agreed scope before any paid work begins.</p>
+</div><div class="revenue-visual" aria-label="Illustrative workflow demonstrating an inquiry handoff gap and a prioritized fix">
+<div class="visual-head"><span>Opportunity flow / example</span><b>● FIND → FIX</b></div>
+<div class="flow-step"><span class="flow-symbol" aria-hidden="true">↗</span><div><strong>A potential customer reaches out</strong><small>Phone call, contact form, email, or estimate request</small></div></div>
+<div class="flow-join" aria-hidden="true"></div>
+<div class="flow-step risk"><span class="flow-symbol" aria-hidden="true">!</span><div><strong>Somewhere, the handoff breaks</strong><small>Delayed reply, unclear ownership, or no follow-up</small></div></div>
+<div class="flow-join" aria-hidden="true"></div>
+<div class="flow-step fix"><span class="flow-symbol" aria-hidden="true">✓</span><div><strong>Find the gap. Map the fix.</strong><small>Prioritized recommendations and specific next steps</small></div></div>
+<div class="revenue-price"><span>Revenue Leakage Audit<br>One-workflow assessment</span><strong>$595</strong></div>
+</div></div>
+<div class="revenue-includes"><div><b>✓</b><span>Review one customer-facing or operational workflow</span></div><div><b>✓</b><span>Identify up to three high-priority improvements</span></div><div><b>✓</b><span>Get a prioritized action plan with practical options</span></div></div>
+</div></div></section>
 <section class="system" id="services"><div class="wrap"><div class="head"><div><span class="eyebrow">What Hutchgroup does</span><h2>Three ways we help<br>your business.</h2></div><p>For contractors, home-service businesses, and small teams across the Twin Cities. Choose the problem you need help with; we plan and build a practical solution around it.</p></div><div class="offers">
 <article class="offer"><span class="number">01 · Websites</span><h3>Websites &amp; local SEO</h3><p>Build or improve your website so customers understand your services, trust your business, and know how to contact you.</p><ul class="deliverables"><li>Website builds and focused redesigns</li><li>Google Business Profile and local search</li><li>Clear contact and quote-request forms</li></ul><p class="measure"><strong>Measure:</strong> qualified inquiries by source.</p><a href="/web-design/">Explore website services →</a></article>
 <article class="offer"><span class="number">02 · Business tools</span><h3>CRM &amp; connected systems</h3><p>Keep customer records and work status in one place. Connect the forms, calendars, and software your team uses to reduce manual handoffs.</p><ul class="deliverables"><li>Customer relationship management (CRM) setup</li><li>Connections between forms, email, and tools</li><li>Simple dashboards and internal tools</li></ul><p class="measure"><strong>Measure:</strong> leads with an owner and next action.</p><a href="/digital-business-systems/">Explore CRM setup and automation →</a></article>
