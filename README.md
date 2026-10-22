@@ -23,3 +23,5 @@ Preview: http://127.0.0.1:4173. The fixture server uses the actual API handler w
 ## Deployment
 
 Existing Vercel project uses static output `.` and the `api/` function. Keep production credentials in the project's environment, never in this repository. `.vercelignore` excludes internal docs, evidence, fixtures and tests. Follow the linked release checklist for preview, live persistence/email verification, domain smoke testing and rollback.
+
+The Opportunity Review form requires a Cloudflare Turnstile widget scoped to `hutchgroupllc.com`. Set `TURNSTILE_SITE_KEY` (public widget key) and `TURNSTILE_SECRET_KEY` (Vercel Secret) for Production before deploying. The browser fetches the site key from `/api/opportunity-review-config`; the submission API verifies each token with Cloudflare, including its action and hostname, before saving or emailing. Missing keys and failed verification close the intake and show the visitor the email alternative. Use Cloudflare's dummy keys only with the local fixture server; never deploy them.
