@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import handler from '../api/opportunity-review.js';
 import { createProviderFixture } from './fixtures.mjs';
-import { sanitizeAttribution, visitAttribution, painPriorities } from '../assets/journey.js';
+import { sanitizeAttribution, visitAttribution, painPriorities, sanitizeRequestedService } from '../assets/journey.js';
 
 const valid = { name: 'Local Test', business: 'Synthetic Business', email: 'test@example.test' };
 
@@ -33,6 +33,23 @@ test('three required fields save a review and send both notifications', async t 
 test('missing required fields fail before persistence', async t => {
   const { res, calls } = await submit(t, { ...valid, business: '  ' });
   assert.equal(res.statusCode, 400); assert.equal(calls.length, 0);
+});
+test('audit interest survives an empty challenge in storage and both notifications', async t => {
+  const { res, calls } = await submit(t, { ...valid, service: 'revenue-leakage-audit', challenge: '' });
+  assert.equal(res.statusCode, 201);
+  const review = calls.find(c => c.url.endsWith('/opportunity_reviews'));
+  assert.match(review.body.challenge, /Service interest: Revenue Leakage Audit/);
+  const activity = calls.find(c => c.body?.activity_type === 'opportunity_review_submitted');
+  assert.equal(activity.body.metadata.requested_service, 'revenue-leakage-audit');
+  const emails = calls.filter(c => c.url === 'https://api.resend.com/emails');
+  assert.equal(emails.length, 2);
+  assert.ok(emails.every(c => c.body.html.includes('Service interest:</strong> Revenue Leakage Audit')));
+});
+test('unknown service values are discarded rather than stored or echoed', async t => {
+  const { res, calls } = await submit(t, { ...valid, service: '<script>untrusted-service</script>' });
+  assert.equal(res.statusCode, 201);
+  assert.ok(!JSON.stringify(calls).includes('untrusted-service'));
+  for (const value of [null, {}, [], '__proto__', 'toString', 'arbitrary']) assert.equal(sanitizeRequestedService(value), '');
 });
 test('invalid email fails before persistence', async t => {
   const { res, calls } = await submit(t, { ...valid, email: 'invalid' });

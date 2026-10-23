@@ -5,6 +5,14 @@ export const painPriorities = Object.freeze({
   'disconnected-systems': 'Connect systems / data',
 });
 
+export const requestedServices = Object.freeze({
+  'revenue-leakage-audit': 'Revenue Leakage Audit',
+});
+
+export function sanitizeRequestedService(value) {
+  return typeof value === 'string' && Object.hasOwn(requestedServices, value) ? value : '';
+}
+
 export const attributionValues = Object.freeze({
   utm_source: ['google', 'facebook', 'instagram', 'x', 'linkedin', 'local-partner', 'website'],
   utm_medium: ['organic', 'social', 'referral', 'paid_social', 'paid_search'],

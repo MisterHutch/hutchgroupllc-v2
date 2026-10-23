@@ -1,4 +1,4 @@
-import { painPriorities, visitAttribution } from './journey.js';
+import { painPriorities, visitAttribution, requestedServices, sanitizeRequestedService } from './journey.js';
 
 const form = document.getElementById('reviewForm');
 const status = document.getElementById('status');
@@ -30,6 +30,13 @@ if (selectedModules.length) {
   document.querySelector('#challenge').value = 'I would like to explore these implementation modules: ' + selectedModules.map(id=>allowedModules[id]).join(', ') + '.';
   document.getElementById('selectedPain').textContent += ' Digital menu modules added to your editable request.';
 }
+const requestedService = sanitizeRequestedService(new URLSearchParams(location.search).get('service'));
+if (requestedService) {
+  const interest = 'I am interested in the ' + requestedServices[requestedService] + '.';
+  const challenge = document.querySelector('#challenge');
+  challenge.value = [interest, challenge.value].filter(Boolean).join('\n\n');
+  document.getElementById('selectedPain').textContent += ' Selected service: ' + requestedServices[requestedService] + '. The first 15-minute review is free; paid work is scoped separately.';
+}
 try { sessionStorage.setItem('hutchgroup-attribution', JSON.stringify(attribution)); } catch { /* Storage is optional. */ }
 
 form.addEventListener('submit', async (event) => {
@@ -46,6 +53,7 @@ form.addEventListener('submit', async (event) => {
   else delete submittedAttribution.pain;
   const payload = Object.fromEntries(['name', 'business', 'website', 'email', 'priority', 'challenge'].map(key => [key, data.get(key)]));
   payload.attribution = submittedAttribution;
+  payload.service = requestedService;
   try {
     const response = await fetch('/api/opportunity-review', {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),

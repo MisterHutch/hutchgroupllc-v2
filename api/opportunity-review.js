@@ -1,4 +1,4 @@
-import { sanitizeAttribution } from '../assets/journey.js';
+import { sanitizeAttribution, requestedServices, sanitizeRequestedService } from '../assets/journey.js';
 
 const json = (res, status, body) => {
   res.statusCode = status;
@@ -132,6 +132,7 @@ async function sendOpportunityNotifications({
   priority,
   challenge,
   serviceKey,
+  requestedService,
 }) {
   if (!resendApiKey) {
     console.warn('Opportunity Review: RESEND_API_KEY is not configured; skipping notifications.');
@@ -145,6 +146,7 @@ async function sendOpportunityNotifications({
   const safePriority = escapeHtml(priority);
   const safeChallenge = escapeHtml(challenge).replaceAll('\n', '<br>');
   const safeServiceKey = escapeHtml(serviceKey);
+  const serviceInterest = requestedService ? `<p><strong>Service interest:</strong> ${escapeHtml(requestedServices[requestedService])}</p>` : '';
 
   const internalPayload = {
     from: fromEmail,
@@ -155,6 +157,7 @@ async function sendOpportunityNotifications({
       <div style="font-family:Arial,sans-serif;max-width:680px;margin:auto;color:#172033;line-height:1.6">
         <h1 style="font-size:24px;margin-bottom:8px">New Technology Opportunity Review</h1>
         <p style="color:#667085;margin-top:0">A new opportunity just landed from hutchgroupllc.com.</p>
+        ${serviceInterest}
         <table style="width:100%;border-collapse:collapse;margin:24px 0">
           <tr><td style="padding:8px 0;font-weight:700">Contact</td><td>${safeName}</td></tr>
           <tr><td style="padding:8px 0;font-weight:700">Company</td><td>${safeBusiness}</td></tr>
@@ -178,6 +181,7 @@ async function sendOpportunityNotifications({
       <div style="font-family:Arial,sans-serif;max-width:640px;margin:auto;color:#172033;line-height:1.7">
         <h1 style="font-size:26px">Thanks, ${safeName}.</h1>
         <p>We received your Technology Opportunity Review for <strong>${safeBusiness}</strong>.</p>
+        ${serviceInterest}
         <p>Shannon will review your request and contact you by email to arrange a free 15-minute conversation. This is a request, not a booked appointment. Any paid audit or implementation is scoped and priced separately.</p>
         <div style="background:#f5f7fa;padding:18px;border-radius:12px;margin:24px 0">
           <strong>Your priority:</strong> ${safePriority}<br>
@@ -231,7 +235,9 @@ export default async function handler(req, res) {
   const priorities = ['More leads / better conversion', 'Faster follow-up', 'Reduce repetitive work',
     'Connect systems / data', 'Improve website / local visibility', 'Technology direction / planning', 'Not sure yet'];
   const priority = priorities.includes(body.priority) ? body.priority : 'Not sure yet';
-  const challenge = clean(body.challenge, 5000) || 'No additional context provided; discuss during the review.';
+  const requestedService = sanitizeRequestedService(body.service);
+  const context = clean(body.challenge, 5000) || 'No additional context provided; discuss during the review.';
+  const challenge = requestedService ? `Service interest: ${requestedServices[requestedService]}\n\n${context}` : context;
   const attribution = sanitizeAttribution(body.attribution);
 
   if (!name || !business || !email) {
@@ -310,6 +316,7 @@ export default async function handler(req, res) {
         metadata: {
           opportunity_review_id: review.id,
           service_key: serviceKey,
+          ...(requestedService ? { requested_service: requestedService } : {}),
           source: 'website_opportunity_review',
           attribution,
         },
@@ -332,6 +339,7 @@ export default async function handler(req, res) {
       priority,
       challenge,
       serviceKey,
+      requestedService,
     });
 
     try {
