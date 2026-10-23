@@ -17,6 +17,20 @@ const escapeHtml = (value = '') => String(value)
   .replaceAll('"', '&quot;')
   .replaceAll("'", '&#039;');
 
+async function verifyTurnstile(token, secret) {
+  const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    signal: AbortSignal.timeout(5000),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ secret, response: token }),
+  });
+  if (!response.ok) throw new Error('Turnstile verification unavailable');
+  const result = await response.json();
+  return result?.success === true
+    && result.action === 'opportunity_review'
+    && ['hutchgroupllc.com', 'www.hutchgroupllc.com'].includes(result.hostname);
+}
+
 const serviceKeyForPriority = (priority) => {
   const map = {
     'More leads / better conversion': 'digital_growth',
@@ -217,6 +231,7 @@ export default async function handler(req, res) {
 
   const supabaseUrl = (process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || '').replace(/\/$/, '');
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY || '';
+  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY || '';
   const resendApiKey = process.env.RESEND_API_KEY || '';
   const fromEmail = process.env.HUTCHGROUP_FROM_EMAIL || 'Hutchgroup <hutch@hutchgroupllc.com>';
   const alertEmail = process.env.HUTCHGROUP_ALERT_EMAIL || 'hutch@hutchgroupllc.com';
@@ -225,6 +240,11 @@ export default async function handler(req, res) {
   if (!supabaseUrl || !serviceRoleKey) {
     console.error('Opportunity Review: missing Supabase server environment variables.');
     return json(res, 500, { ok: false, error: 'Submission service is not configured yet.' });
+  }
+
+  if (!turnstileSecret || !process.env.TURNSTILE_SITE_KEY) {
+    console.error('Opportunity Review: Turnstile is not configured.');
+    return json(res, 503, { ok: false, error: 'Review requests are temporarily unavailable. Please email hutch@hutchgroupllc.com.' });
   }
 
   const body = req.body && typeof req.body === 'object' ? req.body : {};
@@ -254,6 +274,20 @@ export default async function handler(req, res) {
     } catch {
       return json(res, 400, { ok: false, error: 'Please enter a website starting with https:// or http://.' });
     }
+  }
+
+  const turnstileToken = clean(body.turnstileToken, 2049);
+  if (!turnstileToken || turnstileToken.length > 2048) {
+    return json(res, 400, { ok: false, error: 'Please complete the verification and try again.' });
+  }
+
+  try {
+    if (!await verifyTurnstile(turnstileToken, turnstileSecret)) {
+      return json(res, 403, { ok: false, error: 'Verification expired or failed. Please try again.' });
+    }
+  } catch {
+    console.error('Opportunity Review: Turnstile verification unavailable.');
+    return json(res, 503, { ok: false, error: 'Verification is temporarily unavailable. Please try again later or email us directly.' });
   }
 
   try {

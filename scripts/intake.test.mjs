@@ -1,17 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import handler from '../api/opportunity-review.js';
+import configHandler from '../api/opportunity-review-config.js';
 import { createProviderFixture } from './fixtures.mjs';
 import { sanitizeAttribution, visitAttribution, painPriorities, sanitizeRequestedService } from '../assets/journey.js';
 
-const valid = { name: 'Local Test', business: 'Synthetic Business', email: 'test@example.test' };
+const valid = { name: 'Local Test', business: 'Synthetic Business', email: 'test@example.test', turnstileToken: 'synthetic-token' };
 
 async function submit(t, payload = valid, fixtureOptions = {}, method = 'POST') {
   t.mock.method(globalThis, 'fetch', createProviderFixture().fetch);
   const fixture = createProviderFixture(fixtureOptions);
   t.mock.method(globalThis, 'fetch', fixture.fetch);
   const originalEnv = { ...process.env };
-  Object.assign(process.env, { SUPABASE_URL: 'https://local-fixture.invalid', SUPABASE_SERVICE_ROLE_KEY: 'synthetic', RESEND_API_KEY: 'synthetic' });
+  Object.assign(process.env, { SUPABASE_URL: 'https://local-fixture.invalid', SUPABASE_SERVICE_ROLE_KEY: 'synthetic', RESEND_API_KEY: 'synthetic', TURNSTILE_SITE_KEY: 'synthetic-public', TURNSTILE_SECRET_KEY: 'synthetic-secret' });
   t.after(() => { process.env = originalEnv; });
   const res = { headers: {}, setHeader(key, value) { this.headers[key] = value; }, end(body) { this.body = JSON.parse(body); } };
   await handler({ method, body: payload }, res);
@@ -29,6 +30,55 @@ test('three required fields save a review and send both notifications', async t 
   assert.ok(emails.every(mail => mail.from === 'Hutchgroup <hutch@hutchgroupllc.com>'));
   assert.deepEqual(emails[0].to, ['hutch@hutchgroupllc.com']);
   assert.equal(emails[1].reply_to, 'hutch@hutchgroupllc.com');
+});
+test('missing Turnstile token is rejected before provider calls', async t => {
+  const { res, calls } = await submit(t, { ...valid, turnstileToken: '' });
+  assert.equal(res.statusCode, 400);
+  assert.equal(calls.length, 0);
+});
+test('failed or unavailable Turnstile never writes or sends email', async t => {
+  const { res, calls } = await submit(t, valid, { turnstileFailure: true });
+  assert.equal(res.statusCode, 403);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].url, 'https://challenges.cloudflare.com/turnstile/v0/siteverify');
+});
+test('Turnstile token from another hostname or action cannot write', async t => {
+  for (const fixtureOptions of [{ turnstileHostname: 'other.example' }, { turnstileAction: 'another_action' }]) {
+    const { res, calls } = await submit(t, valid, fixtureOptions);
+    assert.equal(res.statusCode, 403);
+    assert.equal(calls.length, 1);
+  }
+});
+test('oversized and non-string tokens are rejected without contacting providers', async t => {
+  for (const turnstileToken of ['x'.repeat(2049), {}, []]) {
+    const { res, calls } = await submit(t, { ...valid, turnstileToken });
+    assert.equal(res.statusCode, 400);
+    assert.equal(calls.length, 0);
+  }
+});
+test('missing Turnstile config fails closed and never exposes a partial configuration', t => {
+  const originalEnv = { ...process.env };
+  t.after(() => { process.env = originalEnv; });
+  process.env.TURNSTILE_SITE_KEY = 'synthetic-public';
+  delete process.env.TURNSTILE_SECRET_KEY;
+  const res = { setHeader() {}, end(body) { this.body = JSON.parse(body); } };
+  configHandler({ method: 'GET' }, res);
+  assert.equal(res.statusCode, 503);
+  assert.equal(res.body.siteKey, undefined);
+});
+test('public Turnstile config exposes only the site key', t => {
+  const originalEnv = { ...process.env };
+  Object.assign(process.env, { TURNSTILE_SITE_KEY: 'synthetic-public', TURNSTILE_SECRET_KEY: 'synthetic-secret' });
+  t.after(() => { process.env = originalEnv; });
+  const res = { headers: {}, setHeader(key, value) { this.headers[key] = value; }, end(body) { this.body = JSON.parse(body); } };
+  configHandler({ method: 'GET' }, res);
+  assert.equal(res.statusCode, 200);
+  assert.deepEqual(res.body, { ok: true, siteKey: 'synthetic-public' });
+});
+test('Turnstile provider outage fails closed', async t => {
+  const { res, calls } = await submit(t, valid, { turnstileOutage: true });
+  assert.equal(res.statusCode, 503);
+  assert.equal(calls.length, 1);
 });
 test('missing required fields fail before persistence', async t => {
   const { res, calls } = await submit(t, { ...valid, business: '  ' });
