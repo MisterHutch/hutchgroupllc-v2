@@ -1,4 +1,4 @@
-import { painPriorities, visitAttribution } from './journey.js';
+import { painPriorities, visitAttribution, requestedServices, sanitizeRequestedService } from './journey.js';
 
 const form = document.getElementById('reviewForm');
 const status = document.getElementById('status');
@@ -6,6 +6,7 @@ const button = document.getElementById('submitButton');
 const priority = document.getElementById('priority');
 let turnstileToken = '';
 let widgetId;
+let submissionState = 'idle';
 button.disabled = true;
 
 const showVerificationError = (message) => {
@@ -28,19 +29,21 @@ async function loadTurnstile() {
           action: 'opportunity_review',
           callback(token) {
             turnstileToken = token;
-            button.disabled = false;
-            status.className = 'status';
-            status.textContent = 'Verification ready. We will confirm here when your request has been saved.';
+            button.disabled = submissionState !== 'idle';
+            if (submissionState === 'idle') {
+              status.className = 'status';
+              status.textContent = 'Verification ready. We will confirm here when your request has been saved.';
+            }
           },
           'expired-callback'() {
             turnstileToken = '';
             button.disabled = true;
-            showVerificationError('Verification expired. Please complete it again.');
+            if (submissionState === 'idle') showVerificationError('Verification expired. Please complete it again.');
           },
           'error-callback'() {
             turnstileToken = '';
             button.disabled = true;
-            showVerificationError('Verification could not load. Please refresh the page or email us directly.');
+            if (submissionState === 'idle') showVerificationError('Verification could not load. Please refresh the page or email us directly.');
           },
         });
       } catch {
@@ -81,11 +84,19 @@ if (selectedModules.length) {
   document.querySelector('#challenge').value = 'I would like to explore these implementation modules: ' + selectedModules.map(id=>allowedModules[id]).join(', ') + '.';
   document.getElementById('selectedPain').textContent += ' Digital menu modules added to your editable request.';
 }
+const requestedService = sanitizeRequestedService(new URLSearchParams(location.search).get('service'));
+if (requestedService) {
+  const interest = 'I am interested in the ' + requestedServices[requestedService] + '.';
+  const challenge = document.querySelector('#challenge');
+  challenge.value = [interest, challenge.value].filter(Boolean).join('\n\n');
+  document.getElementById('selectedPain').textContent += ' Selected service: ' + requestedServices[requestedService] + '. The first 15-minute review is free; paid work is scoped separately.';
+}
 try { sessionStorage.setItem('hutchgroup-attribution', JSON.stringify(attribution)); } catch { /* Storage is optional. */ }
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
-  if (button.disabled || !form.reportValidity()) return;
+  if (submissionState !== 'idle' || button.disabled || !form.reportValidity()) return;
+  submissionState = 'sending';
   button.disabled = true;
   button.textContent = 'Sending request…';
   status.className = 'status';
@@ -98,6 +109,7 @@ form.addEventListener('submit', async (event) => {
   const payload = Object.fromEntries(['name', 'business', 'website', 'email', 'priority', 'challenge'].map(key => [key, data.get(key)]));
   payload.attribution = submittedAttribution;
   payload.turnstileToken = turnstileToken;
+  payload.service = requestedService;
   try {
     const response = await fetch('/api/opportunity-review', {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
@@ -105,6 +117,7 @@ form.addEventListener('submit', async (event) => {
     });
     const result = await response.json().catch(() => ({}));
     if (!response.ok || !result.ok) throw new Error(result.error || 'We could not confirm your request.');
+    submissionState = 'saved';
     window.hutchTrack?.('review_submitted');
     form.reset();
     document.getElementById('selectedPain').textContent = '';
@@ -117,6 +130,7 @@ form.addEventListener('submit', async (event) => {
     button.textContent = 'Request received ✓';
     status.focus();
   } catch (error) {
+    submissionState = 'idle';
     turnstileToken = '';
     window.hutchTrack?.('review_failed');
     status.className = 'status error';

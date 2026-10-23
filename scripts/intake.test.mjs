@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import handler from '../api/opportunity-review.js';
 import configHandler from '../api/opportunity-review-config.js';
 import { createProviderFixture } from './fixtures.mjs';
-import { sanitizeAttribution, visitAttribution, painPriorities } from '../assets/journey.js';
+import { sanitizeAttribution, visitAttribution, painPriorities, sanitizeRequestedService } from '../assets/journey.js';
 
 const valid = { name: 'Local Test', business: 'Synthetic Business', email: 'test@example.test', turnstileToken: 'synthetic-token' };
 
@@ -43,9 +43,28 @@ test('failed or unavailable Turnstile never writes or sends email', async t => {
   assert.equal(calls[0].url, 'https://challenges.cloudflare.com/turnstile/v0/siteverify');
 });
 test('Turnstile token from another hostname or action cannot write', async t => {
-  const { res, calls } = await submit(t, valid, { turnstileHostname: 'other.example' });
-  assert.equal(res.statusCode, 403);
-  assert.equal(calls.length, 1);
+  for (const fixtureOptions of [{ turnstileHostname: 'other.example' }, { turnstileAction: 'another_action' }]) {
+    const { res, calls } = await submit(t, valid, fixtureOptions);
+    assert.equal(res.statusCode, 403);
+    assert.equal(calls.length, 1);
+  }
+});
+test('oversized and non-string tokens are rejected without contacting providers', async t => {
+  for (const turnstileToken of ['x'.repeat(2049), {}, []]) {
+    const { res, calls } = await submit(t, { ...valid, turnstileToken });
+    assert.equal(res.statusCode, 400);
+    assert.equal(calls.length, 0);
+  }
+});
+test('missing Turnstile config fails closed and never exposes a partial configuration', t => {
+  const originalEnv = { ...process.env };
+  t.after(() => { process.env = originalEnv; });
+  process.env.TURNSTILE_SITE_KEY = 'synthetic-public';
+  delete process.env.TURNSTILE_SECRET_KEY;
+  const res = { setHeader() {}, end(body) { this.body = JSON.parse(body); } };
+  configHandler({ method: 'GET' }, res);
+  assert.equal(res.statusCode, 503);
+  assert.equal(res.body.siteKey, undefined);
 });
 test('public Turnstile config exposes only the site key', t => {
   const originalEnv = { ...process.env };
@@ -64,6 +83,23 @@ test('Turnstile provider outage fails closed', async t => {
 test('missing required fields fail before persistence', async t => {
   const { res, calls } = await submit(t, { ...valid, business: '  ' });
   assert.equal(res.statusCode, 400); assert.equal(calls.length, 0);
+});
+test('audit interest survives an empty challenge in storage and both notifications', async t => {
+  const { res, calls } = await submit(t, { ...valid, service: 'revenue-leakage-audit', challenge: '' });
+  assert.equal(res.statusCode, 201);
+  const review = calls.find(c => c.url.endsWith('/opportunity_reviews'));
+  assert.match(review.body.challenge, /Service interest: Revenue Leakage Audit/);
+  const activity = calls.find(c => c.body?.activity_type === 'opportunity_review_submitted');
+  assert.equal(activity.body.metadata.requested_service, 'revenue-leakage-audit');
+  const emails = calls.filter(c => c.url === 'https://api.resend.com/emails');
+  assert.equal(emails.length, 2);
+  assert.ok(emails.every(c => c.body.html.includes('Service interest:</strong> Revenue Leakage Audit')));
+});
+test('unknown service values are discarded rather than stored or echoed', async t => {
+  const { res, calls } = await submit(t, { ...valid, service: '<script>untrusted-service</script>' });
+  assert.equal(res.statusCode, 201);
+  assert.ok(!JSON.stringify(calls).includes('untrusted-service'));
+  for (const value of [null, {}, [], '__proto__', 'toString', 'arbitrary']) assert.equal(sanitizeRequestedService(value), '');
 });
 test('invalid email fails before persistence', async t => {
   const { res, calls } = await submit(t, { ...valid, email: 'invalid' });
