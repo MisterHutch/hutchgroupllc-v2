@@ -10,6 +10,7 @@ function updatePlan() {
   for (const button of modules) {
     const picked = selected.has(button.dataset.module);
     button.setAttribute('aria-pressed', String(picked));
+    button.setAttribute('aria-label', (picked ? 'Remove ' : 'Add ') + button.dataset.label + (picked ? ' from my plan' : ' to my plan'));
     button.textContent = picked ? '✓ Added to plan' : '+ Add to my plan';
   }
   const names = [...selected].map(id => choices[id].dataset.label);
