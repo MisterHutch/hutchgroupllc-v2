@@ -4,6 +4,60 @@ const form = document.getElementById('reviewForm');
 const status = document.getElementById('status');
 const button = document.getElementById('submitButton');
 const priority = document.getElementById('priority');
+let turnstileToken = '';
+let widgetId;
+let submissionState = 'idle';
+button.disabled = true;
+
+const showVerificationError = (message) => {
+  status.className = 'status error';
+  status.textContent = message;
+};
+
+async function loadTurnstile() {
+  try {
+    const response = await fetch('/api/opportunity-review-config', { signal: AbortSignal.timeout(5000) });
+    const config = await response.json();
+    if (!response.ok || !config.ok || !config.siteKey) throw new Error(config.error || 'Verification could not load.');
+    const script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    script.async = true;
+    script.onload = () => {
+      try {
+        widgetId = window.turnstile.render('#turnstile-widget', {
+          sitekey: config.siteKey,
+          action: 'opportunity_review',
+          callback(token) {
+            turnstileToken = token;
+            button.disabled = submissionState !== 'idle';
+            if (submissionState === 'idle') {
+              status.className = 'status';
+              status.textContent = 'Verification ready. We will confirm here when your request has been saved.';
+            }
+          },
+          'expired-callback'() {
+            turnstileToken = '';
+            button.disabled = true;
+            if (submissionState === 'idle') showVerificationError('Verification expired. Please complete it again.');
+          },
+          'error-callback'() {
+            turnstileToken = '';
+            button.disabled = true;
+            if (submissionState === 'idle') showVerificationError('Verification could not load. Please refresh the page or email us directly.');
+          },
+        });
+      } catch {
+        showVerificationError('Verification could not start. Please refresh the page or email us directly.');
+      }
+    };
+    script.onerror = () => showVerificationError('Verification could not load. Please refresh the page or email us directly.');
+    document.head.append(script);
+  } catch (error) {
+    showVerificationError(error.message || 'Verification could not load. Please email us directly.');
+  }
+}
+
+loadTurnstile();
 let previous = {};
 try { previous = JSON.parse(sessionStorage.getItem('hutchgroup-attribution') || '{}'); } catch { /* Storage is optional. */ }
 const attribution = visitAttribution(location.search, location.pathname, previous);
@@ -41,7 +95,8 @@ try { sessionStorage.setItem('hutchgroup-attribution', JSON.stringify(attributio
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
-  if (button.disabled || !form.reportValidity()) return;
+  if (submissionState !== 'idle' || button.disabled || !form.reportValidity()) return;
+  submissionState = 'sending';
   button.disabled = true;
   button.textContent = 'Sending request…';
   status.className = 'status';
@@ -53,6 +108,7 @@ form.addEventListener('submit', async (event) => {
   else delete submittedAttribution.pain;
   const payload = Object.fromEntries(['name', 'business', 'website', 'email', 'priority', 'challenge'].map(key => [key, data.get(key)]));
   payload.attribution = submittedAttribution;
+  payload.turnstileToken = turnstileToken;
   payload.service = requestedService;
   try {
     const response = await fetch('/api/opportunity-review', {
@@ -61,6 +117,7 @@ form.addEventListener('submit', async (event) => {
     });
     const result = await response.json().catch(() => ({}));
     if (!response.ok || !result.ok) throw new Error(result.error || 'We could not confirm your request.');
+    submissionState = 'saved';
     window.hutchTrack?.('review_submitted');
     form.reset();
     document.getElementById('selectedPain').textContent = '';
@@ -73,13 +130,16 @@ form.addEventListener('submit', async (event) => {
     button.textContent = 'Request received ✓';
     status.focus();
   } catch (error) {
+    submissionState = 'idle';
+    turnstileToken = '';
     window.hutchTrack?.('review_failed');
     status.className = 'status error';
     status.textContent = error.name === 'TimeoutError'
       ? 'We could not confirm whether the request was saved. Please email Shannon before trying again so we can avoid a duplicate.'
       : (error.message || 'We could not confirm your request. Please try again or email Shannon directly.');
-    button.disabled = false;
+    button.disabled = true;
     button.textContent = 'Try again';
     status.focus();
+    if (widgetId !== undefined) window.turnstile.reset(widgetId);
   }
 });
