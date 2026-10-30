@@ -35,3 +35,6 @@
 /* Keep the plain-language service labels readable within the existing cards. */
 .home-page .offer .number{display:block;width:auto;height:auto;margin-bottom:24px;padding:0;border:0;border-radius:0;background:none;box-shadow:none;color:#146653}
 @media(min-width:901px){.home-page .links{gap:1rem}}
+
+/* Keep navigation usable until its interactive menu has initialized. */
+@media(max-width:900px){header:not(.nav-ready){position:relative}header:not(.nav-ready) nav{height:auto;min-height:76px;flex-wrap:wrap;padding:16px 0}header:not(.nav-ready) .menu{display:none}header:not(.nav-ready) .links{display:flex;position:static;flex-basis:100%;background:none;padding:12px 0 0;backdrop-filter:none}}

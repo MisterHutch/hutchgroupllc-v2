@@ -33,4 +33,5 @@ if (menu && links) {
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && links.classList.contains('open')) { closeMenu(); menu.focus(); }
   });
+  menu.closest('header').classList.add('nav-ready');
 }
