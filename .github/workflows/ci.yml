@@ -10,10 +10,10 @@ jobs:
     validate:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v6
-            - uses: actions/setup-node@v6
+            - uses: actions/checkout@v7.0.1
+            - uses: actions/setup-node@v7.1.0
               with:
-                  node-version: 20
+                  node-version: 24
             - name: Validate vercel.json
               run: node -e "JSON.parse(require('fs').readFileSync('vercel.json','utf8')); console.log('vercel.json OK')"
             - name: Verify site entrypoint exists
