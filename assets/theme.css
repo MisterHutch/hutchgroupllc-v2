@@ -86,3 +86,8 @@ html[data-theme]:not([data-theme=classic]) .how .link{color:var(--t-accent)}
 html[data-theme]:not([data-theme=classic]) .theme-options button:focus-visible{outline-color:#79e3ba}
 @media(min-width:901px) and (max-width:1180px){header nav:has(.theme-switcher) .links{gap:.65rem}header nav:has(.theme-switcher) .links a{font-size:.8rem}.theme-switcher{margin-right:10px}}
 @media(max-width:560px){.theme-options{position:fixed;top:76px;left:14px;right:14px;width:auto}}
+/* Content templates need matching surfaces and foregrounds as a unit. */
+html[data-theme]:not([data-theme=classic]) .content-panel{background:var(--t-card);color:var(--t-ink);border-color:var(--t-line);border-radius:var(--t-radius)}
+html[data-theme]:not([data-theme=classic]) .content-panel :is(h3,strong){color:var(--t-ink)}
+html[data-theme]:not([data-theme=classic]) .content-panel :is(p,li){color:var(--t-muted)}
+html[data-theme]:not([data-theme=classic]) .content-panel a{color:var(--t-ink);text-decoration:underline}
