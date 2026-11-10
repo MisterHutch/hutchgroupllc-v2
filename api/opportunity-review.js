@@ -1,4 +1,5 @@
 import { sanitizeAttribution, requestedServices, sanitizeRequestedService } from '../assets/journey.js';
+import { createHash } from 'node:crypto';
 
 const json = (res, status, body) => {
   res.statusCode = status;
@@ -287,6 +288,22 @@ export default async function handler(req, res) {
     }
   } catch {
     console.error('Opportunity Review: Turnstile verification unavailable.');
+    return json(res, 503, { ok: false, error: 'Verification is temporarily unavailable. Please try again later or email us directly.' });
+  }
+
+  // Siteverify should reject a reused token. The unique database claim also
+  // stops a second request if a provider response is unexpectedly accepted.
+  const tokenHash = createHash('sha256').update(turnstileToken).digest('hex');
+  try {
+    await supabaseRequest(supabaseUrl, serviceRoleKey, 'turnstile_token_claims', {
+      method: 'POST',
+      body: JSON.stringify({ token_sha256: tokenHash }),
+    });
+  } catch (error) {
+    if (error.details?.code === '23505') {
+      return json(res, 403, { ok: false, error: 'Verification expired or failed. Please try again.' });
+    }
+    console.error('Opportunity Review: Turnstile token claim unavailable.');
     return json(res, 503, { ok: false, error: 'Verification is temporarily unavailable. Please try again later or email us directly.' });
   }
 

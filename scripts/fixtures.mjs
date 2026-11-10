@@ -2,6 +2,7 @@
 export function createProviderFixture({ fail = '', emailFailure = false, turnstileFailure = false, turnstileOutage = false, turnstileHostname = 'hutchgroupllc.com', turnstileAction = 'opportunity_review' } = {}) {
   const calls = [];
   let reviewCount = 0;
+  const claimedTokens = new Set();
   const fetch = async (input, options = {}) => {
     const url = new URL(input);
     const body = options.body ? JSON.parse(options.body) : undefined;
@@ -16,6 +17,12 @@ export function createProviderFixture({ fail = '', emailFailure = false, turnsti
     if (url.hostname !== 'local-fixture.invalid') throw new Error('Unexpected external request in local fixture');
     if (table === fail) return new Response(JSON.stringify({ message: 'Synthetic storage outage' }), { status: 503 });
     if (options.method === 'GET') return Response.json([]);
+    if (table === 'turnstile_token_claims') {
+      if (claimedTokens.has(body.token_sha256)) {
+        return Response.json({ code: '23505', message: 'Synthetic duplicate token claim' }, { status: 409 });
+      }
+      claimedTokens.add(body.token_sha256);
+    }
     if (table === 'opportunity_reviews') reviewCount++;
     return Response.json([{ id: table === 'opportunity_reviews' ? `synthetic-review-${reviewCount}` : `synthetic-${table}` }]);
   };

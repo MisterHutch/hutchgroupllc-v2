@@ -42,6 +42,35 @@ test('failed or unavailable Turnstile never writes or sends email', async t => {
   assert.equal(calls.length, 1);
   assert.equal(calls[0].url, 'https://challenges.cloudflare.com/turnstile/v0/siteverify');
 });
+test('a replay cannot write or send mail even if Siteverify accepts the token twice', async t => {
+  const fixture = createProviderFixture();
+  t.mock.method(globalThis, 'fetch', fixture.fetch);
+  const originalEnv = { ...process.env };
+  Object.assign(process.env, { SUPABASE_URL: 'https://local-fixture.invalid', SUPABASE_SERVICE_ROLE_KEY: 'synthetic', RESEND_API_KEY: 'synthetic', TURNSTILE_SITE_KEY: 'synthetic-public', TURNSTILE_SECRET_KEY: 'synthetic-secret' });
+  t.after(() => { process.env = originalEnv; });
+  const invoke = async () => {
+    const res = { setHeader() {}, end(body) { this.body = JSON.parse(body); } };
+    await handler({ method: 'POST', body: valid }, res);
+    return res;
+  };
+  const first = await invoke();
+  const second = await invoke();
+  assert.equal(first.statusCode, 201);
+  assert.equal(second.statusCode, 403);
+  assert.equal(fixture.calls.filter(c => c.url.endsWith('/opportunity_reviews')).length, 1);
+  assert.equal(fixture.calls.filter(c => c.url === 'https://api.resend.com/emails').length, 2);
+  const claims = fixture.calls.filter(c => c.url.endsWith('/turnstile_token_claims'));
+  assert.equal(claims.length, 2);
+  assert.match(claims[0].body.token_sha256, /^[0-9a-f]{64}$/);
+  assert.equal(claims[0].body.token_sha256, claims[1].body.token_sha256);
+  assert.equal(JSON.stringify(claims).includes(valid.turnstileToken), false);
+});
+test('token-claim storage outage fails closed before lead writes or email', async t => {
+  const { res, calls } = await submit(t, valid, { fail: 'turnstile_token_claims' });
+  assert.equal(res.statusCode, 503);
+  assert.equal(calls.some(c => c.url.endsWith('/opportunity_reviews')), false);
+  assert.equal(calls.some(c => c.url === 'https://api.resend.com/emails'), false);
+});
 test('Turnstile token from another hostname or action cannot write', async t => {
   for (const fixtureOptions of [{ turnstileHostname: 'other.example' }, { turnstileAction: 'another_action' }]) {
     const { res, calls } = await submit(t, valid, fixtureOptions);
