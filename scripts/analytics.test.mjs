@@ -5,27 +5,34 @@ import { runInNewContext } from 'node:vm';
 
 const source = readFileSync('assets/analytics.js', 'utf8');
 function load(hostname) {
-  const scripts = [], listeners = {};
+  const scripts = [], bodyScripts = [], listeners = {};
   const window = {};
   const location = new URL(`https://${hostname}/opportunity-review/?email=private@example.test&utm_source=google#private`);
   const document = {
     referrer: 'https://example.test/?email=private@example.test',
     head: { appendChild: script => scripts.push(script) },
+    body: { appendChild: script => bodyScripts.push(script) },
     createElement: () => ({}),
     addEventListener: (name, callback) => { listeners[name] = callback; },
     querySelector: () => ({ addEventListener() {} }),
   };
   runInNewContext(source, { window, document, location, URL, URLSearchParams });
-  return { window, scripts, listeners };
+  return { window, scripts, bodyScripts, listeners };
 }
 
 test('production loads both analytics providers and strips private URL values', () => {
   for (const host of ['hutchgroupllc.com', 'www.hutchgroupllc.com']) {
-    const { window, scripts } = load(host);
+    const { window, scripts, bodyScripts } = load(host);
     assert.equal(scripts.length, 2);
     assert.ok(scripts.some(s => s.src === '/_vercel/insights/script.js'));
     assert.ok(scripts.some(s => s.src === 'https://www.googletagmanager.com/gtag/js?id=G-F3N1ZTF9JS' && s.async));
-    const config = [...window.dataLayer[1]];
+    assert.deepEqual(bodyScripts, [{ src: 'https://www.googletagmanager.com/gtm.js?id=GTM-MHNQZ57L', async: true }]);
+    const [, settings] = window.dataLayer[1];
+    const config = [...window.dataLayer[2]];
+    assert.equal(window.dataLayer[1][0], 'set');
+    assert.equal(settings, config[2]);
+    assert.equal(window.dataLayer[3].event, 'gtm.js');
+    assert.equal(typeof window.dataLayer[3]['gtm.start'], 'number');
     assert.equal(config[0], 'config');
     assert.equal(config[1], 'G-F3N1ZTF9JS');
     assert.equal(config[2].page_location, `https://${host}/opportunity-review/?utm_source=google`);
@@ -40,10 +47,11 @@ test('production loads both analytics providers and strips private URL values', 
   }
 });
 
-test('preview and localhost never load either tracker', () => {
+test('preview and localhost never load analytics', () => {
   for (const host of ['localhost', '127.0.0.1', 'hutchgroupllc-preview.vercel.app']) {
-    const { window, scripts } = load(host);
+    const { window, scripts, bodyScripts } = load(host);
     assert.equal(scripts.length, 0);
+    assert.equal(bodyScripts.length, 0);
     assert.equal(window.gtag, undefined);
     assert.equal(window.va, undefined);
   }

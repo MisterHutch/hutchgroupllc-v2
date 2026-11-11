@@ -18,10 +18,19 @@
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
   window.gtag('js', new Date());
-  window.gtag('config', 'G-F3N1ZTF9JS', {
+  const pageContext = {
     page_location: analyticsUrl(location.href),
     page_referrer: document.referrer ? analyticsUrl(document.referrer) : '',
-  });
+  };
+  window.gtag('set', pageContext);
+  window.gtag('config', 'G-F3N1ZTF9JS', pageContext);
+
+  window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+  const tagManager = document.createElement('script');
+  tagManager.async = true;
+  tagManager.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-MHNQZ57L';
+  document.body.appendChild(tagManager);
+
   const googleTag = document.createElement('script');
   googleTag.async = true;
   googleTag.src = 'https://www.googletagmanager.com/gtag/js?id=G-F3N1ZTF9JS';
